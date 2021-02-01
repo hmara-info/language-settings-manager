@@ -1,0 +1,29 @@
+{
+  "opt_title": {
+    "message": "Лагідна Українізація - Налаштування"
+  },
+  "opt_ext_name_header": {
+    "message": "<span>Лагідна</span> Українізація"
+  },
+  "opt_thanks_for_joining": {
+    "message": "Дякуємо, що приєдналися до проєкту!"
+  },
+  "opt_make_internet_speak_your_lang": {
+    "message": "Допоможіть Інтернету говорити з вами вашою мовою!"
+  },
+  "no_language_selected_err": {
+    "message": "Не вибрано жожної мови.\nВиберіть, будь ласка, одну або більше."
+  },
+  "semantic_ui_add_term": {
+    "message": "Додати <b>{term}</b>"
+  },
+  "semantic_ui_selected_count": {
+    "message": "Вибрано: {count}"
+  },
+  "semantic_ui_no_more_than_tree": {
+    "message": "Не більше трьох"
+  },
+  "semantic_ui_not_found": {
+    "message": "Нічого не знайдено."
+  }
+}

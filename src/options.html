@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8" />
+    <title>__MSG_opt_title__</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="options.css" />
+    <link rel="stylesheet" type="text/css" href="semantic.min.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Cookie"
+      rel="stylesheet"
+      type="text/css"
+    />
+  </head>
+  <body id="options">
+    <header>
+      <img src="img/hmara.svg" />
+      <h1>__MSG_opt_ext_name_header__</h1>
+    </header>
+    <main>
+      <section class="intro">
+        <img src="img/hmara-green.svg" id="green-hmara" />
+        <h2>__MSG_opt_thanks_for_joining__</h2>
+        <p>
+          __MSG_opt_make_internet_speak_your_lang__
+        </p>
+        <input type="button" value="Докладніше про проєкт" id="learnMore" />
+      </section>
+      <section id="wantMoreLanguages">
+        <h2>Крок 1. Ваша мова</h2>
+        <h3>Якою мовою (мовами) має говорити до вас Інтернет?</h3>
+
+        <form id="selectMoreLanguagesForm">
+          <div class="ui dropdown labeled search selection multiple">
+            <i class="world icon"></i>
+            <span class="text" style="padding-left: 1.6em;">Мови - більше</span>
+            <input id="moreLanguages" name="moreLanguages" type="hidden" />
+            <div class="menu">
+              <div class="header">
+                Мови вже підтримуються
+              </div>
+              <div class="item" data-value="uk" data-text="Українська">
+                Українська
+              </div>
+              <div class="item" data-value="crh" data-text="Qırım tili">
+                Qırım tili
+              </div>
+              <div class="divider"></div>
+              <div class="header">
+                Мови світу, за алфавітом
+              </div>
+              <div class="item" data-value="hy" data-text="Հայերեն">
+                Հայերեն
+              </div>
+              <div class="item" data-value="af" data-text="Afrikaans">
+                Afrikaans
+              </div>
+              <div class="item" data-value="be" data-text="Беларуская">
+                Беларуская
+              </div>
+              <div class="item" data-value="bg" data-text="Български">
+                Български
+              </div>
+              <div class="item" data-value="de" data-text="Deutsch">
+                Deutsch
+              </div>
+              <div class="item" data-value="en" data-text="English">
+                English
+              </div>
+              <div class="item" data-value="tl" data-text="Filipino">
+                Filipino
+              </div>
+              <div class="item" data-value="id" data-text="Indonesia">
+                Indonesia
+              </div>
+              <div class="item" data-value="sw" data-text="Kiswahili">
+                Kiswahili
+              </div>
+              <div class="item" data-value="nl" data-text="Nederlands">
+                Nederlands
+              </div>
+              <div class="item" data-value="vi" data-text="Tiếng Việt">
+                Tiếng Việt
+              </div>
+              <div class="item" data-value="tr" data-text="Türkçe">Türkçe</div>
+              <div class="item" data-value="ca" data-text="Català">Català</div>
+              <div class="item" data-value="da" data-text="Dansk">Dansk</div>
+              <div class="item" data-value="et" data-text="Eesti">Eesti</div>
+              <div class="item" data-value="es" data-text="Español">
+                Español
+              </div>
+              <div class="item" data-value="eo" data-text="Esperanto">
+                Esperanto
+              </div>
+              <div class="item" data-value="fr" data-text="Français">
+                Français
+              </div>
+              <div class="item" data-value="hr" data-text="Hrvatski">
+                Hrvatski
+              </div>
+              <div class="item" data-value="it" data-text="Italiano">
+                Italiano
+              </div>
+              <div class="item" data-value="lv" data-text="Latviešu">
+                Latviešu
+              </div>
+              <div class="item" data-value="lt" data-text="Lietuvių">
+                Lietuvių
+              </div>
+              <div class="item" data-value="hu" data-text="Magyar">Magyar</div>
+              <div class="item" data-value="no" data-text="Norsk">Norsk</div>
+              <div class="item" data-value="pl" data-text="Polski">Polski</div>
+              <div class="item" data-value="pt" data-text="Português">
+                Português
+              </div>
+              <div class="item" data-value="ro" data-text="Română">Română</div>
+              <div class="item" data-value="ru" data-text="Русский">
+                Русский
+              </div>
+              <div class="item" data-value="sk" data-text="Slovenčina">
+                Slovenčina
+              </div>
+              <div class="item" data-value="sl" data-text="Slovenščina">
+                Slovenščina
+              </div>
+              <div class="item" data-value="fi" data-text="Suomi">Suomi</div>
+              <div class="item" data-value="sv" data-text="Svenska">
+                Svenska
+              </div>
+              <div class="item" data-value="is" data-text="Íslenska">
+                Íslenska
+              </div>
+              <div class="item" data-value="cs" data-text="Čeština">
+                Čeština
+              </div>
+              <div class="item" data-value="el" data-text="Ελληνικά">
+                Ελληνικά
+              </div>
+              <div class="item" data-value="sr" data-text="Српски">Српски</div>
+              <div class="item" data-value="iw" data-text="עברית">עברית</div>
+              <div class="item" data-value="ar" data-text="العربية">
+                العربية
+              </div>
+              <div class="item" data-value="fa" data-text="فارسی">فارسی</div>
+              <div class="item" data-value="hi" data-text="हिन्दी">हिन्दी</div>
+              <div class="item" data-value="th" data-text="ไทย">ไทย</div>
+              <div class="item" data-value="zh-CN" data-text="中文 (简体)">
+                中文 (简体)
+              </div>
+              <div class="item" data-value="zh-TW" data-text="中文 (繁體)">
+                中文 (繁體)
+              </div>
+              <div class="item" data-value="ja" data-text="日本語">日本語</div>
+              <div class="item" data-value="ko" data-text="한국어">한국어</div>
+            </div>
+
+            <i class="dropdown icon"></i>
+          </div>
+          <br />
+          <input type="submit" value="Зберегти" id="saveMoreLangPrefs" class="hidden" />
+        </form>
+      </section>
+
+      <section id="prefsSavedThankYou" class="hidden">
+        <h2>Дякуємо!</h2>
+        <p>
+        Тепер оберіть мови, яких ви хочете бачити менше.
+        </p>
+      </section>
+
+      <section id="wantLessLanguages" class="hidden">
+        <h2>Крок 2. Яких мов ви хочете бачити менше?</h2>
+
+        <form id="selectLessLanguagesForm">
+          <div class="ui dropdown labeled search selection multiple">
+            <i class="world icon"></i>
+            <span class="text" style="padding-left: 1.6em;">Мови - менше</span>
+            <input id="lessLanguages" name="lessLanguages" type="hidden" />
+            <div class="menu">
+              <div class="header">
+                Мови вже підтримуються
+              </div>
+              <div class="item" data-value="ru" data-text="Русский">
+                Русский
+              </div>
+              <div class="divider"></div>
+              <div class="header">
+                Мови світу, за алфавітом
+              </div>
+              <div class="item" data-value="ro" data-text="Română">Română</div>
+              <div class="item" data-value="hu" data-text="Magyar">Magyar</div>
+              <div class="item" data-value="bg" data-text="Български">
+                Български
+              </div>
+              <div class="item" data-value="be" data-text="Беларуская">
+                Беларуская
+              </div>
+              <div class="item" data-value="hy" data-text="Հայերեն">
+                Հայերեն
+              </div>
+              <div class="item" data-value="af" data-text="Afrikaans">
+                Afrikaans
+              </div>
+              <div class="item" data-value="de" data-text="Deutsch">
+                Deutsch
+              </div>
+              <div class="item" data-value="en" data-text="English">
+                English
+              </div>
+              <div class="item" data-value="tl" data-text="Filipino">
+                Filipino
+              </div>
+              <div class="item" data-value="id" data-text="Indonesia">
+                Indonesia
+              </div>
+              <div class="item" data-value="sw" data-text="Kiswahili">
+                Kiswahili
+              </div>
+              <div class="item" data-value="nl" data-text="Nederlands">
+                Nederlands
+              </div>
+              <div class="item" data-value="vi" data-text="Tiếng Việt">
+                Tiếng Việt
+              </div>
+              <div class="item" data-value="tr" data-text="Türkçe">Türkçe</div>
+              <div class="item" data-value="ca" data-text="Català">Català</div>
+              <div class="item" data-value="da" data-text="Dansk">Dansk</div>
+              <div class="item" data-value="et" data-text="Eesti">Eesti</div>
+              <div class="item" data-value="es" data-text="Español">
+                Español
+              </div>
+              <div class="item" data-value="eo" data-text="Esperanto">
+                Esperanto
+              </div>
+              <div class="item" data-value="fr" data-text="Français">
+                Français
+              </div>
+              <div class="item" data-value="hr" data-text="Hrvatski">
+                Hrvatski
+              </div>
+              <div class="item" data-value="it" data-text="Italiano">
+                Italiano
+              </div>
+              <div class="item" data-value="lv" data-text="Latviešu">
+                Latviešu
+              </div>
+              <div class="item" data-value="lt" data-text="Lietuvių">
+                Lietuvių
+              </div>
+              <div class="item" data-value="no" data-text="Norsk">Norsk</div>
+              <div class="item" data-value="pl" data-text="Polski">Polski</div>
+              <div class="item" data-value="pt" data-text="Português">
+                Português
+              </div>
+              <div class="item" data-value="uk" data-text="Українська">
+                Українська
+              </div>
+              <div class="item" data-value="crh" data-text="Qırım tili">
+                Qırım tili
+              </div>
+              <div class="item" data-value="sk" data-text="Slovenčina">
+                Slovenčina
+              </div>
+              <div class="item" data-value="sl" data-text="Slovenščina">
+                Slovenščina
+              </div>
+              <div class="item" data-value="fi" data-text="Suomi">Suomi</div>
+              <div class="item" data-value="sv" data-text="Svenska">
+                Svenska
+              </div>
+              <div class="item" data-value="is" data-text="Íslenska">
+                Íslenska
+              </div>
+              <div class="item" data-value="cs" data-text="Čeština">
+                Čeština
+              </div>
+              <div class="item" data-value="el" data-text="Ελληνικά">
+                Ελληνικά
+              </div>
+              <div class="item" data-value="sr" data-text="Српски">Српски</div>
+              <div class="item" data-value="iw" data-text="עברית">עברית</div>
+              <div class="item" data-value="ar" data-text="العربية">
+                العربية
+              </div>
+              <div class="item" data-value="fa" data-text="فارسی">فارسی</div>
+              <div class="item" data-value="hi" data-text="हिन्दी">हिन्दी</div>
+              <div class="item" data-value="th" data-text="ไทย">ไทย</div>
+              <div class="item" data-value="zh-CN" data-text="中文 (简体)">
+                中文 (简体)
+              </div>
+              <div class="item" data-value="zh-TW" data-text="中文 (繁體)">
+                中文 (繁體)
+              </div>
+              <div class="item" data-value="ja" data-text="日本語">日本語</div>
+              <div class="item" data-value="ko" data-text="한국어">한국어</div>
+            </div>
+
+            <i class="dropdown icon"></i>
+          </div>
+          <br />
+          <input type="submit" value="Зберегти" id="saveLessLangPrefs" class="hidden" />
+        </form>
+      </section>
+
+      <section id="grantRightsToCollectStats" class="hidden">
+        <h2>Крок 3. Дозволи</h2>
+        <h3>Вкажіть, чи надаєте ви дозвіл на збирання статистики.</h3>
+        <div style='display: none;'>
+        <p>
+        Ми підтримуємо та оптимізуємо роботи розширення. Для цієї роботи, нам потрібно розуміти, як розширення використовують.
+        </p>
+        <p>
+        Дозвольте збирати статистику використання щоби ми могли робити розширення краще.
+        </p>
+        </div>
+
+        <form id="permissions_form">
+            <div>
+              <input type="checkbox" name="user_is_18_plus" />
+              <label for="user_is_18_plus">Мені 18 або більше</label>
+            </div>
+            <div>
+              <input type="checkbox" name="collect_stats" disabled />
+              <label for="collect_stats">Дозволяю збирати статистику</label> <br />
+            </div>
+          <input type="submit" value="Зберегти" id="saveAllPrefs" class="hidden" />
+        </form>
+      </section>
+
+      <section id="allSavedThankYou" class="hidden">
+        <h2>Дякуємо!</h2>
+        <p>
+          Чудово! Тепер всі налаштування збережено. Дякуємо, користуєтеся послугами Лагідної Українізації!
+        </p>
+      </section>
+
+      <section id="reset" class="hidden">
+        <div>Reset</div>
+        <div>
+          <input type="button" id="resetSettings" value="Reset" />
+        </div>
+      </section>
+
+    </main>
+  </body>
+</html>
