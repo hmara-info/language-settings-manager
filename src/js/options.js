@@ -75,7 +75,7 @@ storageGetSync('userSettings').then((settings) => {
     ).checked = true;
   }
 
-  if (userSettings.is_18 && userSettings.collect_stats) {
+  if (userSettings.is_18 && userSettings.collectStats) {
     document.querySelector(
       '#permissions_form input[name="collect_stats"]'
     ).checked = true;
@@ -204,7 +204,7 @@ function saveLangChoice(e) {
     userSettings.moreLanguages = moreLanguages;
     userSettings.lessLanguages = lessLanguages;
     userSettings.is_18 = is_18;
-    userSettings.collect_stats = collect_stats;
+    userSettings.collectStats = collect_stats;
 
     storageSetSync({ userSettings: userSettings });
     sendEvent('savedLanguageChoice');

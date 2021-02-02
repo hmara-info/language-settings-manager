@@ -21,7 +21,12 @@ export async function storageGetSync(key) {
 }
 
 export async function storageSetSync(data) {
-  chrome.storage.sync.set(data);
+  var p = new Promise((resolve) => {
+    chrome.storage.sync.set(data, function () {
+      resolve(data);
+    });
+  });
+  return p;
 }
 
 export function getMessage(msg) {
