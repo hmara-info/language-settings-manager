@@ -1,6 +1,6 @@
 import '../css/options.css';
 import 'semantic-ui-css/semantic.min.js';
-import { sendEvent } from './networking';
+import { sendEvent, removeAffiliateCookie } from './networking';
 import {
   storageGetSync,
   storageSetSync,
@@ -200,6 +200,7 @@ function saveLangChoice(e) {
       : false;
 
   storageGetSync('userSettings').then((data) => {
+    const firstConfigSave = data.userSettings ? false : true;
     let userSettings = data.userSettings || {};
     userSettings.moreLanguages = moreLanguages;
     userSettings.lessLanguages = lessLanguages;
@@ -207,6 +208,11 @@ function saveLangChoice(e) {
     userSettings.collectStats = collect_stats;
 
     storageSetSync({ userSettings: userSettings });
+
+    if (firstConfigSave) {
+      removeAffiliateCookie();
+    }
+
     sendEvent('savedLanguageChoice');
   });
 

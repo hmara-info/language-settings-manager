@@ -2,6 +2,7 @@ import { getExtensionVersion } from './util';
 import Bottleneck from 'bottleneck';
 import { v4 as uuidv4 } from 'uuid';
 import { storageGetSync, storageSetSync } from './util';
+import { serializeError } from 'serialize-error';
 
 export let API_BASE = process.env.API_BASE_URI;
 export let userId;
@@ -47,7 +48,7 @@ export function sendEvent(type, data) {
     method: 'POST',
   };
 
-  _sendStats('/events', options);
+  _sendBehavioralInfo('/events', options);
 }
 
 export function reportError(desc, errorData, pageviewId) {
@@ -69,10 +70,14 @@ export function reportError(desc, errorData, pageviewId) {
     method: 'POST',
   };
 
-  _sendStats('/error', options);
+  _sendTechnicalInfo('/error', options);
 }
 
-function _sendStats(path, options) {
+export function removeAffiliateCookie() {
+  _sendTechnicalInfo('/remove-affiliate-cookie');
+}
+
+function _sendBehavioralInfo(path, options) {
   storageGetSync('userSettings')
     .then((settings) => {
       return settings.userSettings.collectStats
@@ -80,8 +85,26 @@ function _sendStats(path, options) {
         : Promise.reject('collectStats is disabled');
     })
     .then(() => {
-      return bottleneck.schedule(() => fetch(API_BASE + path, options));
+      _sendInfo(path, options);
     })
+    .catch((error) => {
+      if (error === 'collectStats is disabled') {
+        console.error('collectStats is disabled: not sending event');
+        return;
+      }
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Failed to send an event', error);
+      }
+    });
+}
+
+function _sendTechnicalInfo(path, options) {
+  _sendInfo(path, options);
+}
+
+function _sendInfo(path, options) {
+  bottleneck
+    .schedule(() => fetch(API_BASE + path, options))
     .then((data) => {
       if (process.env.NODE_ENV === 'development') {
         console.info('event sent', data);
@@ -89,11 +112,6 @@ function _sendStats(path, options) {
     })
     .catch((error) => {
       if (process.env.NODE_ENV === 'development') {
-        if (error === 'collectStats is disabled') {
-          console.error('collectStats is disabled: not sending event');
-          return;
-        }
-
         console.error('Failed to send an event', error);
       }
     });
