@@ -19,6 +19,7 @@ var fileExtensions = ['css', 'jpg', 'jpeg', 'png', 'gif', 'svg', 'ttf'];
 
 var options = {
   mode: process.env.NODE_ENV || 'development',
+  node: false,
   optimization: {
     minimize: false,
   },

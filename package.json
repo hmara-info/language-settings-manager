@@ -23,6 +23,7 @@
     "mocha-logger": "^1.0.6",
     "prettier": "^2.0.5",
     "puppeteer": "^3.3.0",
+    "webextension-polyfill": "^0.7.0",
     "webpack": "^4.46.0"
   },
   "dependencies": {

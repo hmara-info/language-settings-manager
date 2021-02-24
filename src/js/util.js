@@ -1,32 +1,18 @@
+import browser from 'webextension-polyfill';
 export function getExtensionVersion() {
   return getMessage('@@extension_id');
 }
 
 export async function storageGet(key) {
-  var p = new Promise((resolve) => {
-    chrome.storage.local.get(key, function (data) {
-      resolve(data);
-    });
-  });
-  return p;
+  return browser.storage.local.get(key);
 }
 
 export async function storageGetSync(key) {
-  var p = new Promise((resolve) => {
-    chrome.storage.sync.get(key, function (data) {
-      resolve(data);
-    });
-  });
-  return p;
+  return browser.storage.sync.get(key);
 }
 
 export async function storageSetSync(data) {
-  var p = new Promise((resolve) => {
-    chrome.storage.sync.set(data, function () {
-      resolve(data);
-    });
-  });
-  return p;
+  return browser.storage.sync.set(data);
 }
 
 export function getMessage(msg) {

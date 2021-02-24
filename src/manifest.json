@@ -229,5 +229,5 @@
     "https://ls.hmara.info/*",
     "https://*.ls.hmara.info/*"
   ],
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+  "content_security_policy": "script-src 'self'; object-src 'self'"
 }
