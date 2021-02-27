@@ -7,6 +7,14 @@ export async function storageGet(key) {
   return browser.storage.local.get(key);
 }
 
+export async function storageSet(data) {
+  return browser.storage.local.set(data);
+}
+
+export async function storageRemove(data) {
+  return browser.storage.local.remove(data);
+}
+
 export async function storageGetSync(key) {
   return browser.storage.sync.get(key);
 }

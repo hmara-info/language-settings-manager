@@ -1,4 +1,11 @@
+import { storageGet, storageSet, storageRemove } from '../util';
+
 export default class handler {
+  handlerName = 'default';
+  // default handler doesn't cache page config,
+  // as retrieving it is a cheap operation
+  targetLanguagesConfigExpiresAfter = 0;
+
   constructor(location, document, moreLanguages, lessLanguages) {
     this.location = location;
     this.document = document;
@@ -10,8 +17,13 @@ export default class handler {
     return [];
   }
 
+  get cacheKey() {
+    return `handler.${this.handlerName}`;
+  }
+
   async needToTweakLanguages() {
     const config = await this.targetLanguagesConfig();
+
     if (config == null) {
       return Promise.reject();
     }
@@ -112,7 +124,28 @@ export default class handler {
     return userAnswer;
   }
 
+  async changeLanguageTo(languages) {
+    try {
+      return this._changeLanguageTo(languages).then(() =>
+        this._targetLanguagesConfigDropCache()
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   async targetLanguagesConfig() {
+    return this._targetLanguagesConfigCached().then((cachedConfig) => {
+      if (cachedConfig) {
+        return Promise.resolve(cachedConfig.data);
+      }
+      return this._targetLanguagesConfig().then((config) => {
+        return this._targetLanguagesConfigUpdateCache(config);
+      });
+    });
+  }
+
+  async _targetLanguagesConfig() {
     const moreLanguages = this.moreLanguages;
     const supportedWantedLanguages = this.SUPPORTED_LANGUAGES().filter(
       (value) => moreLanguages.includes(value)
@@ -127,5 +160,32 @@ export default class handler {
     if (supportedWantedLanguages.indexOf(uiLanguage) === 0) return;
 
     return supportedWantedLanguages.filter((value) => value !== uiLanguage);
+  }
+
+  _targetLanguagesConfigCached() {
+    return storageGet(this.cacheKey).then((items) => {
+      const cache = items[this.cacheKey];
+      if (!cache || !cache.ts) {
+        return;
+      }
+      const targetLanguagesConfigAge = Math.round(
+        (new Date().getTime() - cache.ts) / 1000
+      );
+      if (targetLanguagesConfigAge > this.targetLanguagesConfigExpiresAfter) {
+        return;
+      }
+      return cache;
+    });
+  }
+
+  async _targetLanguagesConfigUpdateCache(config) {
+    const cacheKey = this.cacheKey;
+    return storageSet({
+      [cacheKey]: { data: config, ts: new Date().getTime() },
+    }).then(() => config);
+  }
+
+  async _targetLanguagesConfigDropCache() {
+    return storageRemove(this.cacheKey);
   }
 }

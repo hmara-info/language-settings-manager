@@ -1,6 +1,12 @@
 import defaultHandler from './default';
 
 export default class facebookHandler extends defaultHandler {
+  handlerName = 'facebook';
+
+  // fb page config requires three requests to fb backend,
+  // so cache results for six hours
+  targetLanguagesConfigExpiresAfter = 5 * 60; // 6 * 60 * 60;
+
   SUPPORTED_LANGUAGES() {
     return ['uk'];
   }
@@ -98,7 +104,7 @@ export default class facebookHandler extends defaultHandler {
       });
   }
 
-  async targetLanguagesConfig() {
+  async _targetLanguagesConfig() {
     try {
       const profileLink = this.document.querySelector('a[href="/me/"]');
       if (!profileLink) {
@@ -107,7 +113,7 @@ export default class facebookHandler extends defaultHandler {
       }
 
       return Promise.all([
-        super.targetLanguagesConfig(),
+        super._targetLanguagesConfig(),
         this._getTargetTranslateLang(),
         this._getTargetNoTranslateLangs(),
         this._getTargetDisableAutotranslateLangs(),
@@ -135,7 +141,7 @@ export default class facebookHandler extends defaultHandler {
     }
   }
 
-  changeLanguageTo(languages) {
+  async _changeLanguageTo(languages) {
     try {
       return Promise.all([
         this._changeUILanguageTo(languages.uiLangs),
