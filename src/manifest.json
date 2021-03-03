@@ -16,7 +16,7 @@
   },
   "background": {
       "scripts": ["background.bundle.js"],
-      "persistent": false
+      "persistent": true
   },
   "default_locale": "uk",
   "content_scripts": [
@@ -226,8 +226,17 @@
   "permissions": [
     "storage",
     "notifications",
+    "webRequest",
+    "webRequestBlocking",
+    "https://www.google.com/search?*",
     "https://ls.hmara.info/*",
     "https://*.ls.hmara.info/*"
   ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "language-settings-manager@hmara.info",
+      "strict_min_version": "42.0"
+    }
+  },
   "content_security_policy": "script-src 'self'; object-src 'self'"
 }
