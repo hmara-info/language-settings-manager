@@ -17,6 +17,11 @@ export default class facebookHandler extends defaultHandler {
     ru: 'ru_RU',
   };
 
+  // In Firefox fetch is executed in the context of extension,
+  // content.fetch - in the content of the page. Hence this hack
+  // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Content_scripts
+  static contextFetch = content ? content.fetch : fetch;
+
   async _getTargetNoTranslateLangs() {
     /*
      * Fetches the "Languages for which you don't
@@ -215,12 +220,14 @@ export default class facebookHandler extends defaultHandler {
       body: `fb_dtsg=${fb_dtsg_match}&new_language=${langValue}&new_fallback_language=&__user=${user_id_match}`,
     };
 
-    return fetch(
-      'https://www.facebook.com/ajax/settings/language/account.php',
-      requestOptions
-    ).then((response) => {
-      return true;
-    });
+    return facebookHandler
+      .contextFetch(
+        'https://www.facebook.com/ajax/settings/language/account.php',
+        requestOptions
+      )
+      .then((response) => {
+        return true;
+      });
   }
 
   _changeNoTranslateLanguagesTo(dontTranslateLangs) {
@@ -232,12 +239,14 @@ export default class facebookHandler extends defaultHandler {
       dontTranslateLangs
     );
 
-    return fetch(
-      'https://www.facebook.com/ajax/settings/language/secondary.php',
-      requestOptions
-    ).then((response) => {
-      return true;
-    });
+    return facebookHandler
+      .contextFetch(
+        'https://www.facebook.com/ajax/settings/language/secondary.php',
+        requestOptions
+      )
+      .then((response) => {
+        return true;
+      });
   }
   _changeDisableAutotranslateLanguagesTo(disableAuthtranslateLangs) {
     if (!disableAuthtranslateLangs || disableAuthtranslateLangs.length == 0) {
@@ -248,12 +257,14 @@ export default class facebookHandler extends defaultHandler {
       disableAuthtranslateLangs
     );
 
-    return fetch(
-      'https://www.facebook.com/ajax/settings/language/disable_autotranslate.php',
-      requestOptions
-    ).then((response) => {
-      return true;
-    });
+    return facebookHandler
+      .contextFetch(
+        'https://www.facebook.com/ajax/settings/language/disable_autotranslate.php',
+        requestOptions
+      )
+      .then((response) => {
+        return true;
+      });
   }
 
   _changeTranslateLanguageTo(translateLang) {
@@ -283,12 +294,14 @@ export default class facebookHandler extends defaultHandler {
       body: `fb_dtsg=${fb_dtsg_match}&primary_dialect=${langValue}&__user=${user_id_match}&__a=1`,
     };
 
-    return fetch(
-      'https://www.facebook.com/ajax/settings/language/primary.php',
-      requestOptions
-    ).then((response) => {
-      return true;
-    });
+    return facebookHandler
+      .contextFetch(
+        'https://www.facebook.com/ajax/settings/language/primary.php',
+        requestOptions
+      )
+      .then((response) => {
+        return true;
+      });
   }
 
   _parseNotranslateLanguages(html) {
