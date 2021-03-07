@@ -1,6 +1,7 @@
 import { sendEvent, reportError } from './networking';
 import { storageGetSync, storageGet } from './util';
 import browser from 'webextension-polyfill';
+import runGoogleSearchRewrite from './google-rewrite';
 
 let config;
 
@@ -18,6 +19,8 @@ try {
   setupMessaging();
 
   checkConfigured();
+
+  runGoogleSearchRewrite();
 } catch (e) {
   reportError('background.js', e);
 }
@@ -97,42 +100,3 @@ function checkConfigured() {
     }
   });
 }
-
-function googleSearchRequestListner(details) {
-  if (!details.url) {
-    return;
-  }
-
-  const url = new URL(details.url);
-  const params = url.searchParams;
-  const lrValues = params.getAll('lr');
-  return storageGetSync('userSettings').then((settings) => {
-    const userSettings = settings.userSettings;
-    if (!userSettings) return;
-
-    const lessLanguages = userSettings.lessLanguages;
-    if (!lessLanguages || !lessLanguages.length) return;
-    const needToFilterLanguages = lessLanguages.filter((lang) => {
-      const value = `-lang_${lang}`;
-      return !lrValues.includes(value);
-    });
-    if (!needToFilterLanguages.length) {
-      return;
-    }
-
-    for (let lang of needToFilterLanguages) {
-      url.searchParams.append('lr', `-lang_${lang}`);
-    }
-    return {
-      redirectUrl: url.toString(),
-    };
-  });
-}
-
-browser.webRequest.onBeforeRequest.addListener(
-  googleSearchRequestListner,
-  {
-    urls: ['https://www.google.com/search?*'],
-  },
-  ['blocking']
-);
