@@ -1,6 +1,6 @@
 {
   "name": "language-settings-manager",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Лагідна Українізація",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack --mode development --verbose",

@@ -1,6 +1,6 @@
 {
   "description": "Розширення, що робить інтернет Українським",
-  "version": "0.0.2" ,
+  "version": "0.0.3" ,
   "name": "Лагідна Українізація",
   "options_ui": {
     "page": "options.html"
