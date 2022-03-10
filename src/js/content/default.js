@@ -1,4 +1,10 @@
-import { storageGet, storageSet, storageRemove } from '../util';
+import { storageGet, storageGetSync, storageSet, storageRemove } from '../util';
+
+const promptsFrequency = {
+  slow: 7 * 60 * 60 * 1000,
+  gentle: 1 * 60 * 60 * 1000,
+  fast: 1 * 60 * 1000,
+};
 
 export default class handler {
   handlerName = 'default';
@@ -22,12 +28,26 @@ export default class handler {
   }
 
   async needToTweakLanguages() {
-    const config = await this.targetLanguagesConfig();
+    const $self = this;
+    return storageGetSync(['userSettings', 'lastPromptTs'])
+      .then((data) => {
+        const userSettings = data.userSettings || {};
+        const speed = userSettings.speed || 'gentle';
+        const lastPromptTs = data.lastPromptTs || 0;
+        const timeSinceUserPrompted =
+          Math.floor(Date.now() / 1000) - lastPromptTs;
 
-    if (config == null) {
-      return Promise.reject();
-    }
-    return Promise.resolve();
+        if (promptsFrequency[speed] > timeSinceUserPrompted) {
+          // User prompted a while ago, we can do it again
+          return $self.targetLanguagesConfig();
+        }
+
+        // Too soon
+        return Promise.reject();
+      })
+      .then((config) => {
+        return config == null ? Promise.reject() : Promise.resolve();
+      });
   }
 
   removeUI() {
@@ -136,7 +156,7 @@ export default class handler {
 
   async targetLanguagesConfig() {
     return this._targetLanguagesConfigCached().then((cachedConfig) => {
-      if (cachedConfig) {
+      if (cachedConfig && cachedConfig.data) {
         return Promise.resolve(cachedConfig.data);
       }
       return this._targetLanguagesConfig().then((config) => {

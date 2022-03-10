@@ -69,11 +69,12 @@ var options = {
           from: './src/manifest.json',
           to: './manifest.json',
           transform(content) {
+            const json = JSON.parse(content);
+            delete json['browser_specific_settings'];
             if (env.NODE_ENV !== 'development') {
-              return content;
+              return JSON.stringify(json, undefined, 2);
             }
 
-            const json = JSON.parse(content);
             json.content_security_policy =
               "script-src 'self' 'unsafe-eval'; object-src 'self'";
             return JSON.stringify(json, undefined, 2);

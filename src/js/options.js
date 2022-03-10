@@ -40,6 +40,21 @@ $('#selectLessLanguagesForm .ui.dropdown').dropdown({
   },
 });
 
+document.querySelectorAll('#userSpeed .ui.menu > .item').forEach((element) =>
+  element.addEventListener('click', (event) => {
+    storageGetSync('userSettings').then((data) => {
+      const userSettings = data.userSettings;
+      userSettings.speed = element.getAttribute('data');
+      storageSetSync({ userSettings: userSettings });
+    });
+
+    element.parentElement
+      .querySelectorAll('.ui.menu > .item')
+      .forEach((item) => item.classList.remove('active'));
+    element.classList.add('active');
+  })
+);
+
 storageGetSync('userSettings').then((settings) => {
   let userSettings = settings.userSettings || {};
 
@@ -80,6 +95,15 @@ storageGetSync('userSettings').then((settings) => {
       '#permissions_form input[name="collect_stats"]'
     ).checked = true;
   }
+
+  // Set speed menu to the preconfigured value
+  const speed = userSettings.speed || 'gentle';
+  document
+    .querySelectorAll('#userSpeed .ui.menu > .item')
+    .forEach((element) => element.classList.remove('active'));
+  document
+    .querySelector('#userSpeed .ui.menu > .item[data="' + speed + '"]')
+    .classList.add('active');
 
   updatePermissionsState();
 });

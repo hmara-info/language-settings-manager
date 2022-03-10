@@ -1,5 +1,10 @@
 import defaultHandler from './default';
 
+// In Firefox fetch is executed in the context of extension,
+// content.fetch - in the content of the page. Hence this hack
+// https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Content_scripts
+const contextFetch = typeof variable !== 'undefined' ? content.fetch : fetch;
+
 export default class facebookHandler extends defaultHandler {
   handlerName = 'facebook';
 
@@ -16,11 +21,6 @@ export default class facebookHandler extends defaultHandler {
     en: 'en_XX',
     ru: 'ru_RU',
   };
-
-  // In Firefox fetch is executed in the context of extension,
-  // content.fetch - in the content of the page. Hence this hack
-  // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Content_scripts
-  static contextFetch = content ? content.fetch : fetch;
 
   async _getTargetNoTranslateLangs() {
     /*
@@ -155,21 +155,26 @@ export default class facebookHandler extends defaultHandler {
         this._changeDisableAutotranslateLanguagesTo(
           languages.disableAutotranslateLangs
         ),
-      ]).then((results) => {
-        if (results.filter((r) => r != true).length == 0) {
-          return;
-        }
-        const [
-          UILangChangedOK,
-          noTranslateLanguagesChangedOk,
-          translationsChangedOk,
-          disableAutotranslateLanguagesOk,
-        ] = results;
-        return Promise.reject(
-          'One of changeLanguageTo() subcomponents failed',
-          results
-        );
-      });
+      ])
+        .then((results) => {
+          if (results.filter((r) => r != true).length == 0) {
+            return;
+          }
+          const [
+            UILangChangedOK,
+            noTranslateLanguagesChangedOk,
+            translationsChangedOk,
+            disableAutotranslateLanguagesOk,
+          ] = results;
+          return Promise.reject(
+            'One of changeLanguageTo() subcomponents failed',
+            results
+          );
+        })
+        .catch((e) => {
+          console.log('Error http execution', e);
+          return e;
+        });
     } catch (e) {
       return Promise.reject(e);
     }
@@ -220,14 +225,12 @@ export default class facebookHandler extends defaultHandler {
       body: `fb_dtsg=${fb_dtsg_match}&new_language=${langValue}&new_fallback_language=&__user=${user_id_match}`,
     };
 
-    return facebookHandler
-      .contextFetch(
-        'https://www.facebook.com/ajax/settings/language/account.php',
-        requestOptions
-      )
-      .then((response) => {
-        return true;
-      });
+    return contextFetch(
+      'https://www.facebook.com/ajax/settings/language/account.php',
+      requestOptions
+    ).then((response) => {
+      return true;
+    });
   }
 
   _changeNoTranslateLanguagesTo(dontTranslateLangs) {
@@ -239,14 +242,12 @@ export default class facebookHandler extends defaultHandler {
       dontTranslateLangs
     );
 
-    return facebookHandler
-      .contextFetch(
-        'https://www.facebook.com/ajax/settings/language/secondary.php',
-        requestOptions
-      )
-      .then((response) => {
-        return true;
-      });
+    return contextFetch(
+      'https://www.facebook.com/ajax/settings/language/secondary.php',
+      requestOptions
+    ).then((response) => {
+      return true;
+    });
   }
   _changeDisableAutotranslateLanguagesTo(disableAuthtranslateLangs) {
     if (!disableAuthtranslateLangs || disableAuthtranslateLangs.length == 0) {
@@ -257,14 +258,12 @@ export default class facebookHandler extends defaultHandler {
       disableAuthtranslateLangs
     );
 
-    return facebookHandler
-      .contextFetch(
-        'https://www.facebook.com/ajax/settings/language/disable_autotranslate.php',
-        requestOptions
-      )
-      .then((response) => {
-        return true;
-      });
+    return contextFetch(
+      'https://www.facebook.com/ajax/settings/language/disable_autotranslate.php',
+      requestOptions
+    ).then((response) => {
+      return true;
+    });
   }
 
   _changeTranslateLanguageTo(translateLang) {
@@ -294,14 +293,12 @@ export default class facebookHandler extends defaultHandler {
       body: `fb_dtsg=${fb_dtsg_match}&primary_dialect=${langValue}&__user=${user_id_match}&__a=1`,
     };
 
-    return facebookHandler
-      .contextFetch(
-        'https://www.facebook.com/ajax/settings/language/primary.php',
-        requestOptions
-      )
-      .then((response) => {
-        return true;
-      });
+    return contextFetch(
+      'https://www.facebook.com/ajax/settings/language/primary.php',
+      requestOptions
+    ).then((response) => {
+      return true;
+    });
   }
 
   _parseNotranslateLanguages(html) {
