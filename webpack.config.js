@@ -75,8 +75,6 @@ var options = {
               return JSON.stringify(json, undefined, 2);
             }
 
-            json.content_security_policy =
-              "script-src 'self' 'unsafe-eval'; object-src 'self'";
             return JSON.stringify(json, undefined, 2);
           },
         },
