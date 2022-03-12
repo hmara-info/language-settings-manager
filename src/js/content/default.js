@@ -68,13 +68,15 @@ export default class handler {
         (language) => $self.changeLanguageTo(language),
         (reasonRejected) => Promise.reject(reasonRejected)
       )
-      .then(() => {
-        $self.location.reload();
-      })
+      .then(() => this._reloadPageOnceLanguagesChanged())
       .catch((e) => {
         console.log('tweakLangfuagesFlow() rejection', e);
       });
     // TODO: what to do when changeLanguageTo() or one of subcomponents failed?
+  }
+
+  _reloadPageOnceLanguagesChanged() {
+    this.location.reload();
   }
 
   _tweakLanguagesCTA(languageConfig) {
