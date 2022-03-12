@@ -12,6 +12,10 @@ export default class googleSearchHandler extends defaultHandler {
     return ['uk'];
   }
 
+  _tweakLanguagesCTA(languageConfig) {
+    return 'Пошук Google підтримує Українську. Налаштувати?';
+  }
+
   async _targetLanguagesConfig() {
     /*
      * Fetches the "Languages for which you don't

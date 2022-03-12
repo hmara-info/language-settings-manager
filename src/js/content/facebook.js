@@ -22,6 +22,10 @@ export default class facebookHandler extends defaultHandler {
     ru: 'ru_RU',
   };
 
+  _tweakLanguagesCTA(languageConfig) {
+    return 'Facebook підтримує Українську. Налаштувати?';
+  }
+
   async _getTargetNoTranslateLangs() {
     /*
      * Fetches the "Languages for which you don't

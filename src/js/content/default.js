@@ -77,6 +77,10 @@ export default class handler {
     // TODO: what to do when changeLanguageTo() or one of subcomponents failed?
   }
 
+  _tweakLanguagesCTA(languageConfig) {
+    return 'Ресурс підтримує Українську. Налаштувати?';
+  }
+
   async suggestToChangeLanguages() {
     const $self = this;
     const userAnswer = new Promise(async (resolve, reject) => {
@@ -84,11 +88,12 @@ export default class handler {
         const languageConfig = await $self.targetLanguagesConfig();
 
         $self.removeUI();
+        const callToAction = $self._tweakLanguagesCTA(languageConfig);
 
         const floaterHTML = `
 <div style="z-index:5000; width:100%; position: fixed; top: 0;" class="lahidnaUkrainizatsiya">
   <div style="margin: 20px; padding: 10px; border: 1px solid rgba(0,0,0,.09); box-shadow: 15px -4px 17px 1px rgba(19, 19, 22, 0.28); border-radius: 3px; background: #f3f1f1;">
-    <span>Facebook підтримує Українську. Налаштувати?</span>
+    <span>${callToAction}</span>
     <div style="float: right">
       <input type='button' value='Так' style='padding: 4px;' class='yes-btn' />
       <input type='button' value='Пізніше' style='padding: 4px;' class='no-btn' />
