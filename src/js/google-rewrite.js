@@ -39,7 +39,7 @@ async function setupDynamicRewriteRules() {
         },
         condition: {
           regexFilter:
-            'google\\.(\\w\\w|co\\.(\\w\\w)|com|com\\.(\\w\\w)|\\w\\w)/',
+            'google\\.(\\w\\w|co\\.(\\w\\w)|com|com\\.(\\w\\w)|\\w\\w)/search',
           resourceTypes: ['main_frame'],
         },
       },
