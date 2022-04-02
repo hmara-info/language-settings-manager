@@ -18,7 +18,6 @@ export default class wikipediaHandler extends defaultHandler {
 
   async _targetLanguagesConfig() {
     const currentLang = document.querySelector('html').getAttribute('lang');
-    console.log(currentLang, this.moreLanguages);
     if (this.moreLanguages.includes(currentLang)) {
       return Promise.reject();
     }
