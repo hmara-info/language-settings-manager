@@ -237,6 +237,10 @@ function saveLangChoice(e) {
       removeAffiliateCookie();
     }
 
+    chrome.runtime.sendMessage({
+      type: 'savedLanguageChoice',
+      data: userSettings,
+    });
     sendEvent('savedLanguageChoice');
   });
 
