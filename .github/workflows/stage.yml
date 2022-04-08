@@ -29,5 +29,5 @@ jobs:
         client-id: '${{ secrets.CHROME_WEBSTORE_CLIENT_ID }}'
         client-secret: '${{ secrets.CHROME_WEBSTORE_CLIENT_SECRET }}'
         file-name: './language-settings-manager.stage.zip'
-        app-id: '----FILL THIS OUT----'
+        app-id: 'kbigminlcdmikfhdkfjcmocnjhkikhpp'
         publish: false
