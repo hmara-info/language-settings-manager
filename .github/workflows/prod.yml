@@ -3,7 +3,7 @@ name: Publish
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
@@ -11,7 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        ref: 'master'
+        ref: 'main'
     - uses: actions/setup-node@v2-beta
       with:
         node-version: '12'
