@@ -1,7 +1,7 @@
 import { sendEvent, reportError } from './networking';
 import { storageGetSync, storageGet } from './util';
 import browser from 'webextension-polyfill';
-import runGoogleSearchRewrite from './google-rewrite';
+import syncLanguagesConfig from './google-rewrite';
 
 let config;
 
@@ -19,8 +19,7 @@ try {
   setupMessaging();
 
   checkConfigured();
-
-  runGoogleSearchRewrite();
+  setupNotifications();
 } catch (e) {
   reportError('background.js', e);
 }
@@ -29,10 +28,15 @@ function setupMessaging() {
   // Incoming messages
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     try {
-      switch (request.src) {
+      switch (request.type) {
         case 'options':
           handleOptionsRequest(request);
           break;
+
+        case 'savedLanguageChoice':
+          handleSavedLanguageChoice(request);
+          break;
+
         case 'content':
           handleContentRequest(request);
         default:
@@ -47,6 +51,12 @@ function setupMessaging() {
       );
     }
     return false;
+  });
+}
+
+function handleSavedLanguageChoice(request) {
+  syncLanguagesConfig().then(function () {
+    // console.log('Synced config');
   });
 }
 
@@ -75,18 +85,31 @@ function handleContentRequest(request) {
 }
 
 function setupNotifications() {
-  chrome.notifications.onClicked.addListener(function (notifId) {
-    if (notifId === 'PleaseSetUp') {
-      chrome.runtime.openOptionsPage();
-    }
-  });
+  try {
+    chrome.notifications.onClicked.addListener(function (notifId) {
+      if (notifId === 'PleaseSetUp') {
+        chrome.runtime.openOptionsPage();
+      }
+    });
+
+    chrome.notifications.onButtonClicked.addListener(function (
+      notifId,
+      btnIdx
+    ) {
+      if (notifId === 'PleaseSetUp') {
+        chrome.runtime.openOptionsPage();
+      }
+    });
+  } catch (e) {
+    console.log('Failed to set up notification events', e);
+  }
 }
 
 function checkConfigured() {
   storageGetSync('userSettings').then((data) => {
     if (!data.userSettings) {
       chrome.notifications.create('PleaseSetUp', {
-        title: 'Українська мова в Google',
+        title: 'Лагідна Українізація',
         message:
           'Вкажіть, які мови ви хочете бачити більше в Інтернет, будь ласка. Натисніть на це повідомлення',
         iconUrl: '/icon-128.png',
@@ -96,6 +119,10 @@ function checkConfigured() {
             title: 'Перейти до налаштуваннь',
           },
         ],
+      });
+    } else {
+      syncLanguagesConfig().then(function () {
+        // console.log('Synced config');
       });
     }
   });

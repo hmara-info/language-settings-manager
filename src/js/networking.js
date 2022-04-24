@@ -108,6 +108,7 @@ function _sendInfo(path, options) {
 function _getCommonOptions() {
   return {
     userId: userId || 'unknown',
+    extension: 'language-settings-manager',
     eventId: uuidv4(),
     version: getExtensionVersion(),
   };

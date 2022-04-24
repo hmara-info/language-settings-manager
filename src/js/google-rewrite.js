@@ -3,15 +3,15 @@ import { storageGetSync } from './util';
 
 let lessLanguages;
 
-async function syncLanguagesConfig() {
-  storageGetSync('userSettings').then((settings) => {
+export default async function syncLanguagesConfig() {
+  return storageGetSync('userSettings').then((settings) => {
     const userSettings = settings.userSettings;
-    if (!userSettings) return;
+    if (!userSettings || Object.keys(userSettings) == null) return;
     if (
       JSON.stringify(userSettings.lessLanguages) ===
       JSON.stringify(lessLanguages)
     )
-      return;
+      return Promise.resolve();
 
     lessLanguages = userSettings.lessLanguages;
     return setupDynamicRewriteRules();
@@ -20,7 +20,7 @@ async function syncLanguagesConfig() {
 
 async function setupDynamicRewriteRules() {
   const filterValue =
-    '-' + lessLanguages.map((lang) => `lang_${lang}`).join('|');
+    '(-' + lessLanguages.map((lang) => `lang_${lang})`).join('.');
 
   return chrome.declarativeNetRequest.updateDynamicRules({
     addRules: [
@@ -46,11 +46,4 @@ async function setupDynamicRewriteRules() {
     ],
     removeRuleIds: [1],
   });
-}
-
-export default async function runGoogleSearchRewrite() {
-  await syncLanguagesConfig();
-  // Update config every 30 minutes:
-  // it's sync and might be changed on another device
-  setInterval(syncLanguagesConfig, 30 * 60 * 1000);
 }
