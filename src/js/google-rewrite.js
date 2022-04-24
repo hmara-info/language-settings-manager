@@ -20,7 +20,7 @@ export default async function syncLanguagesConfig() {
 
 async function setupDynamicRewriteRules() {
   const filterValue =
-    '-' + lessLanguages.map((lang) => `lang_${lang}`).join('|');
+    '(-' + lessLanguages.map((lang) => `lang_${lang})`).join('.');
 
   return chrome.declarativeNetRequest.updateDynamicRules({
     addRules: [
