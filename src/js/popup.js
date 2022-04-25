@@ -1,4 +1,5 @@
+import browser from 'webextension-polyfill';
 document.getElementById('goToOptions').addEventListener('click', function (e) {
-  chrome.runtime.openOptionsPage();
+  browser.runtime.openOptionsPage();
   e.preventDefault();
 });

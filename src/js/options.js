@@ -7,6 +7,7 @@ import {
   getMessage,
   localizeHtmlPage,
 } from './util';
+import browser from 'webextension-polyfill';
 
 let savedLanguages = false;
 
@@ -136,8 +137,8 @@ if (process.env.NODE_ENV === 'development') {
   // Reset for dev mode
   document.getElementById('reset').classList.remove('hidden');
   const resetSettings = function () {
-    chrome.storage.sync.remove(['userSettings']);
-    chrome.storage.local.remove(['userSettings', 'requestCounter']);
+    browser.storage.sync.remove(['userSettings']);
+    browser.storage.local.remove(['userSettings', 'requestCounter']);
     location.reload();
   };
   document
@@ -237,7 +238,7 @@ function saveLangChoice(e) {
       removeAffiliateCookie();
     }
 
-    chrome.runtime.sendMessage({
+    browser.runtime.sendMessage({
       type: 'savedLanguageChoice',
       data: userSettings,
     });

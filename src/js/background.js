@@ -5,7 +5,7 @@ import syncLanguagesConfig from './google-rewrite';
 
 let config;
 
-chrome.runtime.onInstalled.addListener(function (details) {
+browser.runtime.onInstalled.addListener(function (details) {
   // This needs to be the same for Chrome, FF and everybody else
   sendEvent(`installed: ${details.reason}`);
 });
@@ -26,7 +26,7 @@ try {
 
 function setupMessaging() {
   // Incoming messages
-  chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
     try {
       switch (request.type) {
         case 'options':
@@ -86,18 +86,18 @@ function handleContentRequest(request) {
 
 function setupNotifications() {
   try {
-    chrome.notifications.onClicked.addListener(function (notifId) {
+    browser.notifications.onClicked.addListener(function (notifId) {
       if (notifId === 'PleaseSetUp') {
-        chrome.runtime.openOptionsPage();
+        browser.runtime.openOptionsPage();
       }
     });
 
-    chrome.notifications.onButtonClicked.addListener(function (
+    browser.notifications.onButtonClicked.addListener(function (
       notifId,
       btnIdx
     ) {
       if (notifId === 'PleaseSetUp') {
-        chrome.runtime.openOptionsPage();
+        browser.runtime.openOptionsPage();
       }
     });
   } catch (e) {
@@ -108,7 +108,7 @@ function setupNotifications() {
 function checkConfigured() {
   storageGetSync('userSettings').then((data) => {
     if (!data.userSettings) {
-      chrome.notifications.create('PleaseSetUp', {
+      browser.notifications.create('PleaseSetUp', {
         title: 'Лагідна Українізація',
         message:
           'Вкажіть, які мови ви хочете бачити більше в Інтернет, будь ласка. Натисніть на це повідомлення',
