@@ -10,12 +10,22 @@ const webpack = require('webpack'),
 
 if (!env.NODE_ENV) env.NODE_ENV = 'development';
 
+var PACKAGE = require('./package.json');
+
 require('dotenv').config({
   path: __dirname + '/.env.' + env.NODE_ENV,
 });
 const DotenvPlugin = require('webpack-dotenv-plugin');
 
 var fileExtensions = ['css', 'jpg', 'jpeg', 'png', 'gif', 'svg', 'ttf'];
+var manifest;
+if (process.env.FIREFOX) {
+  manifest = 'manifest.firefox.json';
+} else if (process.env.CHROME) {
+  manifest = 'manifest.chrome.json';
+} else {
+  throw Error('FIREFOX or CHROME env variable has to be defined');
+}
 
 var options = {
   mode: process.env.NODE_ENV || 'development',
@@ -38,7 +48,15 @@ var options = {
       {
         test: /\.(js)$/,
         exclude: /node_modules/,
-        use: ['babel-loader'],
+        use: [
+          'babel-loader',
+          {
+            loader: 'ifdef-loader',
+            options: {
+              PLATFORM: 'FIREFOX',
+            },
+          },
+        ],
       },
       {
         test: new RegExp('.(' + fileExtensions.join('|') + ')$'),
@@ -66,11 +84,11 @@ var options = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: './src/manifest.json',
+          from: './src/' + manifest,
           to: './manifest.json',
           transform(content) {
             const json = JSON.parse(content);
-            delete json['browser_specific_settings'];
+            json.version = PACKAGE.version;
             if (env.NODE_ENV !== 'development') {
               return JSON.stringify(json, undefined, 2);
             }

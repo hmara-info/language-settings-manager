@@ -17,7 +17,7 @@ jobs:
         node-version: '12'
         check-latest: true
     - run: npm install --production
-    - run: npm run stage
+    - run: CHROME=1 npm run stage
     - run: |
         sed --in-place 's/"name": "\(.*\)"/"name": "\1 - QA version"/' build/manifest.json
     - run: zip -r language-settings-manager.stage.zip build/*
@@ -30,9 +30,9 @@ jobs:
         client-secret: '${{ secrets.CHROME_WEBSTORE_CLIENT_SECRET }}'
         file-name: './language-settings-manager.stage.zip'
         app-id: 'kbigminlcdmikfhdkfjcmocnjhkikhpp'
-        publish: true
+        publish: false
     - run: rm -r build/*
-    - run: npm run prod
+    - run: CHROME=1 npm run prod
     - run: zip -r language-settings-manager.prod.zip build/*
     - uses: Passiverecords/chrome-extension-upload-action@1.4.1
       name: Release Prod
@@ -44,6 +44,18 @@ jobs:
         file-name: './language-settings-manager.prod.zip'
         app-id: 'eipobogihmlkhppcgkcgcocccpcjcegj'
         publish: false
+    - run: rm -r build/*
+    - run: FIREFOX=1 npm run prod
+    - run: cd build && zip -r language-settings-manager.prod.xpi * && cd ..
+    - uses: trmcnvn/firefox-addon@v1
+      with:
+        # uuid is only necessary when updating an existing addon,
+        # omitting it will create a new addon
+        uuid: '{0d2e7142-9bce-4a7e-9ff9-19251eee83ec}'
+        xpi: build/language-settings-manager.prod.xpi
+        manifest: manifest.json
+        api-key: ${{ secrets.FIREFOX_API_KEY }}
+        api-secret: ${{ secrets.FIREFOX_API_SECRET }}
     - name: Get current version
       id: version
       run: echo "::set-output name=version::v"$(jq -r .version build/manifest.json)

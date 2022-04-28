@@ -1,7 +1,7 @@
 import { sendEvent, reportError } from './networking';
 import { storageGetSync, storageGet } from './util';
 import browser from 'webextension-polyfill';
-import syncLanguagesConfig from './google-rewrite';
+import setupGoogleRewrite from './google-rewrite';
 
 let config;
 
@@ -121,9 +121,7 @@ function checkConfigured() {
         ],
       });
     } else {
-      syncLanguagesConfig().then(function () {
-        // console.log('Synced config');
-      });
+      setupGoogleRewrite();
     }
   });
 }
