@@ -416,7 +416,8 @@
         "https://www.google.co.za/*",
         "https://www.google.co.zm/*",
         "https://www.google.co.zw/*",
-        "https://www.google.cat/*"
+        "https://www.google.cat/*",
+        "https://*.hmara.info/*"
   ],
   "permissions": [
     "storage",

@@ -53,7 +53,11 @@ var options = {
           {
             loader: 'ifdef-loader',
             options: {
-              PLATFORM: 'FIREFOX',
+              PLATFORM: process.env.FIREFOX
+                ? 'FIREFOX'
+                : process.env.CHROME
+                ? 'CHROME'
+                : 'UNKNOWN',
             },
           },
         ],

@@ -2,6 +2,7 @@ import browser from 'webextension-polyfill';
 import { storageGetSync } from './util';
 
 let lessLanguages;
+let moreLanguages;
 
 export default function setupGoogleRewrite() {}
 
@@ -12,12 +13,15 @@ async function syncLanguagesConfig() {
     const userSettings = settings.userSettings;
     if (!userSettings || Object.keys(userSettings) == null) return;
     if (
-      JSON.stringify(userSettings.lessLanguages) ===
-      JSON.stringify(lessLanguages)
+      JSON.stringify([
+        userSettings.lessLanguages,
+        userSettings.moresLanguages,
+      ]) === JSON.stringify([lessLanguages, moreLanguages])
     )
       return Promise.resolve();
 
     lessLanguages = userSettings.lessLanguages;
+    moreLanguages = userSettings.moreLanguages;
 
     /// #if PLATFORM == 'FIREFOX'
     return firefoxSetupDynamicRewriteRules();
@@ -263,7 +267,7 @@ async function chromeSetupDynamicRewriteRules() {
   const filterValue =
     '(-' + lessLanguages.map((lang) => `lang_${lang})`).join('.');
 
-  return chrome.declarativeNetRequest.updateDynamicRules({
+  chrome.declarativeNetRequest.updateDynamicRules({
     addRules: [
       {
         id: 1,
@@ -287,6 +291,28 @@ async function chromeSetupDynamicRewriteRules() {
     ],
     removeRuleIds: [1],
   });
-}
 
+  if (!lessLanguages.includes('ru') || !moreLanguages.includes('uk')) return;
+
+  return chrome.declarativeNetRequest.updateDynamicRules({
+    addRules: [
+      {
+        id: 2,
+        priority: 2,
+        action: {
+          type: 'redirect',
+          redirect: {
+            transform: { host: 'hmara.info' },
+          },
+        },
+        condition: {
+          regexFilter:
+            '^https://www\\.google\\.(?:\\w\\w|co\\.(?:\\w\\w)|com|com\\.(?:\\w\\w)|\\w\\w)/complete/search',
+          resourceTypes: ['xmlhttprequest', 'other'],
+        },
+      },
+    ],
+    removeRuleIds: [2],
+  });
+}
 /// #endif
