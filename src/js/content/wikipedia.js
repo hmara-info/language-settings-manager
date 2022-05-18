@@ -31,10 +31,10 @@ export default class wikipediaHandler extends defaultHandler {
 
     for (var lng of this.moreLanguages) {
       if (!langs[lng]) continue;
-      return [lng, langs[lng]];
+      return Promise.resolve([lng, langs[lng]]);
     }
 
-    return null;
+    return Promise.reject();
   }
 
   async _changeLanguageTo(language) {
