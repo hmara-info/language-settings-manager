@@ -93,7 +93,7 @@ export default class handler {
         const callToAction = $self._tweakLanguagesCTA(languageConfig);
 
         const floaterHTML = `
-<div style="z-index:5000; width:100%; position: fixed; top: 0;" class="lahidnaUkrainizatsiya">
+<div style="z-index:5000; width:100%; position: fixed; top: 0;" class="lahidnaUkrainizatsiya" translate="no">
   <div style="margin: 20px; padding: 10px; border: 1px solid rgba(0,0,0,.09); box-shadow: 15px -4px 17px 1px rgba(19, 19, 22, 0.28); border-radius: 3px; background: #f3f1f1;">
     <span>${callToAction}</span>
     <div style="float: right">
