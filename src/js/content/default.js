@@ -4,6 +4,7 @@ const promptsFrequency = {
   slow: 7 * 60 * 60 * 1000,
   gentle: 1 * 60 * 60 * 1000,
   fast: 1 * 60 * 1000,
+  immediately: 1 * 60 * 1000,
 };
 
 export default class handler {

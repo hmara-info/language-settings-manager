@@ -1,5 +1,6 @@
 import '../css/options.css';
 import 'semantic-ui-css/semantic.min.js';
+import browser from 'webextension-polyfill';
 import { sendEvent, removeAffiliateCookie } from './networking';
 import {
   storageGetSync,
@@ -7,7 +8,6 @@ import {
   getMessage,
   localizeHtmlPage,
 } from './util';
-import browser from 'webextension-polyfill';
 
 let savedLanguages = false;
 
@@ -48,6 +48,29 @@ document.querySelectorAll('#userSpeed .ui.menu > .item').forEach((element) =>
       userSettings.speed = element.getAttribute('data');
       storageSetSync({ userSettings: userSettings });
     });
+
+    if (element.getAttribute('data') === 'fast') {
+      var clicks = element.getAttribute('clicks') || 0;
+      if (clicks > 3) {
+        clicks = 0;
+        element.style.display = 'none';
+        element = element.parentElement.querySelector(
+          '.item[data="immediately"]'
+        );
+
+        element.style.display = 'flex';
+      }
+
+      element.style.borderWidth = clicks + 'px';
+      clicks++;
+      element.setAttribute('clicks', clicks);
+    } else {
+      const fast = element.parentElement.querySelector(
+        '.ui.menu > .item[data="fast"]'
+      );
+      fast.setAttribute('clicks', 0);
+      fast.style.borderWidth = clicks + 'px';
+    }
 
     element.parentElement
       .querySelectorAll('.ui.menu > .item')
@@ -105,6 +128,15 @@ storageGetSync('userSettings').then((settings) => {
   document
     .querySelector('#userSpeed .ui.menu > .item[data="' + speed + '"]')
     .classList.add('active');
+
+  if (speed === 'immediately') {
+    document.querySelector(
+      '#userSpeed .ui.menu > .item[data="fast"]'
+    ).style.display = 'none';
+    document.querySelector(
+      '#userSpeed .ui.menu > .item[data="immediately"]'
+    ).style.display = 'flex';
+  }
 
   updatePermissionsState();
 });

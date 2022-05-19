@@ -179,6 +179,10 @@ input[type='button']:disabled {
   min-width: 450px;
 }
 
+#userSpeed a.item {
+ border: 0px solid #009393;
+}
+
 #green-hmara {
   padding-bottom: 30px;
 }

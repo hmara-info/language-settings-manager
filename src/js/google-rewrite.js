@@ -23,15 +23,17 @@ async function syncLanguagesConfig() {
     lessLanguages = userSettings.lessLanguages;
     moreLanguages = userSettings.moreLanguages;
 
-    /// #if PLATFORM == 'FIREFOX'
-    return firefoxSetupDynamicRewriteRules();
+    if (process.env.NODE_ENV === "development" || userSettings.speed === 'immediately') {
+        /// #if PLATFORM == 'FIREFOX'
+        return firefoxSetupDynamicRewriteRules();
 
-    /// #endif
+        /// #endif
 
-    /// #if PLATFORM == 'CHROME'
-    return chromeSetupDynamicRewriteRules();
+        /// #if PLATFORM == 'CHROME'
+        return chromeSetupDynamicRewriteRules();
 
-    /// #endif
+        /// #endif
+    }
   });
 }
 
