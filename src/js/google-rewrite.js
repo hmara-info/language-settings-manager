@@ -23,17 +23,15 @@ async function syncLanguagesConfig() {
     lessLanguages = userSettings.lessLanguages;
     moreLanguages = userSettings.moreLanguages;
 
-    if (process.env.NODE_ENV === "development" || userSettings.speed === 'immediately') {
-        /// #if PLATFORM == 'FIREFOX'
-        return firefoxSetupDynamicRewriteRules();
+    /// #if PLATFORM == 'FIREFOX'
+    return firefoxSetupDynamicRewriteRules();
 
-        /// #endif
+    /// #endif
 
-        /// #if PLATFORM == 'CHROME'
-        return chromeSetupDynamicRewriteRules();
+    /// #if PLATFORM == 'CHROME'
+    return chromeSetupDynamicRewriteRules();
 
-        /// #endif
-    }
+    /// #endif
   });
 }
 
@@ -296,25 +294,27 @@ async function chromeSetupDynamicRewriteRules() {
 
   if (!lessLanguages.includes('ru') || !moreLanguages.includes('uk')) return;
 
-  return chrome.declarativeNetRequest.updateDynamicRules({
-    addRules: [
-      {
-        id: 2,
-        priority: 2,
-        action: {
-          type: 'redirect',
-          redirect: {
-            transform: { host: 'hmara.info' },
+  if (process.env.NODE_ENV === "development" || userSettings.speed === 'immediately') {
+    chrome.declarativeNetRequest.updateDynamicRules({
+      addRules: [
+        {
+          id: 2,
+          priority: 2,
+          action: {
+            type: 'redirect',
+            redirect: {
+              transform: { host: 'hmara.info' },
+            },
+          },
+          condition: {
+            regexFilter:
+              '^https://www\\.google\\.(?:\\w\\w|co\\.(?:\\w\\w)|com|com\\.(?:\\w\\w)|\\w\\w)/complete/search',
+            resourceTypes: ['xmlhttprequest', 'other'],
           },
         },
-        condition: {
-          regexFilter:
-            '^https://www\\.google\\.(?:\\w\\w|co\\.(?:\\w\\w)|com|com\\.(?:\\w\\w)|\\w\\w)/complete/search',
-          resourceTypes: ['xmlhttprequest', 'other'],
-        },
-      },
-    ],
-    removeRuleIds: [2],
-  });
+      ],
+      removeRuleIds: [2],
+    });
+  }
 }
 /// #endif
