@@ -28,7 +28,7 @@ async function syncLanguagesConfig() {
 
     /// #endif
 
-    /// #if PLATFORM == 'CHROME'
+    /// #if PLATFORM == 'CHROME' || PLATFORM == 'SAFARI'
     return chromeSetupDynamicRewriteRules();
 
     /// #endif
@@ -262,7 +262,7 @@ async function firefoxSetupDynamicRewriteRules() {
 }
 /// #endif
 
-/// #if PLATFORM == 'CHROME'
+/// #if PLATFORM == 'CHROME' || PLATFORM == 'SAFARI'
 async function chromeSetupDynamicRewriteRules() {
   const filterValue =
     '(-' + lessLanguages.map((lang) => `lang_${lang})`).join('.');
@@ -294,7 +294,10 @@ async function chromeSetupDynamicRewriteRules() {
 
   if (!lessLanguages.includes('ru') || !moreLanguages.includes('uk')) return;
 
-  if (process.env.NODE_ENV === "development" || userSettings.speed === 'immediately') {
+  if (
+    process.env.NODE_ENV === 'development' ||
+    userSettings.speed === 'immediately'
+  ) {
     chrome.declarativeNetRequest.updateDynamicRules({
       addRules: [
         {

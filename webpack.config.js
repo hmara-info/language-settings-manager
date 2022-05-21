@@ -23,8 +23,10 @@ if (process.env.FIREFOX) {
   manifest = 'manifest.firefox.json';
 } else if (process.env.CHROME) {
   manifest = 'manifest.chrome.json';
+} else if (process.env.SAFARI) {
+  manifest = 'manifest.safari.json';
 } else {
-  throw Error('FIREFOX or CHROME env variable has to be defined');
+  throw Error('FIREFOX, CHROME or SAFARI env variable has to be defined');
 }
 
 var options = {
@@ -57,6 +59,8 @@ var options = {
                 ? 'FIREFOX'
                 : process.env.CHROME
                 ? 'CHROME'
+                : process.env.SAFARI
+                ? 'SAFARI'
                 : 'UNKNOWN',
             },
           },
