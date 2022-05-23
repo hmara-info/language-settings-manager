@@ -12,7 +12,8 @@
     "safari:build-xcode": "xcodebuild -project 'safari/Language-settings-manager/Language-settings-manager.xcodeproj'",
     "safari:launch-app": "open 'safari/Language-settings-manager/build/Release/Language-settings-manager.app'",
     "safari:start": "npm run safari:convert && npm run safari:build-xcode && npm run safari:launch-app",
-    "safari:dev": "npm run safari:start && chokidar \"build\" -c \"npm run safari:build-xcode\""
+    "safari:watch-xcode": "chokidar \"build\" -c \"npm run safari:build-xcode\"",
+    "safari:dev": "npm run safari:start && npm run safari:watch-xcode"
   },
   "devDependencies": {
     "chai": "^4.2.0",
