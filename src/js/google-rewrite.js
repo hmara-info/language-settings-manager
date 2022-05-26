@@ -27,12 +27,8 @@ async function syncLanguagesConfig() {
     return firefoxSetupDynamicRewriteRules(userSettings);
     /// #endif
 
-    /// #if PLATFORM == 'CHROME'
+    /// #if PLATFORM == 'CHROME' || PLATFORM == 'SAFARI'
     return chromeSetupDynamicRewriteRules(userSettings);
-    /// #endif
-
-    /// #if PLATFORM == 'SAFARI'
-    return safariSetupDynamicRewriteRules(userSettings);
     /// #endif
   });
 }
@@ -264,7 +260,7 @@ async function firefoxSetupDynamicRewriteRules() {
 }
 /// #endif
 
-/// #if PLATFORM == 'CHROME'
+/// #if PLATFORM == 'CHROME' || PLATFORM == 'SAFARI'
 async function chromeSetupDynamicRewriteRules(userSettings) {
   const filterValue =
     '(-' + lessLanguages.map((lang) => `lang_${lang})`).join('.');
@@ -285,7 +281,8 @@ async function chromeSetupDynamicRewriteRules(userSettings) {
           },
         },
         condition: {
-          regexFilter: 'google\\.(\\w\\w|co\\.(\\w\\w)|com|com\\.(\\w\\w)|\\w\\w)/search',
+          regexFilter:
+            '^https://(?:www\\.)?google\\.(\\w\\w|co\\.(\\w\\w)|com|com\\.(\\w\\w)|\\w\\w)/search',
           resourceTypes: ['main_frame'],
         },
       },
@@ -322,35 +319,3 @@ async function chromeSetupDynamicRewriteRules(userSettings) {
   }
 }
 /// #endif
-
-/// #if PLATFORM == 'SAFARI'
-async function safariSetupDynamicRewriteRules() {
-  const filterValue =
-    '(-' + lessLanguages.map((lang) => `lang_${lang})`).join('.');
-
-  browser.declarativeNetRequest.updateDynamicRules({
-    addRules: [
-      {
-        id: 1,
-        priority: 1,
-        action: {
-          type: 'redirect',
-          redirect: {
-            transform: {
-              queryTransform: {
-                addOrReplaceParams: [{ key: 'lr', value: filterValue }],
-              },
-            },
-          },
-        },
-        condition: {
-          regexFilter: '.*/search.*', // TODO: Fix me
-          resourceTypes: ['main_frame'],
-        },
-      },
-    ],
-    removeRuleIds: [1],
-  });
-}
-/// #endif
-
