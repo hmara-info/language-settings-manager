@@ -15,7 +15,7 @@
 		026E2FDD283B0C12003BDF75 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026E2FDC283B0C12003BDF75 /* ViewController.swift */; };
 		026E2FE0283B0C12003BDF75 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 026E2FDE283B0C12003BDF75 /* Main.storyboard */; };
 		026E2FE2283B0C14003BDF75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 026E2FE1283B0C14003BDF75 /* Assets.xcassets */; };
-		026E2FEB283B0C15003BDF75 /* Language-settings-manager Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 026E2FEA283B0C15003BDF75 /* Language-settings-manager Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		026E2FEB283B0C15003BDF75 /* Лагідна Українізація Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 026E2FEA283B0C15003BDF75 /* Лагідна Українізація Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		026E2FF0283B0C15003BDF75 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026E2FEF283B0C15003BDF75 /* SafariWebExtensionHandler.swift */; };
 		026E300D283B0C15003BDF75 /* semantic.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 026E2FFD283B0C15003BDF75 /* semantic.min.css */; };
 		026E300E283B0C15003BDF75 /* popup.html in Resources */ = {isa = PBXBuildFile; fileRef = 026E2FFE283B0C15003BDF75 /* popup.html */; };
@@ -52,7 +52,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				026E2FEB283B0C15003BDF75 /* Language-settings-manager Extension.appex in Embed App Extensions */,
+				026E2FEB283B0C15003BDF75 /* Лагідна Українізація Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -60,7 +60,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		026E2FCD283B0C12003BDF75 /* Language-settings-manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Language-settings-manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		026E2FCD283B0C12003BDF75 /* Лагідна Українізація.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Лагідна Українізація.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		026E2FD0283B0C12003BDF75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		026E2FD4283B0C12003BDF75 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../Base.lproj/Main.html; sourceTree = "<group>"; };
 		026E2FD6283B0C12003BDF75 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -72,7 +72,7 @@
 		026E2FE3283B0C14003BDF75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		026E2FE4283B0C14003BDF75 /* Language_settings_manager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Language_settings_manager.entitlements; sourceTree = "<group>"; };
 		026E2FE5283B0C14003BDF75 /* Language-settings-manager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Language-settings-manager.entitlements"; sourceTree = "<group>"; };
-		026E2FEA283B0C15003BDF75 /* Language-settings-manager Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Language-settings-manager Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		026E2FEA283B0C15003BDF75 /* Лагідна Українізація Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Лагідна Українізація Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		026E2FEF283B0C15003BDF75 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
 		026E2FF1283B0C15003BDF75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		026E2FF2283B0C15003BDF75 /* Language_settings_manager_Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Language_settings_manager_Extension.entitlements; sourceTree = "<group>"; };
@@ -124,8 +124,8 @@
 		026E2FCE283B0C12003BDF75 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				026E2FCD283B0C12003BDF75 /* Language-settings-manager.app */,
-				026E2FEA283B0C15003BDF75 /* Language-settings-manager Extension.appex */,
+				026E2FCD283B0C12003BDF75 /* Лагідна Українізація.app */,
+				026E2FEA283B0C15003BDF75 /* Лагідна Українізація Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -194,9 +194,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		026E2FCC283B0C12003BDF75 /* Language-settings-manager */ = {
+		026E2FCC283B0C12003BDF75 /* Лагідна Українізація */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 026E2FF9283B0C15003BDF75 /* Build configuration list for PBXNativeTarget "Language-settings-manager" */;
+			buildConfigurationList = 026E2FF9283B0C15003BDF75 /* Build configuration list for PBXNativeTarget "Лагідна Українізація" */;
 			buildPhases = (
 				026E2FC9283B0C12003BDF75 /* Sources */,
 				026E2FCA283B0C12003BDF75 /* Frameworks */,
@@ -208,14 +208,14 @@
 			dependencies = (
 				026E2FED283B0C15003BDF75 /* PBXTargetDependency */,
 			);
-			name = "Language-settings-manager";
+			name = "Лагідна Українізація";
 			productName = "Language-settings-manager";
-			productReference = 026E2FCD283B0C12003BDF75 /* Language-settings-manager.app */;
+			productReference = 026E2FCD283B0C12003BDF75 /* Лагідна Українізація.app */;
 			productType = "com.apple.product-type.application";
 		};
-		026E2FE9283B0C15003BDF75 /* Language-settings-manager Extension */ = {
+		026E2FE9283B0C15003BDF75 /* Лагідна Українізація Extension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 026E2FF5283B0C15003BDF75 /* Build configuration list for PBXNativeTarget "Language-settings-manager Extension" */;
+			buildConfigurationList = 026E2FF5283B0C15003BDF75 /* Build configuration list for PBXNativeTarget "Лагідна Українізація Extension" */;
 			buildPhases = (
 				026E2FE6283B0C15003BDF75 /* Sources */,
 				026E2FE7283B0C15003BDF75 /* Frameworks */,
@@ -225,9 +225,9 @@
 			);
 			dependencies = (
 			);
-			name = "Language-settings-manager Extension";
+			name = "Лагідна Українізація Extension";
 			productName = "Language-settings-manager Extension";
-			productReference = 026E2FEA283B0C15003BDF75 /* Language-settings-manager Extension.appex */;
+			productReference = 026E2FEA283B0C15003BDF75 /* Лагідна Українізація Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -248,7 +248,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 026E2FC8283B0C12003BDF75 /* Build configuration list for PBXProject "Language-settings-manager" */;
+			buildConfigurationList = 026E2FC8283B0C12003BDF75 /* Build configuration list for PBXProject "Лагідна Українізація" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -261,8 +261,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				026E2FCC283B0C12003BDF75 /* Language-settings-manager */,
-				026E2FE9283B0C15003BDF75 /* Language-settings-manager Extension */,
+				026E2FCC283B0C12003BDF75 /* Лагідна Українізація */,
+				026E2FE9283B0C15003BDF75 /* Лагідна Українізація Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -329,7 +329,7 @@
 /* Begin PBXTargetDependency section */
 		026E2FED283B0C15003BDF75 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 026E2FE9283B0C15003BDF75 /* Language-settings-manager Extension */;
+			target = 026E2FE9283B0C15003BDF75 /* Лагідна Українізація Extension */;
 			targetProxy = 026E2FEC283B0C15003BDF75 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -541,6 +541,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Language-settings-manager/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Language-settings-manager";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -577,6 +578,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Language-settings-manager/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Language-settings-manager";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -602,7 +604,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		026E2FC8283B0C12003BDF75 /* Build configuration list for PBXProject "Language-settings-manager" */ = {
+		026E2FC8283B0C12003BDF75 /* Build configuration list for PBXProject "Лагідна Українізація" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				026E2FF3283B0C15003BDF75 /* Debug */,
@@ -611,7 +613,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		026E2FF5283B0C15003BDF75 /* Build configuration list for PBXNativeTarget "Language-settings-manager Extension" */ = {
+		026E2FF5283B0C15003BDF75 /* Build configuration list for PBXNativeTarget "Лагідна Українізація Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				026E2FF6283B0C15003BDF75 /* Debug */,
@@ -620,7 +622,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		026E2FF9283B0C15003BDF75 /* Build configuration list for PBXNativeTarget "Language-settings-manager" */ = {
+		026E2FF9283B0C15003BDF75 /* Build configuration list for PBXNativeTarget "Лагідна Українізація" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				026E2FFA283B0C15003BDF75 /* Debug */,
