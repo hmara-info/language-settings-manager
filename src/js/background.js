@@ -108,18 +108,22 @@ function setupNotifications() {
 function checkConfigured() {
   storageGetSync('userSettings').then((data) => {
     if (!data.userSettings) {
-      browser.notifications.create('PleaseSetUp', {
-        title: 'Лагідна Українізація',
-        message:
-          'Вкажіть, які мови ви хочете бачити більше в Інтернет, будь ласка. Натисніть на це повідомлення',
-        iconUrl: '/icon-128.png',
-        type: 'basic',
-        buttons: [
-          {
-            title: 'Перейти до налаштуваннь',
-          },
-        ],
-      });
+      try {
+        browser.notifications.create('PleaseSetUp', {
+          title: 'Лагідна Українізація',
+          message:
+            'Вкажіть, які мови ви хочете бачити більше в Інтернет, будь ласка. Натисніть на це повідомлення',
+          iconUrl: '/icon-128.png',
+          type: 'basic',
+          buttons: [
+            {
+              title: 'Перейти до налаштуваннь',
+            },
+          ],
+        });
+      } catch (e) {
+        console.log('Failed to create notification', e);
+      }
     } else {
       setupGoogleRewrite();
     }

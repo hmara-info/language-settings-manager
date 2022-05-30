@@ -24,13 +24,11 @@ async function syncLanguagesConfig() {
     moreLanguages = userSettings.moreLanguages;
 
     /// #if PLATFORM == 'FIREFOX'
-    return firefoxSetupDynamicRewriteRules();
-
+    return firefoxSetupDynamicRewriteRules(userSettings);
     /// #endif
 
     /// #if PLATFORM == 'CHROME' || PLATFORM == 'SAFARI'
-    return chromeSetupDynamicRewriteRules();
-
+    return chromeSetupDynamicRewriteRules(userSettings);
     /// #endif
   });
 }
@@ -263,11 +261,11 @@ async function firefoxSetupDynamicRewriteRules() {
 /// #endif
 
 /// #if PLATFORM == 'CHROME' || PLATFORM == 'SAFARI'
-async function chromeSetupDynamicRewriteRules() {
+async function chromeSetupDynamicRewriteRules(userSettings) {
   const filterValue =
     '(-' + lessLanguages.map((lang) => `lang_${lang})`).join('.');
 
-  chrome.declarativeNetRequest.updateDynamicRules({
+  browser.declarativeNetRequest.updateDynamicRules({
     addRules: [
       {
         id: 1,
@@ -284,7 +282,7 @@ async function chromeSetupDynamicRewriteRules() {
         },
         condition: {
           regexFilter:
-            'google\\.(\\w\\w|co\\.(\\w\\w)|com|com\\.(\\w\\w)|\\w\\w)/search',
+            '^https://(?:www\\.)?google\\.(\\w\\w|co\\.(\\w\\w)|com|com\\.(\\w\\w)|\\w\\w)/search',
           resourceTypes: ['main_frame'],
         },
       },
@@ -298,7 +296,7 @@ async function chromeSetupDynamicRewriteRules() {
     process.env.NODE_ENV === 'development' ||
     userSettings.speed === 'immediately'
   ) {
-    chrome.declarativeNetRequest.updateDynamicRules({
+    browser.declarativeNetRequest.updateDynamicRules({
       addRules: [
         {
           id: 2,
