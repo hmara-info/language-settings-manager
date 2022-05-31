@@ -1,16 +1,23 @@
 {
   "name": "language-settings-manager",
-  "version": "0.0.9",
+  "version": "0.1.1",
   "description": "Лагідна Українізація",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack --mode development --verbose",
     "stage": "cross-env NODE_ENV=stage webpack --mode production  --verbose",
     "prod": "cross-env NODE_ENV=production webpack --mode production --verbose",
     "tests": "./node_modules/mocha/bin/mocha --require @babel/register --timeout 15000 --reporter nyan tests",
-    "format": "prettier-eslint --write $PWD/'src/**/*.js' $PWD/'tests/**/*.js'"
+    "format": "prettier-eslint --write $PWD/'src/**/*.js' $PWD/'tests/**/*.js'",
+    "safari:convert": "xcrun safari-web-extension-converter --force --no-prompt --no-open --macos-only --bundle-identifier info.hmara.language-settings-manager --app-name Language-settings-manager --project-location safari build",
+    "safari:build-xcode": "xcodebuild -project 'safari/Language-settings-manager/Language-settings-manager.xcodeproj'",
+    "safari:launch-app": "open 'safari/Language-settings-manager/build/Release/Language-settings-manager.app'",
+    "safari:start": "npm run safari:convert && npm run safari:build-xcode && npm run safari:launch-app",
+    "safari:watch-xcode": "chokidar \"build\" -c \"npm run safari:build-xcode\"",
+    "safari:dev": "npm run safari:start && npm run safari:watch-xcode"
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "chokidar-cli": "^3.0.0",
     "eslint": "^7.4.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
