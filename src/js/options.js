@@ -251,7 +251,7 @@ function saveAllLangPrefs(e) {
     });
 }
 
-function saveLangChoice(e) {
+async function saveLangChoice(e) {
   const moreLanguagesPreference = getMoreLanguagesPreference();
   const lessLanguagesPreference = getLessLanguagesPreference();
   const is_18 = document.querySelector(
@@ -265,6 +265,11 @@ function saveLangChoice(e) {
       .checked
       ? true
       : false;
+
+  if (!moreLanguagesPreference.length) {
+    alert(getMessage('no_language_selected_err'));
+    return Promise.reject();
+  }
 
   return storageGetSync('userSettings')
     .then((data) => {
