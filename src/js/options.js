@@ -9,7 +9,20 @@ import {
   localizeHtmlPage,
 } from './util';
 
-let savedLanguages = false;
+let onboarding = true;
+
+// Getters
+const getMoreLanguagesPreference = () =>
+  document
+    .querySelector('input#moreLanguages')
+    .value.split(/,/)
+    .filter((lang) => lang.length > 0);
+
+const getLessLanguagesPreference = () =>
+  document
+    .querySelector('input#lessLanguages')
+    .value.split(/,/)
+    .filter((lang) => lang.length > 0);
 
 localizeHtmlPage();
 
@@ -91,7 +104,7 @@ storageGetSync('userSettings').then((settings) => {
   }
 
   // User been here before. Load the config and let them tweak it
-  savedLanguages = true;
+  onboarding = false;
   $('#selectMoreLanguagesForm .ui.dropdown').dropdown(
     'set exactly',
     userSettings.moreLanguages
@@ -191,13 +204,16 @@ function updatePermissionsState() {
 
 function saveMoreLangPrefs(e) {
   e.preventDefault();
-  if (!saveLangChoice()) {
+  const moreLanguagesPreference = getMoreLanguagesPreference();
+
+  if (!moreLanguagesPreference) {
     return;
   }
+
   document.getElementById('wantLessLanguages').classList.remove('hidden');
   document.getElementById('saveMoreLangPrefs').classList.add('hidden');
 
-  if (!savedLanguages) {
+  if (onboarding) {
     document.getElementById('wantLessLanguages').scrollIntoView({
       block: 'start',
       inline: 'nearest',
@@ -220,62 +236,70 @@ function saveLessLangPrefs(e) {
 
 function saveAllLangPrefs(e) {
   e.preventDefault();
-  saveLangChoice();
-  if (!savedLanguages) {
-    document.getElementById('allSavedThankYou').classList.remove('hidden');
-  }
-  savedLanguages = true;
+
+  saveLangChoice().then(() => {
+    // First successful save. Congratulate the user
+    const thankYouId = onboarding
+      ? 'onboardingPermissionFormSuccess'
+      : 'permissionFormSuccess';
+
+    const thankYouElement = document.getElementById(thankYouId);
+    thankYouElement.classList.remove('hidden');
+    thankYouElement.scrollIntoView({
+      block: 'start',
+      inline: 'nearest',
+      behavior: 'smooth',
+    });
+    if (!onboarding) {
+      setTimeout(() => {
+        thankYouElement.classList.add('hidden');
+      }, 1500);
+    }
+  });
 }
 
-function saveLangChoice(e) {
-  const moreLanguages = document
-    .querySelector('input#moreLanguages')
-    .value.split(/,/)
-    .filter((lang) => lang.length > 0);
-
-  const lessLanguages = document
-    .querySelector('input#lessLanguages')
-    .value.split(/,/)
-    .filter((lang) => lang.length > 0);
-
-  if (!moreLanguages.length) {
-    alert(getMessage('no_language_selected_err'));
-    return false;
-  }
-
-  let is_18 = document.querySelector(
+async function saveLangChoice(e) {
+  const moreLanguagesPreference = getMoreLanguagesPreference();
+  const lessLanguagesPreference = getLessLanguagesPreference();
+  const is_18 = document.querySelector(
     '#permissions_form input[name="user_is_18_plus"]'
   ).checked
     ? true
     : false;
-
-  let collect_stats =
+  const collect_stats =
     is_18 &&
     document.querySelector('#permissions_form input[name="collect_stats"]')
       .checked
       ? true
       : false;
 
-  storageGetSync('userSettings').then((data) => {
-    const firstConfigSave = data.userSettings ? false : true;
-    let userSettings = data.userSettings || {};
-    userSettings.moreLanguages = moreLanguages;
-    userSettings.lessLanguages = lessLanguages;
-    userSettings.is_18 = is_18;
-    userSettings.collectStats = collect_stats;
+  if (!moreLanguagesPreference.length) {
+    alert(getMessage('no_language_selected_err'));
+    return Promise.reject();
+  }
 
-    storageSetSync({ userSettings: userSettings });
+  return storageGetSync('userSettings')
+    .then((data) => {
+      const firstConfigSave = data.userSettings ? false : true;
+      const userSettings = data.userSettings || {};
+      userSettings.moreLanguages = moreLanguagesPreference;
+      userSettings.lessLanguages = lessLanguagesPreference;
+      userSettings.is_18 = is_18;
+      userSettings.collectStats = collect_stats;
 
-    if (firstConfigSave) {
-      removeAffiliateCookie();
-    }
+      storageSetSync({ userSettings: userSettings });
 
-    browser.runtime.sendMessage({
-      type: 'savedLanguageChoice',
-      data: userSettings,
+      if (firstConfigSave) {
+        removeAffiliateCookie();
+      }
+
+      browser.runtime.sendMessage({
+        type: 'savedLanguageChoice',
+        data: userSettings,
+      });
+      sendEvent('savedLanguageChoice');
+    })
+    .catch((e) => {
+      console.log('There was an error saving the languages preference', e);
     });
-    sendEvent('savedLanguageChoice');
-  });
-
-  return true;
 }
