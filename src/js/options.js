@@ -247,6 +247,11 @@ function saveAllLangPrefs(e) {
       document
         .getElementById('permissionFormSuccess')
         .classList.remove('hidden');
+      setTimeout(() => {
+        document
+          .getElementById('permissionFormSuccess')
+          .classList.add('hidden');
+      }, 1500);
       savedLanguages = true;
     });
 }

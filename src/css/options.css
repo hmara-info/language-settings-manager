@@ -210,8 +210,18 @@ input[type='button']:disabled {
   margin-top: 30px;
 }
 
-#permissions_form > section {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+#permissionFormSuccess {
+  font-family: sans-serif;
+  font-weight: 500;
+  color: #009393;
+  transition: opacity 1s ease-in-out;
+  opacity: 0.7;
+  display: block;
+  visibility: visible;
+}
+
+#permissionFormSuccess.hidden {
+  transition: opacity 2s ease-in-out;
+  display: block;
+  opacity: 0;
 }
