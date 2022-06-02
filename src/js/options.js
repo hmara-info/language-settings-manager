@@ -9,7 +9,7 @@ import {
   localizeHtmlPage,
 } from './util';
 
-let savedLanguages = false;
+let onboarding = true;
 
 // Getters
 const getMoreLanguagesPreference = () =>
@@ -104,7 +104,7 @@ storageGetSync('userSettings').then((settings) => {
   }
 
   // User been here before. Load the config and let them tweak it
-  savedLanguages = true;
+  onboarding = false;
   $('#selectMoreLanguagesForm .ui.dropdown').dropdown(
     'set exactly',
     userSettings.moreLanguages
@@ -213,7 +213,7 @@ function saveMoreLangPrefs(e) {
   document.getElementById('wantLessLanguages').classList.remove('hidden');
   document.getElementById('saveMoreLangPrefs').classList.add('hidden');
 
-  if (!savedLanguages) {
+  if (onboarding) {
     document.getElementById('wantLessLanguages').scrollIntoView({
       block: 'start',
       inline: 'nearest',
@@ -237,23 +237,25 @@ function saveLessLangPrefs(e) {
 function saveAllLangPrefs(e) {
   e.preventDefault();
 
-  saveLangChoice()
-    .then(() => {
-      if (!savedLanguages) {
-        document.getElementById('allSavedThankYou').classList.remove('hidden');
-      }
-    })
-    .finally(() => {
-      document
-        .getElementById('permissionFormSuccess')
-        .classList.remove('hidden');
-      setTimeout(() => {
-        document
-          .getElementById('permissionFormSuccess')
-          .classList.add('hidden');
-      }, 1500);
-      savedLanguages = true;
+  saveLangChoice().then(() => {
+    // First successful save. Congratulate the user
+    const thankYouId = onboarding
+      ? 'onboardingPermissionFormSuccess'
+      : 'permissionFormSuccess';
+
+    const thankYouElement = document.getElementById(thankYouId);
+    thankYouElement.classList.remove('hidden');
+    thankYouElement.scrollIntoView({
+      block: 'start',
+      inline: 'nearest',
+      behavior: 'smooth',
     });
+    if (!onboarding) {
+      setTimeout(() => {
+        thankYouElement.classList.add('hidden');
+      }, 1500);
+    }
+  });
 }
 
 async function saveLangChoice(e) {
