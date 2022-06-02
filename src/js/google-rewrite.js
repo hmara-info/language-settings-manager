@@ -503,7 +503,7 @@ async function chromeSetupDynamicRewriteRules(userSettings) {
         },
         condition: {
           regexFilter:
-            '^https://(?:www\\.)?google\\.(\\w\\w|co\\.(\\w\\w)|com|com\\.(\\w\\w)|\\w\\w)/search',
+            '^https://(?:www\\.)?google\\.(\\w\\w|co\\.(\\w\\w)|com|com\\.(\\w\\w)|\\w\\w)/search?.*',
           resourceTypes: ['main_frame'],
         },
       },
@@ -527,7 +527,7 @@ async function chromeSetupDynamicRewriteRules(userSettings) {
           },
           condition: {
             regexFilter:
-              '^https://www\\.google\\.(?:\\w\\w|co\\.(?:\\w\\w)|com|com\\.(?:\\w\\w)|\\w\\w)/complete/search',
+              '^https://www\\.google\\.(?:\\w\\w|co\\.(?:\\w\\w)|com|com\\.(?:\\w\\w)|\\w\\w)/complete/search?.*',
             resourceTypes: ['xmlhttprequest', 'other'],
           },
         },
