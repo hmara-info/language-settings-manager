@@ -11,6 +11,17 @@ import {
 
 let savedLanguages = false;
 
+// Getters
+const getMoreLanguagesPreference = () => document
+  .querySelector('input#moreLanguages')
+  .value.split(/,/)
+  .filter((lang) => lang.length > 0);
+
+const getLessLanguagesPreference = () => document
+  .querySelector('input#lessLanguages')
+  .value.split(/,/)
+  .filter((lang) => lang.length > 0);
+
 localizeHtmlPage();
 
 $('#selectMoreLanguagesForm .ui.dropdown').dropdown({
@@ -191,9 +202,12 @@ function updatePermissionsState() {
 
 function saveMoreLangPrefs(e) {
   e.preventDefault();
-  if (!saveLangChoice()) {
+  const moreLanguagesPreference = getMoreLanguagesPreference();
+
+  if (!moreLanguagesPreference) {
     return;
   }
+
   document.getElementById('wantLessLanguages').classList.remove('hidden');
   document.getElementById('saveMoreLangPrefs').classList.add('hidden');
 
@@ -220,47 +234,37 @@ function saveLessLangPrefs(e) {
 
 function saveAllLangPrefs(e) {
   e.preventDefault();
-  saveLangChoice();
-  if (!savedLanguages) {
-    document.getElementById('allSavedThankYou').classList.remove('hidden');
-  }
-  savedLanguages = true;
+
+  saveLangChoice().then(() => {
+    if (!savedLanguages) {
+      document.getElementById('allSavedThankYou').classList.remove('hidden');
+    }
+  }).finally(() => {
+    document.getElementById('permissionFormSuccess').classList.remove('hidden');
+    savedLanguages = true;
+  });
 }
 
 function saveLangChoice(e) {
-  const moreLanguages = document
-    .querySelector('input#moreLanguages')
-    .value.split(/,/)
-    .filter((lang) => lang.length > 0);
-
-  const lessLanguages = document
-    .querySelector('input#lessLanguages')
-    .value.split(/,/)
-    .filter((lang) => lang.length > 0);
-
-  if (!moreLanguages.length) {
-    alert(getMessage('no_language_selected_err'));
-    return false;
-  }
-
-  let is_18 = document.querySelector(
+  const moreLanguagesPreference = getMoreLanguagesPreference();
+  const lessLanguagesPreference = getLessLanguagesPreference();
+  const is_18 = document.querySelector(
     '#permissions_form input[name="user_is_18_plus"]'
   ).checked
     ? true
     : false;
-
-  let collect_stats =
+  const collect_stats =
     is_18 &&
     document.querySelector('#permissions_form input[name="collect_stats"]')
       .checked
       ? true
       : false;
 
-  storageGetSync('userSettings').then((data) => {
+  return storageGetSync('userSettings').then((data) => {
     const firstConfigSave = data.userSettings ? false : true;
-    let userSettings = data.userSettings || {};
-    userSettings.moreLanguages = moreLanguages;
-    userSettings.lessLanguages = lessLanguages;
+    const userSettings = data.userSettings || {};
+    userSettings.moreLanguages = moreLanguagesPreference;
+    userSettings.lessLanguages = lessLanguagesPreference;
     userSettings.is_18 = is_18;
     userSettings.collectStats = collect_stats;
 
@@ -275,7 +279,7 @@ function saveLangChoice(e) {
       data: userSettings,
     });
     sendEvent('savedLanguageChoice');
+  }).catch((e) => {
+    console.log('There was an error saving the languages preference', e)
   });
-
-  return true;
 }

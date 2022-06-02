@@ -209,3 +209,9 @@ input[type='button']:disabled {
 #savePermissions {
   margin-top: 30px;
 }
+
+#permissions_form > section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

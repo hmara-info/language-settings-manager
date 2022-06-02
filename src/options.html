@@ -337,15 +337,22 @@
         </div>
 
         <form id="permissions_form">
-            <div>
-              <input type="checkbox" name="user_is_18_plus" />
-              <label for="user_is_18_plus">Мені 18 або більше</label>
-            </div>
-            <div>
-              <input type="checkbox" name="collect_stats" disabled />
-              <label for="collect_stats">Дозволяю збирати статистику</label> <br />
-            </div>
-          <input type="submit" value="Зберегти" id="saveAllPrefs" class="hidden" />
+          <div>
+            <input type="checkbox" name="user_is_18_plus" />
+            <label for="user_is_18_plus">Мені 18 або більше</label>
+          </div>
+          <div>
+            <input type="checkbox" name="collect_stats" disabled />
+            <label for="collect_stats">Дозволяю збирати статистику</label> <br />
+          </div>
+          <section>
+            <input type="submit" value="Зберегти" id="saveAllPrefs" class="hidden" />
+            <section id="permissionFormSuccess" class="hidden">
+              <p>
+                Зміни збережено
+              </p>
+            </section>
+          </section>
         </form>
       </section>
 
