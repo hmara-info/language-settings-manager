@@ -12,15 +12,17 @@ import {
 let savedLanguages = false;
 
 // Getters
-const getMoreLanguagesPreference = () => document
-  .querySelector('input#moreLanguages')
-  .value.split(/,/)
-  .filter((lang) => lang.length > 0);
+const getMoreLanguagesPreference = () =>
+  document
+    .querySelector('input#moreLanguages')
+    .value.split(/,/)
+    .filter((lang) => lang.length > 0);
 
-const getLessLanguagesPreference = () => document
-  .querySelector('input#lessLanguages')
-  .value.split(/,/)
-  .filter((lang) => lang.length > 0);
+const getLessLanguagesPreference = () =>
+  document
+    .querySelector('input#lessLanguages')
+    .value.split(/,/)
+    .filter((lang) => lang.length > 0);
 
 localizeHtmlPage();
 
@@ -235,14 +237,18 @@ function saveLessLangPrefs(e) {
 function saveAllLangPrefs(e) {
   e.preventDefault();
 
-  saveLangChoice().then(() => {
-    if (!savedLanguages) {
-      document.getElementById('allSavedThankYou').classList.remove('hidden');
-    }
-  }).finally(() => {
-    document.getElementById('permissionFormSuccess').classList.remove('hidden');
-    savedLanguages = true;
-  });
+  saveLangChoice()
+    .then(() => {
+      if (!savedLanguages) {
+        document.getElementById('allSavedThankYou').classList.remove('hidden');
+      }
+    })
+    .finally(() => {
+      document
+        .getElementById('permissionFormSuccess')
+        .classList.remove('hidden');
+      savedLanguages = true;
+    });
 }
 
 function saveLangChoice(e) {
@@ -260,26 +266,28 @@ function saveLangChoice(e) {
       ? true
       : false;
 
-  return storageGetSync('userSettings').then((data) => {
-    const firstConfigSave = data.userSettings ? false : true;
-    const userSettings = data.userSettings || {};
-    userSettings.moreLanguages = moreLanguagesPreference;
-    userSettings.lessLanguages = lessLanguagesPreference;
-    userSettings.is_18 = is_18;
-    userSettings.collectStats = collect_stats;
+  return storageGetSync('userSettings')
+    .then((data) => {
+      const firstConfigSave = data.userSettings ? false : true;
+      const userSettings = data.userSettings || {};
+      userSettings.moreLanguages = moreLanguagesPreference;
+      userSettings.lessLanguages = lessLanguagesPreference;
+      userSettings.is_18 = is_18;
+      userSettings.collectStats = collect_stats;
 
-    storageSetSync({ userSettings: userSettings });
+      storageSetSync({ userSettings: userSettings });
 
-    if (firstConfigSave) {
-      removeAffiliateCookie();
-    }
+      if (firstConfigSave) {
+        removeAffiliateCookie();
+      }
 
-    browser.runtime.sendMessage({
-      type: 'savedLanguageChoice',
-      data: userSettings,
+      browser.runtime.sendMessage({
+        type: 'savedLanguageChoice',
+        data: userSettings,
+      });
+      sendEvent('savedLanguageChoice');
+    })
+    .catch((e) => {
+      console.log('There was an error saving the languages preference', e);
     });
-    sendEvent('savedLanguageChoice');
-  }).catch((e) => {
-    console.log('There was an error saving the languages preference', e)
-  });
 }
