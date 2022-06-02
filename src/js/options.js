@@ -206,7 +206,9 @@ function saveMoreLangPrefs(e) {
   e.preventDefault();
   const moreLanguagesPreference = getMoreLanguagesPreference();
 
-  if (!moreLanguagesPreference) {
+  if (!moreLanguagesPreference.length) {
+    alert(getMessage('no_language_selected_err'));
+
     return;
   }
 
@@ -224,14 +226,15 @@ function saveMoreLangPrefs(e) {
 
 function saveLessLangPrefs(e) {
   e.preventDefault();
-  saveLangChoice();
-  document.getElementById('saveLessLangPrefs').classList.add('hidden');
+  saveLangChoice().then(() => {
+    document.getElementById('saveLessLangPrefs').classList.add('hidden');
 
-  document
-    .getElementById('grantRightsToCollectStats')
-    .classList.remove('hidden');
+    document
+      .getElementById('grantRightsToCollectStats')
+      .classList.remove('hidden');
 
-  document.getElementById('saveAllPrefs').classList.remove('hidden');
+    document.getElementById('saveAllPrefs').classList.remove('hidden');
+  });
 }
 
 function saveAllLangPrefs(e) {
