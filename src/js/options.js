@@ -98,8 +98,11 @@ storageGetSync('userSettings').then((settings) => {
   if (!userSettings.moreLanguages) {
     // This is user's first pass through the config.
     // Reveal settings step by step
-    document.getElementById('saveMoreLangPrefs').classList.remove('hidden');
-    document.getElementById('saveLessLangPrefs').classList.remove('hidden');
+    document
+      .querySelectorAll(
+        '#saveMoreLangPrefs, #saveLessLangPrefs, #saveUserSpeed'
+      )
+      .forEach((e) => e.classList.remove('hidden'));
     return;
   }
 
@@ -168,6 +171,10 @@ document
   .addEventListener('submit', saveLessLangPrefs);
 
 document
+  .getElementById('selectUserSpeed')
+  .addEventListener('submit', saveUserSpeed);
+
+document
   .getElementById('permissions_form')
   .addEventListener('submit', saveAllLangPrefs);
 
@@ -206,34 +213,48 @@ function saveMoreLangPrefs(e) {
   e.preventDefault();
   const moreLanguagesPreference = getMoreLanguagesPreference();
 
-  if (!moreLanguagesPreference.length) {
-    alert(getMessage('no_language_selected_err'));
+  saveLangChoice().then(() => {
+    document.getElementById('wantLessLanguages').classList.remove('hidden');
+    document.getElementById('saveMoreLangPrefs').classList.add('hidden');
 
-    return;
-  }
-
-  document.getElementById('wantLessLanguages').classList.remove('hidden');
-  document.getElementById('saveMoreLangPrefs').classList.add('hidden');
-
-  if (onboarding) {
     document.getElementById('wantLessLanguages').scrollIntoView({
       block: 'start',
       inline: 'nearest',
       behavior: 'smooth',
     });
-  }
+  });
 }
 
 function saveLessLangPrefs(e) {
   e.preventDefault();
   saveLangChoice().then(() => {
     document.getElementById('saveLessLangPrefs').classList.add('hidden');
+    document.getElementById('userSpeed').classList.remove('hidden');
+
+    document.getElementById('saveUserSpeed').scrollIntoView({
+      block: 'start',
+      inline: 'nearest',
+      behavior: 'smooth',
+    });
+  });
+}
+
+function saveUserSpeed(e) {
+  e.preventDefault();
+  saveLangChoice().then(() => {
+    document.getElementById('saveUserSpeed').classList.add('hidden');
 
     document
       .getElementById('grantRightsToCollectStats')
       .classList.remove('hidden');
 
     document.getElementById('saveAllPrefs').classList.remove('hidden');
+
+    document.getElementById('saveAllPrefs').scrollIntoView({
+      block: 'start',
+      inline: 'nearest',
+      behavior: 'smooth',
+    });
   });
 }
 

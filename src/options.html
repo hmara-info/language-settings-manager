@@ -305,24 +305,27 @@
         </form>
       </section>
 
-      <section id="userSpeed">
+      <section id="userSpeed" class="hidden">
         <h2>Крок 3. Швидкість</h2>
         <h3>Як швидко ви хочете українізуватися?</h3>
-        <div class="ui three item  menu"> <!-- pointing -->
-          <a class="item" data="slow">
-            Повільно
-          </a>
-          <a class="item active" data="gentle">
-            Лагідно
-          </a>
-          <a class="item" data="fast">
-            Та українізуйте мене вже!
-          </a>
+        <form id="selectUserSpeed">
+          <div class="ui three item  menu">
+            <a class="item" data="slow">
+              Повільно
+            </a>
+            <a class="item active" data="gentle">
+              Лагідно
+            </a>
+            <a class="item" data="fast">
+              Та українізуйте мене вже!
+            </a>
 
-          <a class="item" data="immediately" style="display:none" clicks="0">
-            Негайно!
-          </a>
-        </div>
+            <a class="item" data="immediately" style="display:none" clicks="0">
+              Негайно!
+            </a>
+          </div>
+          <input type="submit" value="Зберегти" id="saveUserSpeed" class="hidden" />
+        </form>
       </section>
       <section id="grantRightsToCollectStats" class="hidden">
         <h2>Крок 4. Дозволи</h2>
