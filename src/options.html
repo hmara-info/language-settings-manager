@@ -24,9 +24,7 @@
       <section class="intro">
         <img src="img/hmara-green.svg" id="green-hmara" />
         <h2>__MSG_opt_thanks_for_joining__</h2>
-        <p>
-          __MSG_opt_make_internet_speak_your_lang__
-        </p>
+        <p>__MSG_opt_make_internet_speak_your_lang__</p>
         <input type="button" value="Докладніше про проєкт" id="learnMore" />
       </section>
       <section id="wantMoreLanguages">
@@ -36,12 +34,10 @@
         <form id="selectMoreLanguagesForm">
           <div class="ui dropdown labeled search selection multiple">
             <i class="world icon"></i>
-            <span class="text" style="padding-left: 1.6em;">Мови - більше</span>
+            <span class="text" style="padding-left: 1.6em">Мови - більше</span>
             <input id="moreLanguages" name="moreLanguages" type="hidden" />
             <div class="menu">
-              <div class="header">
-                Мови вже підтримуються
-              </div>
+              <div class="header">Мови вже підтримуються</div>
               <div class="item" data-value="uk" data-text="Українська">
                 Українська
               </div>
@@ -49,9 +45,7 @@
                 Qırım tili
               </div>
               <div class="divider"></div>
-              <div class="header">
-                Мови світу, за алфавітом
-              </div>
+              <div class="header">Мови світу, за алфавітом</div>
               <div class="item" data-value="hy" data-text="Հայերեն">
                 Հայերեն
               </div>
@@ -160,15 +154,18 @@
             <i class="dropdown icon"></i>
           </div>
           <br />
-          <input type="submit" value="Зберегти" id="saveMoreLangPrefs" class="hidden" />
+          <input
+            type="submit"
+            value="Зберегти"
+            id="saveMoreLangPrefs"
+            class="hidden"
+          />
         </form>
       </section>
 
       <section id="prefsSavedThankYou" class="hidden">
         <h2>Дякуємо!</h2>
-        <p>
-        Тепер оберіть мови, яких ви хочете бачити менше.
-        </p>
+        <p>Тепер оберіть мови, яких ви хочете бачити менше.</p>
       </section>
 
       <section id="wantLessLanguages" class="hidden">
@@ -177,19 +174,15 @@
         <form id="selectLessLanguagesForm">
           <div class="ui dropdown labeled search selection multiple">
             <i class="world icon"></i>
-            <span class="text" style="padding-left: 1.6em;">Мови - менше</span>
+            <span class="text" style="padding-left: 1.6em">Мови - менше</span>
             <input id="lessLanguages" name="lessLanguages" type="hidden" />
             <div class="menu">
-              <div class="header">
-                Мови вже підтримуються
-              </div>
+              <div class="header">Мови вже підтримуються</div>
               <div class="item" data-value="ru" data-text="Русский">
                 Русский
               </div>
               <div class="divider"></div>
-              <div class="header">
-                Мови світу, за алфавітом
-              </div>
+              <div class="header">Мови світу, за алфавітом</div>
               <div class="item" data-value="ro" data-text="Română">Română</div>
               <div class="item" data-value="hu" data-text="Magyar">Magyar</div>
               <div class="item" data-value="bg" data-text="Български">
@@ -301,25 +294,25 @@
             <i class="dropdown icon"></i>
           </div>
           <br />
-          <input type="submit" value="Зберегти" id="saveLessLangPrefs" class="hidden" />
+          <input
+            type="submit"
+            value="Зберегти"
+            id="saveLessLangPrefs"
+            class="hidden"
+          />
         </form>
       </section>
 
       <section id="userSpeed">
         <h2>Крок 3. Швидкість</h2>
         <h3>Як швидко ви хочете українізуватися?</h3>
-        <div class="ui three item  menu"> <!-- pointing -->
-          <a class="item" data="slow">
-            Повільно
-          </a>
-          <a class="item active" data="gentle">
-            Лагідно
-          </a>
-          <a class="item" data="fast">
-            Та українізуйте мене вже!
-          </a>
+        <div class="ui three item menu">
+          <!-- pointing -->
+          <a class="item" data="slow"> Повільно </a>
+          <a class="item active" data="gentle"> Лагідно </a>
+          <a class="item" data="fast"> Та українізуйте мене вже! </a>
 
-          <a class="item" data="immediately" style="display:none" clicks="0">
+          <a class="item" data="immediately" style="display: none" clicks="0">
             Негайно!
           </a>
         </div>
@@ -327,13 +320,15 @@
       <section id="grantRightsToCollectStats" class="hidden">
         <h2>Крок 4. Дозволи</h2>
         <h3>Вкажіть, чи надаєте ви дозвіл на збирання статистики.</h3>
-        <div style='display: none;'>
-        <p>
-        Ми підтримуємо та оптимізуємо роботи розширення. Для цієї роботи, нам потрібно розуміти, як розширення використовують.
-        </p>
-        <p>
-        Дозвольте збирати статистику використання щоби ми могли робити розширення краще.
-        </p>
+        <div style="display: none">
+          <p>
+            Ми підтримуємо та оптимізуємо роботи розширення. Для цієї роботи,
+            нам потрібно розуміти, як розширення використовують.
+          </p>
+          <p>
+            Дозвольте збирати статистику використання щоби ми могли робити
+            розширення краще.
+          </p>
         </div>
 
         <form id="permissions_form">
@@ -343,13 +338,17 @@
           </div>
           <div>
             <input type="checkbox" name="collect_stats" disabled />
-            <label for="collect_stats">Дозволяю збирати статистику</label> <br />
+            <label for="collect_stats">Дозволяю збирати статистику</label>
+            <br />
           </div>
           <section>
-            <input type="submit" value="Зберегти" id="saveAllPrefs" class="hidden" />
-            <p id="permissionFormSuccess" class="hidden">
-              Зміни збережено 👍
-            </p>
+            <input
+              type="submit"
+              value="Зберегти"
+              id="saveAllPrefs"
+              class="hidden"
+            />
+            <p id="permissionFormSuccess" class="hidden">Зміни збережено 👍</p>
           </section>
         </form>
       </section>
@@ -357,7 +356,8 @@
       <section id="onboardingPermissionFormSuccess" class="hidden">
         <h2>Дякуємо!</h2>
         <p>
-          Чудово! Тепер всі налаштування збережено. Дякуємо, користуєтеся послугами Лагідної Українізації!
+          Чудово! Тепер всі налаштування збережено. Дякуємо, користуєтеся
+          послугами Лагідної Українізації!
         </p>
       </section>
 
@@ -367,7 +367,6 @@
           <input type="button" id="resetSettings" value="Reset" />
         </div>
       </section>
-
     </main>
   </body>
 </html>

@@ -14,8 +14,8 @@
     "32": "icon-32.png"
   },
   "background": {
-      "scripts": ["background.bundle.js"],
-      "persistent": true
+    "scripts": ["background.bundle.js"],
+    "persistent": true
   },
   "default_locale": "uk",
   "content_scripts": [
@@ -218,9 +218,7 @@
         "https://www.google.cat/*",
         "https://*.wikipedia.org/wiki/*"
       ],
-      "js": [
-        "content.bundle.js"
-      ]
+      "js": ["content.bundle.js"]
     }
   ],
   "manifest_version": 2,
