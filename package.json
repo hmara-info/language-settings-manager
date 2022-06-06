@@ -7,7 +7,7 @@
     "stage": "cross-env NODE_ENV=stage webpack --mode production  --verbose",
     "prod": "cross-env NODE_ENV=production webpack --mode production --verbose",
     "tests": "./node_modules/mocha/bin/mocha --require @babel/register --timeout 15000 --reporter nyan tests",
-    "format": "prettier-eslint --write $PWD/'src/**/*.js' $PWD/'tests/**/*.js'",
+    "format": "prettier-eslint --write $PWD/'src/**/*.js' $PWD/'src/**/*.css' $PWD/'src/**/*.html' $PWD/'src/**/*.json' $PWD/'tests/**/*.js'",
     "safari:convert": "xcrun safari-web-extension-converter --force --no-prompt --no-open --macos-only --bundle-identifier info.hmara.language-settings-manager --app-name Language-settings-manager --project-location safari build",
     "safari:build-xcode": "xcodebuild -project 'safari/Language-settings-manager/Language-settings-manager.xcodeproj'",
     "safari:launch-app": "open 'safari/Language-settings-manager/build/Release/Language-settings-manager.app'",
