@@ -119,10 +119,10 @@ storageGetSync('userSettings').then((settings) => {
   );
 
   document
-    .getElementById('grantRightsToCollectStats')
-    .classList.remove('hidden');
-  document.getElementById('wantLessLanguages').classList.remove('hidden');
-  document.getElementById('saveAllPrefs').classList.remove('hidden');
+    .querySelectorAll(
+      '#grantRightsToCollectStats, #wantLessLanguages, #userSpeed, #saveAllPrefs'
+    )
+    .forEach((e) => e.classList.remove('hidden'));
 
   if (userSettings.is_18) {
     document.querySelector(
