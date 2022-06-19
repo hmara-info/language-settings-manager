@@ -16,8 +16,19 @@ $ npm run prod
 Розпакована версія розширення буде зібрана в теці `./build`
 
 
-# Safari
-## Збірка для Safari
+# Збірки для Safari | Safari Workflows
+
+Для Safari додані наступні команди збірок:
+
+## Збірка для релізу | Build for Release
+
+```sh
+$ npm install .
+$ SAFARI=1 npm run prod
+$ npm run safari:build
+```
+
+## Збірка та запуск розширення | Build and open
 
 ```sh
 $ npm install .
@@ -25,7 +36,7 @@ $ SAFARI=1 npm run prod
 $ npm run safari:start
 ```
 
-## Збірка для Safari для неперервної розробки
+## Збірка для неперервної розробки | Development workflow
 
 
 ```sh
@@ -33,18 +44,18 @@ $ npm install .
 $ SAFARI=1 npm run prod -- --watch
 ```
 
-Запускаємо watcher процес у іншому вікні терміналу:
+У іншому вікні терміналу запускаємо:
 
 ```sh
 $ npm run safari:dev
 ```
 
 
-## Процес налаштування розширення:
+## Процес налаштування розширення у Safari:
 
-Додаток буде доданой у Safari, але не функціонуватиме. Потрібно зробити такі додаткові рухи:
+Додаток буде додано у Safari, але він не функціонуватиме. Потрібно зробити наступні додаткові рухи:
 
-- У вікні налаштувань Safari (автоматично відкриється), потрібно активувати розширення. Якщо розширення немає, потрібно [дозволити запуск непідписаних розширень, дивись: Enable Your App Extension in Safari](https://developer.apple.com/documentation/safariservices/safari_app_extensions/building_a_safari_app_extension).
+- У вікні налаштувань Safari (якщо запускати `npm run safari:start`, відкриється автоматично), потрібно активувати розширення. Якщо розширення не висвічується у списку, потрібно [дозволити запуск непідписаних розширень, дивись: Enable Your App Extension in Safari](https://developer.apple.com/documentation/safariservices/safari_app_extensions/building_a_safari_app_extension).
 
 - Пройди процес внутрішнього налаштування ЛУ через параметри розширення (як і в інших браузерах). 
 

@@ -1,19 +1,16 @@
 {
   "name": "language-settings-manager",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Лагідна Українізація",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack --mode development --verbose",
     "stage": "cross-env NODE_ENV=stage webpack --mode production  --verbose",
     "prod": "cross-env NODE_ENV=production webpack --mode production --verbose",
     "tests": "./node_modules/mocha/bin/mocha --require @babel/register --timeout 15000 --reporter nyan tests",
-    "format": "prettier-eslint --write $PWD/'src/**/*.js' $PWD/'tests/**/*.js'",
-    "safari:convert": "xcrun safari-web-extension-converter --force --no-prompt --no-open --macos-only --bundle-identifier info.hmara.language-settings-manager --app-name Language-settings-manager --project-location safari build",
-    "safari:build-xcode": "xcodebuild -project 'safari/Language-settings-manager/Language-settings-manager.xcodeproj'",
-    "safari:launch-app": "open 'safari/Language-settings-manager/build/Release/Language-settings-manager.app'",
-    "safari:start": "npm run safari:convert && npm run safari:build-xcode && npm run safari:launch-app",
-    "safari:watch-xcode": "chokidar \"build\" -c \"npm run safari:build-xcode\"",
-    "safari:dev": "npm run safari:start && npm run safari:watch-xcode"
+    "format": "prettier-eslint --write $PWD/'src/**/*.js' $PWD/'src/**/*.css' $PWD/'src/**/*.html' $PWD/'src/**/*.json' $PWD/'tests/**/*.js'",
+    "safari:build": "xcodebuild -project 'safari/Language-settings-manager/Лагідна Українізація.xcodeproj'",
+    "safari:start": "npm run safari:build && open 'safari/Language-settings-manager/build/Release/Лагідна Українізація.app'",
+    "safari:dev": "npm run safari:start && chokidar \"build\" -c \"npm run safari:build\""
   },
   "devDependencies": {
     "chai": "^4.2.0",
@@ -22,7 +19,8 @@
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "mocha": "^8.0.1",
-    "mocha-logger": "^1.0.6"
+    "mocha-logger": "^1.0.6",
+    "pre-commit": "^1.2.2"
   },
   "dependencies": {
     "@babel/cli": "^7.10.1",
@@ -77,5 +75,8 @@
         "@babel/plugin-proposal-class-properties"
       ]
     ]
-  }
+  },
+  "pre-commit": [
+    "format"
+  ]
 }
