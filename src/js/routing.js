@@ -4,10 +4,13 @@ import googleSearchHandler from './content/google-search';
 import wikipediaHandler from './content/wikipedia';
 import linkedinHandler from './content/linkedin';
 import youtubeHandler from './content/youtube';
+import googleMyaccountHandler from './google-myaccount';
 
 export function dispatch(location, document, moreLanguages, lessLanguages) {
   if (location.hostname.match(/\.facebook.com$/i)) {
     return new facebookHandler(...arguments);
+  } else if (location.hostname.match(/myaccount\.google\.com$/i)) {
+    return new googleMyaccountHandler(...arguments);
   } else if (
     location.hostname.match(
       /(^|\.)google\.(\w\w|co\.(\w\w)|com|com\.(\w\w)|\w\w)$/i
