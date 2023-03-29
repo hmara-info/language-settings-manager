@@ -1,5 +1,9 @@
 import defaultHandler from './default';
 import { reportError } from '../networking';
+import {
+  getGoogleUILangugages,
+  setGoogleUILangugages,
+} from './shared/google-ui-languages';
 
 export default class youtubeHandler extends defaultHandler {
   handlerName = 'youtube';
@@ -20,8 +24,30 @@ export default class youtubeHandler extends defaultHandler {
     return 'Інтерфейс Youtube підтримує Українську. Налаштувати?';
   }
 
-  async _changeLanguageTo(languages) {
-    const targetLanguage = languages[0];
+  async _targetLanguagesConfig() {
+    console.log('Youtube target');
+    let defaultConfig;
+    return super
+      ._targetLanguagesConfig()
+      .then((config) => {
+        // IF default lang detection thinks it's all good,
+        // no need to do anything else
+        if (!config) {
+          return config;
+        }
+        defaultConfig = config;
+        return getGoogleUILangugages();
+      })
+      .then((googleUILangugages) => {
+        // TODO: some work might be needed here to map language codes to Google format
+        // But until it works I'll let it be
+        googleUILangugages.preferredLangs = defaultConfig;
+        return googleUILangugages;
+      });
+  }
+
+  async _changeLanguageTo(config) {
+    const targetLanguage = config.preferredLangs[0];
     // YT has an odd way of managing UI language preferences by storing those in cookie in PERF cookie, e.g.:
     // PREF=volume=100&tz=Europe.Amsterdam&al=uk%2Ben-GB%2Ben&f4=4000000&f5=20030&f6=40000000&hl=af&gl=UA&f7=100
     // hl and al define the UI, both paramters can be absent
@@ -53,6 +79,9 @@ export default class youtubeHandler extends defaultHandler {
     document.cookie =
       'PREF=' + prefValue + expires + '; domain=.youtube.com; path=/';
 
-    this.location.reload();
+    return setGoogleUILangugages(config).then((r) => {
+      this.location.reload();
+      return r;
+    });
   }
 }
