@@ -21,7 +21,7 @@ export function dispatch(location, document, moreLanguages, lessLanguages) {
     return new wikipediaHandler(...arguments);
   } else if (location.hostname.match(/www\.linkedin.com$/i)) {
     return new linkedinHandler(...arguments);
-  } else if (location.hostname.match(/www\.youtu(\.be|be\.com)$/i)) {
+  } else if (location.hostname.match(/www\.youtube\.com$/i)) {
     return new youtubeHandler(...arguments);
   } else {
     //return new defaultHandler(...arguments);
