@@ -2,6 +2,11 @@ import { sendEvent, reportError } from './networking';
 import { storageGetSync, storageGet } from './util';
 import browser from 'webextension-polyfill';
 import setupGoogleRewrite from './google-rewrite';
+import {
+  getGoogleUILangugagesRequest,
+  setGoogleUILangugagesRequest,
+  disableGoogleUILangugagesAutosuggestRequest,
+} from './content/shared/google-ui-languages';
 
 let config;
 
@@ -26,19 +31,18 @@ try {
 
 function setupMessaging() {
   // Incoming messages
-  browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  browser.runtime.onMessage.addListener((request, sender) => {
     try {
       switch (request.type) {
         case 'options':
-          handleOptionsRequest(request);
-          break;
+          return handleOptionsRequest(request);
 
         case 'savedLanguageChoice':
-          handleSavedLanguageChoice(request);
-          break;
+          return handleSavedLanguageChoice(request);
 
         case 'content':
-          handleContentRequest(request);
+          return handleContentRequest(request, sender);
+
         default:
           reportError(
             `-> background messages from '${request.src}' are not supported`
@@ -72,10 +76,16 @@ function handleOptionsRequest(request) {
   }
 }
 
-function handleContentRequest(request) {
-  switch (request.type) {
-    case 'MsgContentToBackgroundOne':
-      break;
+function handleContentRequest(request, sender) {
+  switch (request.subtype) {
+    case 'MsgGetGoogleAccountLanguages':
+      return getGoogleUILangugagesRequest();
+
+    case 'MsgDisableGoogleAccountAutosuggestLanguages':
+      return disableGoogleUILangugagesAutosuggestRequest(request.body);
+
+    case 'MsgSetGoogleAccountLanguages':
+      return setGoogleUILangugagesRequest(request.body);
 
     default:
       reportError(
