@@ -1,5 +1,9 @@
 import defaultHandler from './default';
 import { reportError } from '../networking';
+import {
+  getGoogleUILangugages,
+  setGoogleUILangugages,
+} from './shared/google-ui-languages';
 
 export default class googleMyaccountHandler extends defaultHandler {
   handlerName = 'google-myaccount';

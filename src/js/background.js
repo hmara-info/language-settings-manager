@@ -5,7 +5,6 @@ import setupGoogleRewrite from './google-rewrite';
 import {
   getGoogleUILangugagesRequest,
   setGoogleUILangugagesRequest,
-  disableGoogleUILangugagesAutosuggestRequest,
 } from './content/shared/google-ui-languages';
 
 let config;
@@ -81,11 +80,8 @@ function handleContentRequest(request, sender) {
     case 'MsgGetGoogleAccountLanguages':
       return getGoogleUILangugagesRequest();
 
-    case 'MsgDisableGoogleAccountAutosuggestLanguages':
-      return disableGoogleUILangugagesAutosuggestRequest(request.body);
-
     case 'MsgSetGoogleAccountLanguages':
-      return setGoogleUILangugagesRequest(request.body);
+      return setGoogleUILangugagesRequest(request.languages);
 
     default:
       reportError(
