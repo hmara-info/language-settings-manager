@@ -43,7 +43,7 @@ export async function getGoogleUILangugages(cachedHtml) {
 
 // Takes a data structure returned by getGoogleUILangugages
 export async function setGoogleUILangugages(settings) {
-  if (!settings || !settings.settingsAt) {
+  if (!settings || !settings.settingsAt || !settings.googleLangs) {
     return;
   }
 
@@ -58,6 +58,13 @@ export async function setGoogleUILangugages(settings) {
 // setGoogleUILangugagesRequest() is meant to be invoked from the background process
 
 export async function setGoogleUILangugagesRequest(newGoogleLangs) {
+  if (!newGoogleLangs || !newGoogleLangs.length) {
+    throw new Error(
+      'setGoogleUILangugagesRequest error: No languages provided',
+      newGoogleLangs
+    );
+  }
+
   return getGoogleUILangugagesRequest()
     .then((html) => {
       const match = html.match(
