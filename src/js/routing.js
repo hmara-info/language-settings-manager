@@ -3,10 +3,14 @@ import facebookHandler from './content/facebook';
 import googleSearchHandler from './content/google-search';
 import wikipediaHandler from './content/wikipedia';
 import linkedinHandler from './content/linkedin';
+import youtubeHandler from './content/youtube';
+import googleMyaccountHandler from './content/google-myaccount';
 
 export function dispatch(location, document, moreLanguages, lessLanguages) {
   if (location.hostname.match(/\.facebook.com$/i)) {
     return new facebookHandler(...arguments);
+  } else if (location.hostname.match(/myaccount\.google\.com$/i)) {
+    return new googleMyaccountHandler(...arguments);
   } else if (
     location.hostname.match(
       /(^|\.)google\.(\w\w|co\.(\w\w)|com|com\.(\w\w)|\w\w)$/i
@@ -17,6 +21,8 @@ export function dispatch(location, document, moreLanguages, lessLanguages) {
     return new wikipediaHandler(...arguments);
   } else if (location.hostname.match(/www\.linkedin.com$/i)) {
     return new linkedinHandler(...arguments);
+  } else if (location.hostname.match(/www\.youtube\.com$/i)) {
+    return new youtubeHandler(...arguments);
   } else {
     //return new defaultHandler(...arguments);
   }

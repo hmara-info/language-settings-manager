@@ -38,7 +38,7 @@ export default class handler {
         const timeSinceUserPrompted =
           Math.floor(Date.now() / 1000) - lastPromptTs;
 
-        if (promptsFrequency[speed] > timeSinceUserPrompted) {
+        if (1 || promptsFrequency[speed] > timeSinceUserPrompted) {
           // User prompted a while ago, we can do it again
           return $self.targetLanguagesConfig();
         }
@@ -215,5 +215,53 @@ export default class handler {
 
   async _targetLanguagesConfigDropCache() {
     return storageRemove(this.cacheKey);
+  }
+
+  /* _generateNewLanguagesConfig() takes the current service config
+   * in the form of an array of language codes
+   * Returns the new suggested configuration, according to the user preferences.
+   *
+   * _generateNewLanguagesConfig() will return null if user preferences trigger
+   * no changes to the service configuration or the initial service configuration was null or an empty array
+   */
+
+  _generateNewLanguagesConfig(currentConfig) {
+    if (!currentConfig) return null;
+
+    const $self = this;
+
+    const moreLanguages = this.moreLanguages;
+    const lessLanguages = this.lessLanguages;
+    const supportedWantedLanguages = $self
+      .SUPPORTED_LANGUAGES()
+      .filter((value) => moreLanguages.includes(value));
+
+    const newLangs = currentConfig.filter((lang_lang) => {
+      // the 'replace' part will have to evolve, as we add support for various dialects
+      const lang = lang_lang.toLowerCase().replace(/-.*/, '');
+      return lessLanguages.indexOf(lang) < 0;
+    });
+
+    newLangs.unshift(
+      ...supportedWantedLanguages.filter((lang_lang) => {
+        const lang = lang_lang.toLowerCase().replace(/-.*/, '');
+        return newLangs.indexOf(lang) < 0;
+      })
+    );
+
+    if (newLangs.length === 0) {
+      return null;
+    }
+
+    // No changes needed
+    if (
+      newLangs.concat().sort().join(',') ===
+      currentConfig.concat().sort().join(',')
+    ) {
+      return null;
+    }
+
+    // Suggest new config
+    return newLangs;
   }
 }
