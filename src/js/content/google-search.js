@@ -29,10 +29,10 @@ export default class googleSearchHandler extends defaultHandler {
           const parser = new DOMParser();
           const doc = parser.parseFromString(html, 'text/html');
           const googleSearchLangs = [
-            ...doc.querySelectorAll('#tsuid1 input[name="lr"][checked="1"]'),
+            ...doc.querySelectorAll('#tsuid_1 input[name="lr"][checked="1"]'),
           ].map((x) => x.value);
           let googleDisplayLang = doc.querySelector(
-            '#tsuid1 .URIeEf input[name="lang"][checked="1"]'
+            '#tsuid_1 .URIeEf input[name="lang"][checked="1"]'
           ).value;
 
           const sig = doc.querySelector('input[name="sig"]').value;
