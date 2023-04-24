@@ -13,6 +13,7 @@
     "safari:dev": "npm run safari:start && chokidar \"build\" -c \"npm run safari:build\""
   },
   "devDependencies": {
+    "babel-plugin-transform-remove-console": "^6.9.4",
     "chai": "^4.2.0",
     "chokidar-cli": "^3.0.0",
     "eslint": "^7.4.0",
@@ -70,13 +71,30 @@
     "singleQuote": true
   },
   "babel": {
-    "plugins": [
-      [
-        "@babel/plugin-proposal-class-properties"
-      ]
-    ]
+    "env": {
+      "development": {
+        "plugins": [
+          ["@babel/plugin-proposal-class-properties"],
+          [
+            "transform-remove-console",
+            {
+              "exclude": ["log", "error", "warn"]
+            }
+          ]
+        ]
+      },
+      "production": {
+        "plugins": [
+          ["@babel/plugin-proposal-class-properties"],
+          [
+            "transform-remove-console",
+            {
+              "exclude": ["error", "warn"]
+            }
+          ]
+        ]
+      }
+    }
   },
-  "pre-commit": [
-    "format"
-  ]
+  "pre-commit": ["format"]
 }
