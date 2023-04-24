@@ -35,6 +35,7 @@ var options = {
   optimization: {
     minimize: false,
   },
+  devtool: 'cheap-module-source-map',
   entry: {
     content: path.join(__dirname, 'src', 'js', 'content.js'),
     background: path.join(__dirname, 'src', 'js', 'background.js'),
@@ -139,9 +140,5 @@ var options = {
     new WriteFilePlugin(),
   ],
 };
-
-if (env.NODE_ENV === 'development') {
-  options.devtool = 'cheap-module-eval-source-map';
-}
 
 module.exports = options;
