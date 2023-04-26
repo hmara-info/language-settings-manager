@@ -1,5 +1,5 @@
 import defaultHandler from './default';
-import { reportError } from '../networking';
+import { reportError } from '../util';
 import {
   getGoogleUILangugages,
   setGoogleUILangugages,

@@ -1,4 +1,5 @@
 import { storageGet, storageGetSync, storageSet, storageRemove } from '../util';
+import { reportError } from '../util';
 
 const promptsFrequency = {
   slow: 7 * 60 * 60 * 1000,

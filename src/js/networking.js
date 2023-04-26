@@ -41,7 +41,7 @@ export function sendEvent(type, data) {
   _sendBehavioralInfo('/events', options);
 }
 
-export function reportError(desc, errorData, pageviewId) {
+export function reportError(desc, errorData) {
   const strError =
     errorData instanceof Error ? serializeError(errorData) : errorData;
 
@@ -55,7 +55,6 @@ export function reportError(desc, errorData, pageviewId) {
       ..._getCommonOptions(),
       desc: desc,
       data: strError,
-      pageviewId: pageviewId,
     }),
     method: 'POST',
   };
@@ -109,7 +108,6 @@ function _sendInfo(path, options) {
 function _getCommonOptions() {
   return {
     userId: userId || 'unknown',
-    extension: 'language-settings-manager',
     eventId: uuidv4(),
     version: getExtensionVersion(),
   };

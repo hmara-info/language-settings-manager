@@ -43,3 +43,12 @@ export function localizeHtmlPage() {
     }
   }
 }
+
+export function reportError(desc, errorData) {
+  return browser.runtime.sendMessage({
+    type: 'content',
+    subtype: 'MsgReportError',
+    desc: desc,
+    errorData: errorData,
+  });
+}

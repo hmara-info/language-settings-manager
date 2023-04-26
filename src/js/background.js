@@ -107,7 +107,7 @@ function setupNotifications() {
       }
     });
   } catch (e) {
-    console.log('Failed to set up notification events', e);
+    reportError('Failed to set up notification events', e);
   }
 }
 
@@ -128,7 +128,7 @@ function checkConfigured() {
           ],
         });
       } catch (e) {
-        console.log('Failed to create notification', e);
+        reportError('Failed to create notification', e);
       }
     } else {
       setupGoogleRewrite();
