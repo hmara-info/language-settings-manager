@@ -39,7 +39,10 @@ export default class handler {
         const timeSinceUserPrompted =
           Math.floor(Date.now() / 1000) - lastPromptTs;
 
-        if (1 || promptsFrequency[speed] > timeSinceUserPrompted) {
+        if (
+          process.env.NODE_ENV === 'development' ||
+          promptsFrequency[speed] > timeSinceUserPrompted
+        ) {
           // User prompted a while ago, we can do it again
           return $self.targetLanguagesConfig();
         }
