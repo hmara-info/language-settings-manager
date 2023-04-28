@@ -12,7 +12,6 @@ storageGetSync('userId').then((items) => {
     userId = items.userId;
   } else {
     userId = uuidv4();
-    sendEvent('newUser');
     storageSetSync({ userId: userId }, function () {
       browser.runtime.openOptionsPage();
     });
@@ -20,75 +19,68 @@ storageGetSync('userId').then((items) => {
 });
 
 export function sendEvent(type, data) {
-  if (process.env.NODE_ENV === 'development') {
-    console.log('event', type, data);
-  }
+  console.log('sending event', type, data);
 
   if (!data) {
     data = {};
   }
-
-  const options = {
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({
-      ..._getCommonOptions(),
-      type: type,
-      data: data,
-    }),
-    method: 'POST',
-  };
-
-  _sendBehavioralInfo('/events', options);
+  const body = { type, data };
+  return _sendJSON('/events', body);
 }
 
 export function reportError(desc, errorData) {
   const strError =
     errorData instanceof Error ? serializeError(errorData) : errorData;
 
-  if (process.env.NODE_ENV === 'development') {
-    console.error(desc, errorData);
-  }
+  console.log('sending error', desc, strError);
 
-  const options = {
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({
-      ..._getCommonOptions(),
-      desc: desc,
-      data: strError,
-    }),
-    method: 'POST',
-  };
-
-  _sendTechnicalInfo('/error', options);
+  _sendJSON('/error', { desc: desc, data: strError });
 }
 
-export function removeAffiliateCookie() {
-  _sendTechnicalInfo('/remove-affiliate-cookie');
-}
-
-function _sendBehavioralInfo(path, options) {
+function _sendJSON(path, body) {
+  let newUser = false;
   storageGetSync('userSettings')
     .then((settings) => {
       return settings.userSettings.collectStats
-        ? Promise.resolve(true)
+        ? Promise.resolve(settings)
         : Promise.reject('collectStats is disabled');
     })
     .then(() => {
-      _sendInfo(path, options);
+      const userSettingsCp = { ...settings.userSettings };
+      delete userSettingsCp['collectStats'];
+      delete userSettingsCp['is_18'];
+
+      const options = {
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          ...body,
+          userId: userId || 'unknown',
+          eventId: uuidv4(),
+          version: getExtensionVersion(),
+          userSettings: userSettingsCp,
+        }),
+        method: 'POST',
+      };
+
+      return _sendInfo(path, options);
+    })
+    .then((response) => {
+      if (response.status !== 200) {
+        return Promise.reject({
+          error: 'Could not send JSON',
+          status: response.status,
+        });
+      }
+      return 1;
     })
     .catch((error) => {
       if (error === 'collectStats is disabled') {
-        console.error('collectStats is disabled: not sending event');
         return;
       }
       if (process.env.NODE_ENV === 'development') {
         console.error('Failed to send an event', error);
       }
     });
-}
-
-function _sendTechnicalInfo(path, options) {
-  _sendInfo(path, options);
 }
 
 function _sendInfo(path, options) {
@@ -103,12 +95,4 @@ function _sendInfo(path, options) {
         console.error('Failed to send an event', error);
       }
     });
-}
-
-function _getCommonOptions() {
-  return {
-    userId: userId || 'unknown',
-    eventId: uuidv4(),
-    version: getExtensionVersion(),
-  };
 }
