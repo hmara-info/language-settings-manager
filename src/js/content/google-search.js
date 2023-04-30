@@ -76,9 +76,6 @@ export default class googleSearchHandler extends defaultHandler {
           googleDisplayLang,
           sig,
         };
-      })
-      .catch(function (err) {
-        reportError('GSearch targetLanguagesConfig', err);
       });
   }
 

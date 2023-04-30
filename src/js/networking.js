@@ -41,11 +41,17 @@ function _sendJSON(path, body) {
   let newUser = false;
   storageGetSync('userSettings')
     .then((settings) => {
-      return settings.userSettings.collectStats
-        ? Promise.resolve(settings)
-        : Promise.reject('collectStats is disabled');
+      if (
+        !settings ||
+        !settings.userSettings ||
+        !settings.userSettings.collectStats
+      ) {
+        return Promise.reject('collectStats is disabled');
+      }
+
+      return settings;
     })
-    .then(() => {
+    .then((settings) => {
       const userSettingsCp = { ...settings.userSettings };
       delete userSettingsCp['collectStats'];
       delete userSettingsCp['is_18'];
@@ -84,11 +90,12 @@ function _sendJSON(path, body) {
 }
 
 function _sendInfo(path, options) {
-  fetch(API_BASE + path, options)
-    .then((data) => {
+  return fetch(API_BASE + path, options)
+    .then((r) => {
       if (process.env.NODE_ENV === 'development') {
         console.info('event sent', data);
       }
+      return r;
     })
     .catch((error) => {
       if (process.env.NODE_ENV === 'development') {

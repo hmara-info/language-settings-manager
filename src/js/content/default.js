@@ -10,6 +10,9 @@ const promptsFrequency = {
 
 export default class handler {
   handlerName = 'default';
+
+  NOOP = 'Nothing to do';
+
   // default handler doesn't cache page config,
   // as retrieving it is a cheap operation
   targetLanguagesConfigExpiresAfter = 0;
@@ -47,11 +50,12 @@ export default class handler {
           return $self.targetLanguagesConfig();
         }
 
-        // Too soon
-        return Promise.reject();
+        return Promise.reject($self.NOOP);
       })
       .then((config) => {
-        return config == null ? Promise.reject() : Promise.resolve();
+        return config == null
+          ? Promise.reject($self.NOOP)
+          : Promise.resolve(config);
       });
   }
 
@@ -69,10 +73,7 @@ export default class handler {
 
     return $self
       .suggestToChangeLanguages()
-      .then(
-        (language) => $self.changeLanguageTo(language),
-        (reasonRejected) => Promise.reject(reasonRejected)
-      )
+      .then((language) => $self.changeLanguageTo(language))
       .then(() => this._reloadPageOnceLanguagesChanged())
       .catch((e) => {
         console.log('tweakLangfuagesFlow() rejection', e);
@@ -91,13 +92,12 @@ export default class handler {
   async suggestToChangeLanguages() {
     const $self = this;
     const userAnswer = new Promise(async (resolve, reject) => {
-      try {
-        const languageConfig = await $self.targetLanguagesConfig();
+      const languageConfig = await $self.targetLanguagesConfig();
 
-        $self.removeUI();
-        const callToAction = $self._tweakLanguagesCTA(languageConfig);
+      $self.removeUI();
+      const callToAction = $self._tweakLanguagesCTA(languageConfig);
 
-        const floaterHTML = `
+      const floaterHTML = `
 <div style="z-index:5000; width:100%; position: fixed; top: 0;" class="lahidnaUkrainizatsiya" translate="no">
   <div style="margin: 20px; padding: 10px; border: 1px solid rgba(0,0,0,.09); box-shadow: 15px -4px 17px 1px rgba(19, 19, 22, 0.28); border-radius: 3px; background: #f3f1f1;">
     <span>${callToAction}</span>
@@ -108,49 +108,46 @@ export default class handler {
   </div>
 </div>
 `;
-        const floaterTemplate = $self.document.createElement('template');
-        floaterTemplate.innerHTML = floaterHTML.trim();
-        const floater = floaterTemplate.content.firstChild;
-        $self.document.body.appendChild(floater);
+      const floaterTemplate = $self.document.createElement('template');
+      floaterTemplate.innerHTML = floaterHTML.trim();
+      const floater = floaterTemplate.content.firstChild;
+      $self.document.body.appendChild(floater);
 
-        const observer = new MutationObserver(function (mutations) {
-          // check for removed target
-          mutations.forEach(function (mutation) {
-            var nodes = Array.from(mutation.removedNodes);
-            if (nodes.indexOf(floater) <= -1) return;
-            if (reject) {
-              reject('node removed');
-            }
-            observer.disconnect();
-          });
+      const observer = new MutationObserver(function (mutations) {
+        // check for removed target
+        mutations.forEach(function (mutation) {
+          var nodes = Array.from(mutation.removedNodes);
+          if (nodes.indexOf(floater) <= -1) return;
+          if (reject) {
+            reject('node removed');
+          }
+          observer.disconnect();
+        });
+      });
+
+      observer.observe($self.document.body, {
+        childList: true,
+      });
+
+      // Create ui in DOM
+      // Bind 'Yes' function
+      $self.document
+        .querySelector('.lahidnaUkrainizatsiya .yes-btn')
+        .addEventListener('click', function (e) {
+          resolve(languageConfig);
+          reject = undefined;
+          floater.remove();
         });
 
-        observer.observe($self.document.body, {
-          childList: true,
+      // Bind 'No' function
+      $self.document
+        .querySelector('.lahidnaUkrainizatsiya .no-btn')
+        .addEventListener('click', function (e) {
+          const options = JSON.stringify(languageConfig);
+          reject(`user answered no to options ${options}`);
+          reject = undefined;
+          floater.remove();
         });
-
-        // Create ui in DOM
-        // Bind 'Yes' function
-        $self.document
-          .querySelector('.lahidnaUkrainizatsiya .yes-btn')
-          .addEventListener('click', function (e) {
-            resolve(languageConfig);
-            reject = undefined;
-            floater.remove();
-          });
-
-        // Bind 'No' function
-        $self.document
-          .querySelector('.lahidnaUkrainizatsiya .no-btn')
-          .addEventListener('click', function (e) {
-            const options = JSON.stringify(languageConfig);
-            reject(`user answered no to options ${options}`);
-            reject = undefined;
-            floater.remove();
-          });
-      } catch (e) {
-        console.log(e);
-      }
     });
 
     return userAnswer;

@@ -1,7 +1,7 @@
 import '../css/options.css';
 import 'semantic-ui-css/semantic.min.js';
 import browser from 'webextension-polyfill';
-import { sendEvent, removeAffiliateCookie } from './networking';
+import { sendEvent } from './networking';
 import {
   storageGetSync,
   storageSetSync,
@@ -313,14 +313,6 @@ async function saveLangChoice(e) {
 
       storageSetSync({ userSettings: userSettings });
 
-      if (firstConfigSave) {
-        removeAffiliateCookie();
-      }
-
-      browser.runtime.sendMessage({
-        type: 'savedLanguageChoice',
-        data: userSettings,
-      });
       sendEvent('savedLanguageChoice');
     })
     .catch((e) => {

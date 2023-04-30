@@ -36,15 +36,12 @@ function setupMessaging() {
         case 'options':
           return handleOptionsRequest(request);
 
-        case 'savedLanguageChoice':
-          return handleSavedLanguageChoice(request);
-
         case 'content':
           return handleContentRequest(request, sender);
 
         default:
           reportError(
-            `-> background messages from '${request.src}' are not supported`
+            `-> background messages from '${request.src}' of type '${request.type}' are not supported`
           );
       }
     } catch (e) {
@@ -57,20 +54,14 @@ function setupMessaging() {
   });
 }
 
-function handleSavedLanguageChoice(request) {
-  syncLanguagesConfig().then(function () {
-    // console.log('Synced config');
-  });
-}
-
 function handleOptionsRequest(request) {
-  switch (request.type) {
+  switch (request.subtype) {
     case 'MsgOptionsToBackgroundOne':
       break;
 
     default:
       reportError(
-        `-> background messages from options '${request.type}' are not supported`
+        `-> background messages from content '${request.type}' of subtype '${request.subtype}' are not supported`
       );
   }
 }
@@ -83,9 +74,12 @@ function handleContentRequest(request, sender) {
     case 'MsgSetGoogleAccountLanguages':
       return setGoogleUILangugagesRequest(request.languages);
 
+    case 'MsgReportError':
+      return reportError(request.desc, request.errorData);
+
     default:
       reportError(
-        `-> background messages from content '${request.type}' are not supported`
+        `-> background messages from content '${request.type}' of subtype '${request.subtype}' are not supported`
       );
   }
 }

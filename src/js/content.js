@@ -24,17 +24,18 @@ storageGetSync('userSettings').then((settings) => {
   try {
     handler
       .needToTweakLanguages()
-      .then(() => handler.tweakLanguages())
-      .then(
-        (events) => {
-          if (!events) return;
-          for (let evt of events) {
-            sendEvent(e.type, e.data);
-          }
-        },
-        (rejectedReason) => {}
-      );
+      .then((config) => handler.tweakLanguages())
+      .then((events) => {
+        if (!events) return;
+        for (let evt of events) {
+          sendEvent(e.type, e.data);
+        }
+      })
+      .catch((e) => {
+        if (e === handler.NOOP) return;
+        reportError('content.js rejection in ' + handler.handlerName, e);
+      });
   } catch (e) {
-    reportError('content.js', e);
+    reportError('content.js error in ' + handler.handlerName, e);
   }
 });
