@@ -46,6 +46,8 @@ export function localizeHtmlPage() {
 }
 
 export function reportError(desc, errorData) {
+  console.log('util.reportError()', errorData);
+
   const strError =
     errorData instanceof Error ? serializeError(errorData) : errorData;
 

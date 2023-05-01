@@ -33,6 +33,7 @@ export default class handler {
   }
 
   async needToTweakLanguages() {
+    console.log(`Entering needToTweakLanguages() of ${this.handlerName}`);
     const $self = this;
     return storageGetSync(['userSettings', 'lastPromptTs'])
       .then((data) => {
@@ -47,15 +48,20 @@ export default class handler {
           promptsFrequency[speed] > timeSinceUserPrompted
         ) {
           // User prompted a while ago, we can do it again
+          console.log(
+            `Refreshing targetLanguagesConfig at ${this.handlerName}`
+          );
           return $self.targetLanguagesConfig();
         }
 
+        console.log(
+          `No need to refres targetLanguagesConfig at ${this.handlerName}`
+        );
         return Promise.reject($self.NOOP);
       })
       .then((config) => {
-        return config == null
-          ? Promise.reject($self.NOOP)
-          : Promise.resolve(config);
+        console.log(`targetLanguagesConfig at ${this.handlerName} is`, config);
+        return config == null ? Promise.reject($self.NOOP) : config;
       });
   }
 
@@ -70,11 +76,12 @@ export default class handler {
 
   async tweakLanguages() {
     const $self = this;
+    console.log(`Entering tweakLanguages of ${this.handlerName}`);
 
     return $self
       .suggestToChangeLanguages()
       .then((language) => $self.changeLanguageTo(language))
-      .then(() => $self._reloadPageOnceLanguagesChanged())
+      .then(() => $self._reloadPageOnceLanguagesChanged());
   }
 
   _reloadPageOnceLanguagesChanged() {
@@ -86,6 +93,7 @@ export default class handler {
   }
 
   async suggestToChangeLanguages() {
+    console.log(`Entering suggestToChangeLanguages of ${this.handlerName}`);
     const $self = this;
     return $self.targetLanguagesConfig().then(
       (languageConfig) =>
@@ -149,6 +157,10 @@ export default class handler {
   }
 
   async changeLanguageTo(languages) {
+    console.log(
+      `Entering changeLanguageTo of ${this.handlerName}. Languages config:`,
+      languages
+    );
     return this._changeLanguageTo(languages).then(() =>
       this._targetLanguagesConfigDropCache()
     );

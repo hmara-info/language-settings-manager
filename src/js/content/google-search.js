@@ -76,6 +76,10 @@ export default class googleSearchHandler extends defaultHandler {
           googleDisplayLang,
           sig,
         };
+      })
+      .catch((e) => {
+        reportError('Failed to parse Google Search preferences page', e);
+        return Promise.reject(this.NOOP);
       });
   }
 
