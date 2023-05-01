@@ -15,29 +15,24 @@ export async function getGoogleUILangugages(cachedHtml) {
       });
 
   return fetchDom.then((html) => {
-    try {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      // Returns "Preferred languages" in format ['uk', 'en-NL'], sorted by priority
-      const googleLangs = [...doc.querySelectorAll('.GqRghe .mMsbvc > label')]
-        .map((node) => node.getAttribute('lang'))
-        .filter((lang) => lang);
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    // Returns "Preferred languages" in format ['uk', 'en-NL'], sorted by priority
+    const googleLangs = [...doc.querySelectorAll('.GqRghe .mMsbvc > label')]
+      .map((node) => node.getAttribute('lang'))
+      .filter((lang) => lang);
 
-      // Now check if Google Profile languages match
-      // TODO: fetch a list of languages assumed by Google
-      const match = html.match(
-        /https:\\\/\\\/www\.google\.com\\\/settings','(.*?)'/
-      );
-      if (!match) {
-        throw new Error('No "at" value found in DOM');
-      }
-      const settingsAt = match[1];
-
-      return Promise.resolve({ googleLangs, settingsAt });
-    } catch (e) {
-      console.error(e);
-      return Promise.reject('Could not get Google UI languages: ' + e);
+    // Now check if Google Profile languages match
+    // TODO: fetch a list of languages assumed by Google
+    const match = html.match(
+      /https:\\\/\\\/www\.google\.com\\\/settings','(.*?)'/
+    );
+    if (!match || !match[1]) {
+      throw new Error('No "at" value found on Google Account page');
     }
+    const settingsAt = match[1];
+
+    return Promise.resolve({ googleLangs, settingsAt });
   });
 }
 

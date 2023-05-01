@@ -74,11 +74,7 @@ export default class handler {
     return $self
       .suggestToChangeLanguages()
       .then((language) => $self.changeLanguageTo(language))
-      .then(() => this._reloadPageOnceLanguagesChanged())
-      .catch((e) => {
-        console.log('tweakLangfuagesFlow() rejection', e);
-      });
-    // TODO: what to do when changeLanguageTo() or one of subcomponents failed?
+      .then(() => $self._reloadPageOnceLanguagesChanged())
   }
 
   _reloadPageOnceLanguagesChanged() {
@@ -91,13 +87,13 @@ export default class handler {
 
   async suggestToChangeLanguages() {
     const $self = this;
-    const userAnswer = new Promise(async (resolve, reject) => {
-      const languageConfig = await $self.targetLanguagesConfig();
+    return $self.targetLanguagesConfig().then(
+      (languageConfig) =>
+        new Promise(async (resolve, reject) => {
+          $self.removeUI();
+          const callToAction = $self._tweakLanguagesCTA(languageConfig);
 
-      $self.removeUI();
-      const callToAction = $self._tweakLanguagesCTA(languageConfig);
-
-      const floaterHTML = `
+          const floaterHTML = `
 <div style="z-index:5000; width:100%; position: fixed; top: 0;" class="lahidnaUkrainizatsiya" translate="no">
   <div style="margin: 20px; padding: 10px; border: 1px solid rgba(0,0,0,.09); box-shadow: 15px -4px 17px 1px rgba(19, 19, 22, 0.28); border-radius: 3px; background: #f3f1f1;">
     <span>${callToAction}</span>
@@ -108,65 +104,60 @@ export default class handler {
   </div>
 </div>
 `;
-      const floaterTemplate = $self.document.createElement('template');
-      floaterTemplate.innerHTML = floaterHTML.trim();
-      const floater = floaterTemplate.content.firstChild;
-      $self.document.body.appendChild(floater);
+          const floaterTemplate = $self.document.createElement('template');
+          floaterTemplate.innerHTML = floaterHTML.trim();
+          const floater = floaterTemplate.content.firstChild;
+          $self.document.body.appendChild(floater);
 
-      const observer = new MutationObserver(function (mutations) {
-        // check for removed target
-        mutations.forEach(function (mutation) {
-          var nodes = Array.from(mutation.removedNodes);
-          if (nodes.indexOf(floater) <= -1) return;
-          if (reject) {
-            reject('node removed');
-          }
-          observer.disconnect();
-        });
-      });
+          const observer = new MutationObserver(function (mutations) {
+            // check for removed target
+            mutations.forEach(function (mutation) {
+              var nodes = Array.from(mutation.removedNodes);
+              if (nodes.indexOf(floater) <= -1) return;
+              if (reject) {
+                reject('node removed');
+              }
+              observer.disconnect();
+            });
+          });
 
-      observer.observe($self.document.body, {
-        childList: true,
-      });
+          observer.observe($self.document.body, {
+            childList: true,
+          });
 
-      // Create ui in DOM
-      // Bind 'Yes' function
-      $self.document
-        .querySelector('.lahidnaUkrainizatsiya .yes-btn')
-        .addEventListener('click', function (e) {
-          resolve(languageConfig);
-          reject = undefined;
-          floater.remove();
-        });
+          // Create ui in DOM
+          // Bind 'Yes' function
+          $self.document
+            .querySelector('.lahidnaUkrainizatsiya .yes-btn')
+            .addEventListener('click', function (e) {
+              resolve(languageConfig);
+              reject = undefined;
+              floater.remove();
+            });
 
-      // Bind 'No' function
-      $self.document
-        .querySelector('.lahidnaUkrainizatsiya .no-btn')
-        .addEventListener('click', function (e) {
-          const options = JSON.stringify(languageConfig);
-          reject(`user answered no to options ${options}`);
-          reject = undefined;
-          floater.remove();
-        });
-    });
-
-    return userAnswer;
+          // Bind 'No' function
+          $self.document
+            .querySelector('.lahidnaUkrainizatsiya .no-btn')
+            .addEventListener('click', function (e) {
+              const options = JSON.stringify(languageConfig);
+              reject(`user answered no to options ${options}`);
+              reject = undefined;
+              floater.remove();
+            });
+        })
+    );
   }
 
   async changeLanguageTo(languages) {
-    try {
-      return this._changeLanguageTo(languages).then(() =>
-        this._targetLanguagesConfigDropCache()
-      );
-    } catch (e) {
-      console.error(e);
-    }
+    return this._changeLanguageTo(languages).then(() =>
+      this._targetLanguagesConfigDropCache()
+    );
   }
 
   async targetLanguagesConfig() {
     return this._targetLanguagesConfigCached().then((cachedConfig) => {
       if (cachedConfig && cachedConfig.data) {
-        return Promise.resolve(cachedConfig.data);
+        return cachedConfig.data;
       }
       return this._targetLanguagesConfig().then((config) => {
         return this._targetLanguagesConfigUpdateCache(config);

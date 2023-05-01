@@ -1,4 +1,5 @@
 import browser from 'webextension-polyfill';
+import { serializeError } from 'serialize-error';
 export function getExtensionVersion() {
   return getMessage('@@extension_id');
 }
@@ -45,10 +46,13 @@ export function localizeHtmlPage() {
 }
 
 export function reportError(desc, errorData) {
+  const strError =
+    errorData instanceof Error ? serializeError(errorData) : errorData;
+
   return browser.runtime.sendMessage({
     type: 'content',
     subtype: 'MsgReportError',
     desc: desc,
-    errorData: errorData,
+    errorData: strError,
   });
 }

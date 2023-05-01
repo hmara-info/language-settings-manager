@@ -33,9 +33,9 @@ storageGetSync('userSettings').then((settings) => {
       })
       .catch((e) => {
         if (e === handler.NOOP) return;
-        reportError('content.js rejection in ' + handler.handlerName, e);
+        reportError(`Error in ${handler.handlerName} content flow`, e);
       });
   } catch (e) {
-    reportError('content.js error in ' + handler.handlerName, e);
+    reportError(`content.js: fatal error in ${handler.handlerName} flow`, e);
   }
 });

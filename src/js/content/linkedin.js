@@ -1,4 +1,5 @@
 import defaultHandler from './default';
+import { reportError } from '../util';
 
 // In Firefox fetch is executed in the context of extension,
 // content.fetch - in the content of the page. Hence this hack
@@ -39,20 +40,17 @@ export default class linkedinHandler extends defaultHandler {
 
   async _targetLanguagesConfig() {
     const $self = this;
-    try {
-      return fetch(
-        'https://www.linkedin.com/psettings/select-language-for-translation'
-      )
-        .then((response) => response.text())
-        .then((html) => $self._parseNotranslateLanguages(html))
-        .catch((e) => {
-          // TODO: report an error
-          return null;
-        });
-    } catch (e) {
-      // TODO: reporting
-      console.log('Error getting profile settings', e);
-    }
+    return fetch(
+      'https://www.linkedin.com/psettings/select-language-for-translation'
+    )
+      .then((response) => response.text())
+      .then((html) => $self._parseNotranslateLanguages(html))
+      .catch((e) => {
+        if (e == $self.NOOP) return e;
+
+        reportError('Failed to parse LinkedIn preferences page', e);
+        return Promise.reject($self.NOOP);
+      });
   }
 
   _parseNotranslateLanguages(html) {
@@ -63,13 +61,11 @@ export default class linkedinHandler extends defaultHandler {
     const lang_matched = html.match(/"lang":\s*"(.*?)"/);
     const CSRF_matched = html.match(/"csrfToken":"(.*?)"/);
 
-    if (
-      !lang_matched ||
-      !lang_matched[1] ||
-      !CSRF_matched ||
-      !CSRF_matched[1]
-    ) {
-      return;
+    if (!lang_matched || !lang_matched[1]) {
+      throw new Error('Failed to match language on LinkedIn prefereces page');
+    }
+    if (!CSRF_matched || !CSRF_matched[1]) {
+      throw new Error('Failed to match CSRF LinkedIn prefereces page');
     }
 
     const uiLanguage = lang_matched[1].replace(/_.*/, ''); // changes uk_UK to uk
@@ -142,7 +138,7 @@ export default class linkedinHandler extends defaultHandler {
     }
 
     if (Object.keys(newConfig).length === 0) {
-      return null;
+      return Promise.reject(this.NOOP);
     }
 
     return result;

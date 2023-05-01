@@ -33,24 +33,29 @@ export default class googleMyaccountHandler extends defaultHandler {
         ? $self.document.documentElement.innerHTML
         : null;
 
-    return getGoogleUILangugages(html).then((GoogleUILangsConfig) => {
-      if (!GoogleUILangsConfig || !GoogleUILangsConfig.googleLangs) {
-        return;
-      }
-      GoogleUILangsConfig.googleLangs = $self._generateNewLanguagesConfig(
-        GoogleUILangsConfig.googleLangs
-      );
-      if (!GoogleUILangsConfig.googleLangs) {
-        return;
-      }
-      return GoogleUILangsConfig.googleLangs;
-    });
+    return getGoogleUILangugages(html)
+      .then((GoogleUILangsConfig) => {
+        if (!GoogleUILangsConfig || !GoogleUILangsConfig.googleLangs) {
+          reportError('Failed to parse Google Account preferences page', e);
+          return;
+        }
+        GoogleUILangsConfig.googleLangs = $self._generateNewLanguagesConfig(
+          GoogleUILangsConfig.googleLangs
+        );
+        if (!GoogleUILangsConfig.googleLangs) {
+          return Promise.reject($self.NOOP);
+        }
+        return GoogleUILangsConfig.googleLangs;
+      })
+      .catch((e) => {
+        if (e === $self.NOOP) return e;
+
+        reportError('Failed to parse Google Account preferences page', e);
+        return Promise.reject($self.NOOP);
+      });
   }
 
   async _changeLanguageTo(GoogleUILangsConfig) {
-    return setGoogleUILangugages(GoogleUILangsConfig).then((r) => {
-      this.location.reload();
-      return r;
-    });
+    return setGoogleUILangugages(GoogleUILangsConfig);
   }
 }

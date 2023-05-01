@@ -40,7 +40,7 @@ export default class youtubeHandler extends defaultHandler {
       }
 
       if (!YTLangs && !GoogleUILangsConfig.googleLangs) {
-        return;
+        return Promise.reject($this.NOOP);
       }
 
       return { YTLang, GoogleUILangsConfig };
@@ -73,9 +73,6 @@ export default class youtubeHandler extends defaultHandler {
     document.cookie =
       'PREF=' + prefValue + expires + '; domain=.youtube.com; path=/';
 
-    return setGoogleUILangugages(GoogleUILangsConfig).then((r) => {
-      this.location.reload();
-      return r;
-    });
+    return setGoogleUILangugages(GoogleUILangsConfig);
   }
 }
