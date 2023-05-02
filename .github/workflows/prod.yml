@@ -4,14 +4,13 @@ on:
   push:
     branches:
       - main
+      - test-deploy
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-      with:
-        ref: 'main'
     - uses: actions/setup-node@v2-beta
       with:
         node-version: '12'
@@ -44,18 +43,18 @@ jobs:
         file-name: './language-settings-manager.prod.zip'
         app-id: 'eipobogihmlkhppcgkcgcocccpcjcegj'
         publish: false
-#    - run: rm -r build/*
-#    - run: FIREFOX=1 npm run prod
-#    - run: cd build && zip -r language-settings-manager.prod.xpi * && cd ..
-#    - uses: trmcnvn/firefox-addon@v1
-#      with:
-#        # uuid is only necessary when updating an existing addon,
-#        # omitting it will create a new addon
-#        uuid: '{0d2e7142-9bce-4a7e-9ff9-19251eee83ec}'
-#        xpi: build/language-settings-manager.prod.xpi
-#        manifest: manifest.json
-#        api-key: ${{ secrets.FIREFOX_API_KEY }}
-#        api-secret: ${{ secrets.FIREFOX_API_SECRET }}
+    - run: rm -r build/*
+    - run: FIREFOX=1 npm run prod
+    - run: cd build && zip -r language-settings-manager.prod.xpi * && cd ..
+    - uses: trmcnvn/firefox-addon@v1
+      with:
+        # uuid is only necessary when updating an existing addon,
+        # omitting it will create a new addon
+        uuid: '{0d2e7142-9bce-4a7e-9ff9-19251eee83ec}'
+        xpi: build/language-settings-manager.prod.xpi
+        manifest: build/manifest.json
+        api-key: ${{ secrets.FIREFOX_API_KEY }}
+        api-secret: ${{ secrets.FIREFOX_API_SECRET }}
     - name: Get current version
       id: version
       run: echo "::set-output name=version::v"$(jq -r .version build/manifest.json)
