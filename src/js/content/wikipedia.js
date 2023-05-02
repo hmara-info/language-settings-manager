@@ -19,7 +19,7 @@ export default class wikipediaHandler extends defaultHandler {
   async _targetLanguagesConfig() {
     const currentLang = document.querySelector('html').getAttribute('lang');
     if (this.moreLanguages.includes(currentLang)) {
-      return Promise.reject();
+      return Promise.reject(this.NOOP);
     }
 
     const langs = {};
@@ -31,10 +31,10 @@ export default class wikipediaHandler extends defaultHandler {
 
     for (var lng of this.moreLanguages) {
       if (!langs[lng]) continue;
-      return Promise.resolve([lng, langs[lng]]);
+      return [lng, langs[lng]];
     }
 
-    return Promise.reject();
+    return Promise.reject(this.NOOP);
   }
 
   async _changeLanguageTo(language) {

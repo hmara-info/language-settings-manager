@@ -1,4 +1,5 @@
 import { storageGet, storageGetSync, storageSet, storageRemove } from '../util';
+import { reportError } from '../util';
 
 const promptsFrequency = {
   slow: 7 * 60 * 60 * 1000,
@@ -9,6 +10,9 @@ const promptsFrequency = {
 
 export default class handler {
   handlerName = 'default';
+
+  NOOP = 'Nothing to do';
+
   // default handler doesn't cache page config,
   // as retrieving it is a cheap operation
   targetLanguagesConfigExpiresAfter = 0;
@@ -29,6 +33,7 @@ export default class handler {
   }
 
   async needToTweakLanguages() {
+    console.log(`Entering needToTweakLanguages() of ${this.handlerName}`);
     const $self = this;
     return storageGetSync(['userSettings', 'lastPromptTs'])
       .then((data) => {
@@ -38,16 +43,25 @@ export default class handler {
         const timeSinceUserPrompted =
           Math.floor(Date.now() / 1000) - lastPromptTs;
 
-        if (1 || promptsFrequency[speed] > timeSinceUserPrompted) {
+        if (
+          process.env.NODE_ENV === 'development' ||
+          promptsFrequency[speed] > timeSinceUserPrompted
+        ) {
           // User prompted a while ago, we can do it again
+          console.log(
+            `Refreshing targetLanguagesConfig at ${this.handlerName}`
+          );
           return $self.targetLanguagesConfig();
         }
 
-        // Too soon
-        return Promise.reject();
+        console.log(
+          `No need to refres targetLanguagesConfig at ${this.handlerName}`
+        );
+        return Promise.reject($self.NOOP);
       })
       .then((config) => {
-        return config == null ? Promise.reject() : Promise.resolve();
+        console.log(`targetLanguagesConfig at ${this.handlerName} is`, config);
+        return config == null ? Promise.reject($self.NOOP) : config;
       });
   }
 
@@ -62,18 +76,12 @@ export default class handler {
 
   async tweakLanguages() {
     const $self = this;
+    console.log(`Entering tweakLanguages of ${this.handlerName}`);
 
     return $self
       .suggestToChangeLanguages()
-      .then(
-        (language) => $self.changeLanguageTo(language),
-        (reasonRejected) => Promise.reject(reasonRejected)
-      )
-      .then(() => this._reloadPageOnceLanguagesChanged())
-      .catch((e) => {
-        console.log('tweakLangfuagesFlow() rejection', e);
-      });
-    // TODO: what to do when changeLanguageTo() or one of subcomponents failed?
+      .then((language) => $self.changeLanguageTo(language))
+      .then(() => $self._reloadPageOnceLanguagesChanged());
   }
 
   _reloadPageOnceLanguagesChanged() {
@@ -85,15 +93,15 @@ export default class handler {
   }
 
   async suggestToChangeLanguages() {
+    console.log(`Entering suggestToChangeLanguages of ${this.handlerName}`);
     const $self = this;
-    const userAnswer = new Promise(async (resolve, reject) => {
-      try {
-        const languageConfig = await $self.targetLanguagesConfig();
+    return $self.targetLanguagesConfig().then(
+      (languageConfig) =>
+        new Promise(async (resolve, reject) => {
+          $self.removeUI();
+          const callToAction = $self._tweakLanguagesCTA(languageConfig);
 
-        $self.removeUI();
-        const callToAction = $self._tweakLanguagesCTA(languageConfig);
-
-        const floaterHTML = `
+          const floaterHTML = `
 <div style="z-index:5000; width:100%; position: fixed; top: 0;" class="lahidnaUkrainizatsiya" translate="no">
   <div style="margin: 20px; padding: 10px; border: 1px solid rgba(0,0,0,.09); box-shadow: 15px -4px 17px 1px rgba(19, 19, 22, 0.28); border-radius: 3px; background: #f3f1f1;">
     <span>${callToAction}</span>
@@ -104,68 +112,64 @@ export default class handler {
   </div>
 </div>
 `;
-        const floaterTemplate = $self.document.createElement('template');
-        floaterTemplate.innerHTML = floaterHTML.trim();
-        const floater = floaterTemplate.content.firstChild;
-        $self.document.body.appendChild(floater);
+          const floaterTemplate = $self.document.createElement('template');
+          floaterTemplate.innerHTML = floaterHTML.trim();
+          const floater = floaterTemplate.content.firstChild;
+          $self.document.body.appendChild(floater);
 
-        const observer = new MutationObserver(function (mutations) {
-          // check for removed target
-          mutations.forEach(function (mutation) {
-            var nodes = Array.from(mutation.removedNodes);
-            if (nodes.indexOf(floater) <= -1) return;
-            if (reject) {
-              reject('node removed');
-            }
-            observer.disconnect();
-          });
-        });
-
-        observer.observe($self.document.body, {
-          childList: true,
-        });
-
-        // Create ui in DOM
-        // Bind 'Yes' function
-        $self.document
-          .querySelector('.lahidnaUkrainizatsiya .yes-btn')
-          .addEventListener('click', function (e) {
-            resolve(languageConfig);
-            reject = undefined;
-            floater.remove();
+          const observer = new MutationObserver(function (mutations) {
+            // check for removed target
+            mutations.forEach(function (mutation) {
+              var nodes = Array.from(mutation.removedNodes);
+              if (nodes.indexOf(floater) <= -1) return;
+              if (reject) {
+                reject('node removed');
+              }
+              observer.disconnect();
+            });
           });
 
-        // Bind 'No' function
-        $self.document
-          .querySelector('.lahidnaUkrainizatsiya .no-btn')
-          .addEventListener('click', function (e) {
-            const options = JSON.stringify(languageConfig);
-            reject(`user answered no to options ${options}`);
-            reject = undefined;
-            floater.remove();
+          observer.observe($self.document.body, {
+            childList: true,
           });
-      } catch (e) {
-        console.log(e);
-      }
-    });
 
-    return userAnswer;
+          // Create ui in DOM
+          // Bind 'Yes' function
+          $self.document
+            .querySelector('.lahidnaUkrainizatsiya .yes-btn')
+            .addEventListener('click', function (e) {
+              resolve(languageConfig);
+              reject = undefined;
+              floater.remove();
+            });
+
+          // Bind 'No' function
+          $self.document
+            .querySelector('.lahidnaUkrainizatsiya .no-btn')
+            .addEventListener('click', function (e) {
+              const options = JSON.stringify(languageConfig);
+              reject(`user answered no to options ${options}`);
+              reject = undefined;
+              floater.remove();
+            });
+        })
+    );
   }
 
   async changeLanguageTo(languages) {
-    try {
-      return this._changeLanguageTo(languages).then(() =>
-        this._targetLanguagesConfigDropCache()
-      );
-    } catch (e) {
-      console.error(e);
-    }
+    console.log(
+      `Entering changeLanguageTo of ${this.handlerName}. Languages config:`,
+      languages
+    );
+    return this._changeLanguageTo(languages).then(() =>
+      this._targetLanguagesConfigDropCache()
+    );
   }
 
   async targetLanguagesConfig() {
     return this._targetLanguagesConfigCached().then((cachedConfig) => {
       if (cachedConfig && cachedConfig.data) {
-        return Promise.resolve(cachedConfig.data);
+        return cachedConfig.data;
       }
       return this._targetLanguagesConfig().then((config) => {
         return this._targetLanguagesConfigUpdateCache(config);

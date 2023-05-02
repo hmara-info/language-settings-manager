@@ -1,5 +1,5 @@
 import defaultHandler from './default';
-import { reportError } from '../networking';
+import { reportError } from '../util';
 
 export default class googleSearchHandler extends defaultHandler {
   handlerName = 'google-search';
@@ -25,65 +25,61 @@ export default class googleSearchHandler extends defaultHandler {
     return fetch(preferencesUrl, { credentials: 'same-origin' })
       .then((r) => r.text())
       .then((html) => {
-        try {
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, 'text/html');
-          const googleSearchLangs = [
-            ...doc.querySelectorAll('#tsuid_1 input[name="lr"][checked="1"]'),
-          ].map((x) => x.value);
-          let googleDisplayLang = doc.querySelector(
-            '#tsuid_1 .URIeEf input[name="lang"][checked="1"]'
-          ).value;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const googleSearchLangs = [
+          ...doc.querySelectorAll('#tsuid_1 input[name="lr"][checked="1"]'),
+        ].map((x) => x.value);
+        let googleDisplayLang = doc.querySelector(
+          '#tsuid_1 .URIeEf input[name="lang"][checked="1"]'
+        ).value;
 
-          const sig = doc.querySelector('input[name="sig"]').value;
+        const sig = doc.querySelector('input[name="sig"]').value;
 
-          const moreLanguages = this.moreLanguages;
-          const lessLanguages = this.lessLanguages;
-          const supportedWantedLanguages = this.SUPPORTED_LANGUAGES().filter(
-            (value) => moreLanguages.includes(value)
-          );
+        const moreLanguages = this.moreLanguages;
+        const lessLanguages = this.lessLanguages;
+        const supportedWantedLanguages = this.SUPPORTED_LANGUAGES().filter(
+          (value) => moreLanguages.includes(value)
+        );
 
-          if (
-            supportedWantedLanguages.length == 0 ||
-            supportedWantedLanguages.indexOf(googleDisplayLang) === 0
-          ) {
-            googleDisplayLang = null;
-          } else {
-            googleDisplayLang = supportedWantedLanguages[0];
-          }
-
-          const newGoogleSearchLangs = googleSearchLangs.filter((lang_lang) => {
-            const lang = lang_lang.replace(/^lang_/, '').toLowerCase();
-            return (
-              lessLanguages.indexOf(lang) < 0 &&
-              supportedWantedLanguages.indexOf(lang) < 0
-            );
-          });
-          newGoogleSearchLangs.unshift(
-            ...supportedWantedLanguages.map((l) => `lang_${l}`)
-          );
-
-          // No changes needed
-          if (
-            newGoogleSearchLangs.sort().join(',') ===
-              googleSearchLangs.sort().join(',') &&
-            !googleDisplayLang
-          ) {
-            return null;
-          }
-
-          return {
-            googleSearchLangs: newGoogleSearchLangs,
-            googleDisplayLang,
-            sig,
-          };
-        } catch (e) {
-          console.error(e);
-          errorReporter.report('UpdateGoogleSettings - parse', e);
+        if (
+          supportedWantedLanguages.length == 0 ||
+          supportedWantedLanguages.indexOf(googleDisplayLang) === 0
+        ) {
+          googleDisplayLang = null;
+        } else {
+          googleDisplayLang = supportedWantedLanguages[0];
         }
+
+        const newGoogleSearchLangs = googleSearchLangs.filter((lang_lang) => {
+          const lang = lang_lang.replace(/^lang_/, '').toLowerCase();
+          return (
+            lessLanguages.indexOf(lang) < 0 &&
+            supportedWantedLanguages.indexOf(lang) < 0
+          );
+        });
+        newGoogleSearchLangs.unshift(
+          ...supportedWantedLanguages.map((l) => `lang_${l}`)
+        );
+
+        // No changes needed
+        if (
+          newGoogleSearchLangs.sort().join(',') ===
+            googleSearchLangs.sort().join(',') &&
+          !googleDisplayLang
+        ) {
+          return null;
+        }
+
+        return {
+          googleSearchLangs: newGoogleSearchLangs,
+          googleDisplayLang,
+          sig,
+        };
       })
-      .catch(function (err) {
-        errorReporter.report('UpdateGoogleSettings', err);
+      .catch((e) => {
+        reportError('Failed to parse Google Search preferences page', e);
+        return Promise.reject(this.NOOP);
       });
   }
 
@@ -109,6 +105,7 @@ export default class googleSearchHandler extends defaultHandler {
           return true;
         });
     } catch (e) {
+      reportError('GSearch changeLanguageTo', err);
       return Promise.reject(e);
     }
   }

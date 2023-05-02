@@ -1,4 +1,5 @@
 import defaultHandler from './default';
+import { reportError } from '../util';
 
 // In Firefox fetch is executed in the context of extension,
 // content.fetch - in the content of the page. Hence this hack
@@ -114,7 +115,9 @@ export default class facebookHandler extends defaultHandler {
   }
 
   async _targetLanguagesConfig() {
+    const $self = this;
     try {
+      // should be: const profileLink = this.document.querySelector('div[role="banner"]');
       const profileLink = this.document.querySelector('a[href="/me/"]');
       if (!profileLink) {
         // Not logged in, nothing to do
@@ -126,27 +129,34 @@ export default class facebookHandler extends defaultHandler {
         this._getTargetTranslateLang(),
         this._getTargetNoTranslateLangs(),
         this._getTargetDisableAutotranslateLangs(),
-      ]).then((results) => {
-        if (results.filter((r) => r != null).length == 0) {
-          return null;
-        }
-        const [
-          uiLangs,
-          translateLang,
-          noTranslateLangs,
-          disableAutotranslateLangs,
-        ] = results;
+      ])
+        .then((results) => {
+          if (results.filter((r) => r != null).length == 0) {
+            return Promise.reject($self.NOOP);
+          }
+          const [
+            uiLangs,
+            translateLang,
+            noTranslateLangs,
+            disableAutotranslateLangs,
+          ] = results;
 
-        return {
-          uiLangs,
-          translateLang,
-          noTranslateLangs,
-          disableAutotranslateLangs,
-        };
-      });
+          return {
+            uiLangs,
+            translateLang,
+            noTranslateLangs,
+            disableAutotranslateLangs,
+          };
+        })
+        .catch((e) => {
+          if (e === $self.NOOP) return e;
+
+          reportError('Failed to parse one of Facebook preferences page', e);
+          return Promise.reject($self.NOOP);
+        });
     } catch (e) {
-      // TODO: reporting
-      console.log('Error getting profile settings', e);
+      reportError('Failed to parse Facebook preferences page', e);
+      return Promise.reject(this.NOOP);
     }
   }
 
