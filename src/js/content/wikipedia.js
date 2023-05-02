@@ -23,11 +23,22 @@ export default class wikipediaHandler extends defaultHandler {
     }
 
     const langs = {};
+
+    // Old design
     document
       .querySelectorAll(
         '#p-lang .vector-menu-content a.interlanguage-link-target'
       )
       .forEach((a) => (langs[a.getAttribute('lang')] = a.getAttribute('href')));
+
+    // New design
+    if (Object.keys(langs).length === 0) {
+      document
+        .querySelectorAll('.uls-language-list a.autonym')
+        .forEach(
+          (a) => (langs[a.getAttribute('lang')] = a.getAttribute('href'))
+        );
+    }
 
     for (var lng of this.moreLanguages) {
       if (!langs[lng]) continue;
