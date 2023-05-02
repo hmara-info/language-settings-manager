@@ -313,7 +313,10 @@ async function saveLangChoice(e) {
 
       storageSetSync({ userSettings: userSettings });
 
-      sendEvent('savedLanguageChoice');
+      sendEvent(
+        'savedLanguageChoice',
+        firstConfigSave ? { firstSave: true } : {}
+      );
     })
     .catch((e) => {
       console.log('There was an error saving the languages preference', e);
