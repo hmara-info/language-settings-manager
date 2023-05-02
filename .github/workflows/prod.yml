@@ -10,10 +10,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2-beta
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3-beta
       with:
-        node-version: '12'
+        node-version: '19'
         check-latest: true
     - run: npm install --production
     - run: CHROME=1 npm run stage
