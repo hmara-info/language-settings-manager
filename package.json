@@ -83,6 +83,17 @@
           ]
         ]
       },
+      "stage": {
+        "plugins": [
+          ["@babel/plugin-proposal-class-properties"],
+          [
+            "transform-remove-console",
+            {
+              "exclude": ["error", "warn"]
+            }
+          ]
+        ]
+      },
       "production": {
         "plugins": [
           ["@babel/plugin-proposal-class-properties"],
