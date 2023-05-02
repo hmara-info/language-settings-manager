@@ -46,15 +46,15 @@ jobs:
     - run: rm -r build/*
     - run: FIREFOX=1 npm run prod
     - run: cd build && zip -r language-settings-manager.prod.xpi * && cd ..
-    - uses: trmcnvn/firefox-addon@v1
+    - uses: wdzeng/firefox-addon@v1
       with:
         # uuid is only necessary when updating an existing addon,
         # omitting it will create a new addon
-        uuid: '0d2e7142-9bce-4a7e-9ff9-19251eee83ec'
-        xpi: build/language-settings-manager.prod.xpi
-        manifest: build/manifest.json
-        api-key: ${{ secrets.FIREFOX_API_KEY }}
-        api-secret: ${{ secrets.FIREFOX_API_SECRET }}
+        addon-guid: language-settings-manager@hmara.info
+        xpi-path: build/language-settings-manager.prod.xpi
+        self-hosted: false
+        jwt-issuer: ${{ secrets.FIREFOX_API_KEY }}
+        jwt-secret: ${{ secrets.FIREFOX_API_SECRET }}
     - name: Get current version
       id: version
       run: echo "::set-output name=version::v"$(jq -r .version build/manifest.json)
