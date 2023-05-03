@@ -9,6 +9,8 @@ import {
 
 let config;
 
+console.log('Loaded background.js');
+
 browser.runtime.onInstalled.addListener(function (details) {
   // This needs to be the same for Chrome, FF and everybody else
   sendEvent(`installed: ${details.reason}`);
@@ -108,23 +110,27 @@ function setupNotifications() {
 function checkConfigured() {
   storageGetSync('userSettings').then((data) => {
     if (!data.userSettings) {
+      console.log('User settings not found. Setting up notification');
       try {
-        browser.notifications.create('PleaseSetUp', {
-          title: 'Лагідна Українізація',
-          message:
-            'Вкажіть, які мови ви хочете бачити більше в Інтернет, будь ласка. Натисніть на це повідомлення',
-          iconUrl: '/icon-128.png',
-          type: 'basic',
-          buttons: [
-            {
-              title: 'Перейти до налаштуваннь',
-            },
-          ],
-        });
+        browser.notifications
+          .create('PleaseSetUp', {
+            title: 'Лагідна Українізація',
+            message:
+              'Вкажіть, які мови ви хочете бачити більше в Інтернет, будь ласка. Натисніть на це повідомлення',
+            iconUrl: '/icon-128.png',
+            type: 'basic',
+            buttons: [
+              {
+                title: 'Перейти до налаштуваннь',
+              },
+            ],
+          })
+          .catch((e) => reportError('Failed to create the notification', e));
       } catch (e) {
         reportError('Failed to create notification', e);
       }
     } else {
+      console.log('Loaded user settings. Setting up google rewrite');
       setupGoogleRewrite();
     }
   });
