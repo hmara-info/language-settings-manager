@@ -4,6 +4,7 @@
   "description": "Лагідна Українізація",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack --mode development --verbose",
+    "watch": "cross-env NODE_ENV=development webpack --watch --mode development --verbose",
     "stage": "cross-env NODE_ENV=stage webpack --mode production  --verbose",
     "prod": "cross-env NODE_ENV=production webpack --mode production --verbose",
     "tests": "./node_modules/mocha/bin/mocha --require @babel/register --timeout 15000 --reporter nyan tests",

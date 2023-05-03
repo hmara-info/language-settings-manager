@@ -2,6 +2,8 @@
 <html lang="uk">
   <head>
     <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>__MSG_opt_title__</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;500&display=swap"
@@ -17,18 +19,22 @@
   </head>
   <body id="options">
     <header>
-      <img src="img/hmara.svg" />
-      <h1>__MSG_opt_ext_name_header__</h1>
+      <div class="header-content">
+        <img src="img/hmara.svg" />
+        <h1>__MSG_opt_ext_name_header__</h1>
+      </div>
     </header>
     <main>
       <section class="intro">
         <img src="img/hmara-green.svg" id="green-hmara" />
-        <h2>__MSG_opt_thanks_for_joining__</h2>
-        <p>__MSG_opt_make_internet_speak_your_lang__</p>
-        <input type="button" value="Докладніше про проєкт" id="learnMore" />
+        <div class="intro-text">
+          <h2>__MSG_opt_thanks_for_joining__</h2>
+          <p>__MSG_opt_make_internet_speak_your_lang__</p>
+          <input type="button" value="Докладніше про проєкт" id="learnMore" />
+        </div>
       </section>
       <section id="wantMoreLanguages">
-        <h2>Крок 1. Ваша мова</h2>
+        <div class="step-name">Крок 1. Ваша мова</div>
         <h3>Якою мовою (мовами) має говорити до вас Інтернет?</h3>
 
         <form id="selectMoreLanguagesForm">
@@ -153,10 +159,10 @@
 
             <i class="dropdown icon"></i>
           </div>
-          <br />
+
           <input
             type="submit"
-            value="Зберегти"
+            value="Далі"
             id="saveMoreLangPrefs"
             class="hidden"
           />
@@ -169,7 +175,8 @@
       </section>
 
       <section id="wantLessLanguages" class="hidden">
-        <h2>Крок 2. Яких мов ви хочете бачити менше?</h2>
+        <div class="step-name">Крок 2. Небажані мови</div>
+        <h3>Яких мов ви хочете бачити менше?</h3>
 
         <form id="selectLessLanguagesForm">
           <div class="ui dropdown labeled search selection multiple">
@@ -293,10 +300,10 @@
 
             <i class="dropdown icon"></i>
           </div>
-          <br />
+
           <input
             type="submit"
-            value="Зберегти"
+            value="Далі"
             id="saveLessLangPrefs"
             class="hidden"
           />
@@ -304,7 +311,7 @@
       </section>
 
       <section id="userSpeed" class="hidden">
-        <h2>Крок 3. Швидкість</h2>
+        <div class="step-name">Крок 3. Швидкість</div>
         <h3>Як швидко ви хочете українізуватися?</h3>
         <form id="selectUserSpeed">
           <div class="ui three item menu">
@@ -316,16 +323,11 @@
               Негайно!
             </a>
           </div>
-          <input
-            type="submit"
-            value="Зберегти"
-            id="saveUserSpeed"
-            class="hidden"
-          />
+          <input type="submit" value="Далі" id="saveUserSpeed" class="hidden" />
         </form>
       </section>
       <section id="grantRightsToCollectStats" class="hidden">
-        <h2>Крок 4. Дозволи</h2>
+        <div class="step-name">Крок 4. Дозволи</div>
         <h3>Вкажіть, чи надаєте ви дозвіл на збирання статистики.</h3>
         <div style="display: none">
           <p>
@@ -346,17 +348,13 @@
           <div>
             <input type="checkbox" name="collect_stats" disabled />
             <label for="collect_stats">Дозволяю збирати статистику</label>
-            <br />
           </div>
-          <section>
-            <input
-              type="submit"
-              value="Зберегти"
-              id="saveAllPrefs"
-              class="hidden"
-            />
-            <p id="permissionFormSuccess" class="hidden">Зміни збережено 👍</p>
-          </section>
+          <input
+            type="submit"
+            value="Зберегти"
+            id="saveAllPrefs"
+            class="hidden"
+          />
         </form>
       </section>
 
@@ -370,9 +368,7 @@
 
       <section id="reset" class="hidden">
         <div>Reset</div>
-        <div>
-          <input type="button" id="resetSettings" value="Reset" />
-        </div>
+        <input type="button" id="resetSettings" value="Reset" />
       </section>
     </main>
   </body>
