@@ -1,5 +1,5 @@
 import browser from 'webextension-polyfill';
-import { storageGetSync } from './util';
+import { storageGetSync, reportError } from './util';
 
 let lessLanguages;
 let moreLanguages;
@@ -8,31 +8,44 @@ let userSpeed;
 export default function setupGoogleRewrite() {}
 
 syncLanguagesConfig();
+
 browser.storage.onChanged.addListener(syncLanguagesConfig);
 async function syncLanguagesConfig() {
-  return storageGetSync('userSettings').then((settings) => {
-    const userSettings = settings.userSettings;
-    if (!userSettings || Object.keys(userSettings) == null) return;
-    if (
-      JSON.stringify([
-        userSettings.lessLanguages,
-        userSettings.moresLanguages,
-      ]) === JSON.stringify([lessLanguages, moreLanguages])
-    )
-      return Promise.resolve();
+  console.log('Loading languages config');
+  return storageGetSync('userSettings')
+    .then((settings) => {
+      const userSettings = settings.userSettings;
+      if (!userSettings || Object.keys(userSettings) == null) return;
+      if (
+        JSON.stringify([
+          userSettings.lessLanguages,
+          userSettings.moresLanguages,
+        ]) === JSON.stringify([lessLanguages, moreLanguages])
+      )
+        return;
 
-    lessLanguages = userSettings.lessLanguages;
-    moreLanguages = userSettings.moreLanguages;
-    userSpeed = userSettings.speed;
+      lessLanguages = userSettings.lessLanguages;
+      moreLanguages = userSettings.moreLanguages;
+      userSpeed = userSettings.speed;
+      return userSettings;
+    })
+    .catch((e) => {
+      reportError('Error fetching userSettings', e);
+    })
+    .then((userSettings) => {
+      if (!userSettings) return;
 
-    /// #if PLATFORM == 'FIREFOX'
-    return firefoxSetupDynamicRewriteRules(userSettings);
-    /// #endif
+      /// #if PLATFORM == 'FIREFOX'
+      return firefoxSetupDynamicRewriteRules(userSettings);
+      /// #endif
 
-    /// #if PLATFORM == 'CHROME' || PLATFORM == 'SAFARI'
-    return chromeSetupDynamicRewriteRules(userSettings);
-    /// #endif
-  });
+      /// #if PLATFORM == 'CHROME' || PLATFORM == 'SAFARI'
+      return chromeSetupDynamicRewriteRules(userSettings);
+      /// #endif
+    })
+    .catch((e) => {
+      reportError('Error setting up dynamic rewrite rules', e);
+    });
 }
 
 /// #if PLATFORM == 'FIREFOX'
@@ -71,6 +84,7 @@ function firefoxGoogleAutocompleteRequestListner(details) {
 }
 
 async function firefoxSetupDynamicRewriteRules() {
+  console.log('Setting up firefox-alike dynamic rewrite rules');
   browser.webRequest.onBeforeRequest.addListener(
     firefoxGoogleSearchRequestListner,
     {
@@ -483,38 +497,45 @@ async function firefoxSetupDynamicRewriteRules() {
 
 /// #if PLATFORM == 'CHROME' || PLATFORM == 'SAFARI'
 async function chromeSetupDynamicRewriteRules(userSettings) {
+  console.log('Setting up chrome-alike dynamic rewrite rules');
   const filterValue =
     '(-' + lessLanguages.map((lang) => `lang_${lang})`).join('.');
 
-  browser.declarativeNetRequest.updateDynamicRules({
-    addRules: [
-      {
-        id: 1,
-        priority: 1,
-        action: {
-          type: 'redirect',
-          redirect: {
-            transform: {
-              queryTransform: {
-                addOrReplaceParams: [{ key: 'lr', value: filterValue }],
+  const rulesOk = await browser.declarativeNetRequest
+    .updateDynamicRules({
+      addRules: [
+        {
+          id: 1,
+          priority: 1,
+          action: {
+            type: 'redirect',
+            redirect: {
+              transform: {
+                queryTransform: {
+                  addOrReplaceParams: [{ key: 'lr', value: filterValue }],
+                },
               },
             },
           },
+          condition: {
+            regexFilter:
+              '^https://(?:www\\.)?google\\.(\\w\\w|co\\.(\\w\\w)|com|com\\.(\\w\\w)|\\w\\w)/search?.*',
+            resourceTypes: ['main_frame'],
+          },
         },
-        condition: {
-          regexFilter:
-            '^https://(?:www\\.)?google\\.(\\w\\w|co\\.(\\w\\w)|com|com\\.(\\w\\w)|\\w\\w)/search?.*',
-          resourceTypes: ['main_frame'],
-        },
-      },
-    ],
-    removeRuleIds: [1],
-  });
+      ],
+      removeRuleIds: [1],
+    })
+    .catch((e) => {
+      reportError('Failed to set up chrome rewrite rules', e);
+    });
+
+  console.log('declarative rules', rulesOk);
 
   if (!lessLanguages.includes('ru') || !moreLanguages.includes('uk')) return;
 
   if (process.env.NODE_ENV === 'development' || userSpeed === 'immediately') {
-    chrome.declarativeNetRequest.updateDynamicRules({
+    browser.declarativeNetRequest.updateDynamicRules({
       addRules: [
         {
           id: 2,
