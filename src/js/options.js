@@ -92,6 +92,10 @@ document.querySelectorAll('#userSpeed .ui.menu > .item').forEach((element) =>
   })
 );
 
+/// #if PLATFORM == 'CHROME'
+document.body.style.minWidth = '620px';
+/// #endif
+
 storageGetSync('userSettings').then((settings) => {
   let userSettings = settings.userSettings || {};
 
