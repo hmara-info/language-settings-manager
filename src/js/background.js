@@ -19,6 +19,13 @@ browser.runtime.onInstalled.addListener(function (details) {
 if (process.env.NODE_ENV === 'development') {
   // Configuration override in development goes here
   // chrome.storage.local.set({});
+  /// #if PLATFORM == 'CHROME'
+  if (chrome.declarativeNetRequest.onRuleMatchedDebug) {
+    chrome.declarativeNetRequest.onRuleMatchedDebug.addListener((e) => {
+      console.log(`Rewriting ${e.request.url} with 'lr'`);
+    });
+  }
+  /// #endif
 }
 
 try {
