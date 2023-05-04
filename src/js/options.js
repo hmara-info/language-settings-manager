@@ -92,6 +92,10 @@ document.querySelectorAll('#userSpeed .ui.menu > .item').forEach((element) =>
   })
 );
 
+/// #if PLATFORM == 'CHROME'
+document.body.style.minWidth = '620px';
+/// #endif
+
 storageGetSync('userSettings').then((settings) => {
   let userSettings = settings.userSettings || {};
 
@@ -263,21 +267,22 @@ function saveAllLangPrefs(e) {
 
   saveLangChoice().then(() => {
     // First successful save. Congratulate the user
-    const thankYouId = onboarding
-      ? 'onboardingPermissionFormSuccess'
-      : 'permissionFormSuccess';
-
-    const thankYouElement = document.getElementById(thankYouId);
-    thankYouElement.classList.remove('hidden');
-    thankYouElement.scrollIntoView({
-      block: 'start',
-      inline: 'nearest',
-      behavior: 'smooth',
-    });
-    if (!onboarding) {
+    if (onboarding) {
+      const thankYouElement = document.getElementById(
+        'onboardingPermissionFormSuccess'
+      );
+      thankYouElement.classList.remove('hidden');
+      thankYouElement.scrollIntoView({
+        block: 'start',
+        inline: 'nearest',
+        behavior: 'smooth',
+      });
+    } else {
+      const btn = document.getElementById('saveAllPrefs');
+      btn.value = 'Зміни збережено 👍';
       setTimeout(() => {
-        thankYouElement.classList.add('hidden');
-      }, 1500);
+        btn.value = 'Зберегти';
+      }, 2500);
     }
   });
 }
