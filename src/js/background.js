@@ -116,29 +116,33 @@ function setupNotifications() {
 
 function checkConfigured() {
   storageGetSync('userSettings').then((data) => {
-    if (!data.userSettings) {
-      console.log('User settings not found. Setting up notification');
-      try {
-        browser.notifications
-          .create('PleaseSetUp', {
-            title: 'Лагідна Українізація',
-            message:
-              'Вкажіть, які мови ви хочете бачити більше в Інтернет, будь ласка. Натисніть на це повідомлення',
-            iconUrl: '/icon-128.png',
-            type: 'basic',
-            buttons: [
-              {
-                title: 'Перейти до налаштуваннь',
-              },
-            ],
-          })
-          .catch((e) => reportError('Failed to create the notification', e));
-      } catch (e) {
-        reportError('Failed to create notification', e);
-      }
-    } else {
-      console.log('Loaded user settings. Setting up google rewrite');
-      setupGoogleRewrite();
+    if (data.userSettings) {
+      return;
+    }
+
+    console.log('User settings not found. Setting up notification');
+
+    try {
+      browser.notifications.create(
+        'PleaseSetUp',
+        {
+          title: 'Лагідна Українізація',
+          message:
+            'Вкажіть, які мови ви хочете бачити більше в Інтернет, будь ласка. Натисніть на це повідомлення',
+          iconUrl: '/icon-128.png',
+          type: 'basic',
+          buttons: [
+            {
+              title: 'Перейти до налаштуваннь',
+            },
+          ],
+        },
+        function (notificationId) {
+          console.log(`Notification ${notificationId} is live`);
+        }
+      );
+    } catch (e) {
+      reportError('Failed to create notification', e);
     }
   });
 }
