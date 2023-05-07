@@ -2,13 +2,18 @@ import '../img/icon-128.png';
 import '../img/icon-64.png';
 import '../img/icon-32.png';
 
-import { storageGetSync, reportError } from './util';
+import { storageGetSync, reportError, FEATURES } from './util';
 import { dispatch } from './routing';
 
 storageGetSync('userSettings').then((settings) => {
   let userSettings = settings.userSettings || {};
   let moreLanguages = userSettings.moreLanguages || [];
   let lessLanguages = userSettings.lessLanguages || [];
+
+  if (!FEATURES.CONTENT) {
+    console.log('CONTENT is disabled. Not processing the page');
+    return;
+  }
 
   if (moreLanguages.length === 0) {
     console.log('moreLanguages not set. Not processing the page');

@@ -1,12 +1,15 @@
 import browser from 'webextension-polyfill';
-import { storageGetSync, reportError } from './util';
+import { storageGetSync, reportError, FEATURES } from './util';
 import { trackAchievement } from './achievements';
 
 let lessLanguages;
 let moreLanguages;
 let userSpeed;
 
-export default function setupGoogleRewrite() {}
+if (FEATURES.NOTIFICATIONS) {
+  syncLanguagesConfig();
+  browser.storage.onChanged.addListener(syncLanguagesConfig);
+}
 
 syncLanguagesConfig();
 

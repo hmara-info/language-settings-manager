@@ -110,3 +110,41 @@ function _sendInfo(path, options) {
       console.log('Failed to send an event', error);
     });
 }
+
+export async function updateLocalFeatures() {
+  if (!navigator.onLine) return;
+  const env = process.env.NODE_ENV;
+  const platform = process.env.FIREFOX
+    ? 'FIREFOX'
+    : process.env.CHROME
+    ? 'CHROME'
+    : process.env.SAFARI
+    ? 'SAFARI'
+    : 'UNKNOWN';
+
+  const path = `/features/${env}-${platform}-${getExtensionVersion()}.json`;
+
+  return fetch(API_BASE + path)
+    .then((r) => r.json())
+    .then((json) => {
+      if (!json || Object.keys(json) <= 0) {
+        return;
+      }
+      const missingFeatures = [];
+      for (const k of FEATURES) {
+        if (!k in json) {
+          missingFeatures.push(k);
+        }
+      }
+      if (missingFeatures.length) {
+        reportError(
+          `Incomplete featureset received from ${path}. Missing keys: ` +
+            missingFeatures.sort().join(', ')
+        );
+        return;
+      }
+      browser.storage.local
+        .set({ features: json })
+        .then(() => (FEATURES = json));
+    });
+}

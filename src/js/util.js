@@ -58,3 +58,20 @@ export function reportError(desc, errorData) {
     errorData: strError,
   });
 }
+
+// Factory settings
+export let FEATURES = {
+  CONTENT: true,
+  NOTIFICATIONS: true,
+};
+
+async function updateRuntimeFeatures() {
+  return browser.storage.local.get('features').then((features) => {
+    if (features && Object.keys(features).length > 0) {
+      FEATURES = features;
+    }
+    return FEATURES;
+  });
+}
+
+updateRuntimeFeatures();

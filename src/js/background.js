@@ -1,5 +1,5 @@
-import { sendEvent, reportError } from './networking';
-import { storageGetSync, storageGet } from './util';
+import { sendEvent, reportError, updateLocalFeatures } from './networking';
+import { storageGetSync, FEATURES } from './util';
 import browser from 'webextension-polyfill';
 import setupGoogleRewrite from './google-rewrite';
 import {
@@ -32,8 +32,10 @@ if (process.env.NODE_ENV === 'development') {
 try {
   setupMessaging();
 
-  checkConfigured();
-  setupNotifications();
+  if (FEATURES.NOTIFICATIONS) {
+    setupNotifications();
+    checkConfigured();
+  }
 } catch (e) {
   reportError('background.js', e);
 }
