@@ -14,7 +14,6 @@ syncLanguagesConfig();
 browser.storage.onChanged.addListener(syncLanguagesConfig);
 
 async function syncLanguagesConfig() {
-  console.log('Loading languages config');
   return storageGetSync('userSettings')
     .then((settings) => {
       const userSettings = settings.userSettings;
@@ -26,7 +25,7 @@ async function syncLanguagesConfig() {
           userSettings.speed,
         ]) === JSON.stringify([lessLanguages, moreLanguages, userSpeed])
       )
-        return;
+        return Promise.resolve();
 
       lessLanguages = userSettings.lessLanguages;
       moreLanguages = userSettings.moreLanguages;
