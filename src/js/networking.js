@@ -107,8 +107,6 @@ function _sendInfo(path, options) {
       return r;
     })
     .catch((error) => {
-      if (process.env.NODE_ENV === 'development') {
-        console.error('Failed to send an event', error);
-      }
+      console.log('Failed to send an event', error);
     });
 }

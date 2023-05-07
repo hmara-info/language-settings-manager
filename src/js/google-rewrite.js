@@ -11,7 +11,6 @@ syncLanguagesConfig();
 
 browser.storage.onChanged.addListener(syncLanguagesConfig);
 async function syncLanguagesConfig() {
-  console.log('Loading languages config');
   return storageGetSync('userSettings')
     .then((settings) => {
       const userSettings = settings.userSettings;
@@ -20,9 +19,10 @@ async function syncLanguagesConfig() {
         JSON.stringify([
           userSettings.lessLanguages,
           userSettings.moresLanguages,
-        ]) === JSON.stringify([lessLanguages, moreLanguages])
+          userSettings.speed,
+        ]) === JSON.stringify([lessLanguages, moreLanguages, userSpeed])
       )
-        return;
+        return Promise.resolve();
 
       lessLanguages = userSettings.lessLanguages;
       moreLanguages = userSettings.moreLanguages;
@@ -34,6 +34,8 @@ async function syncLanguagesConfig() {
     })
     .then((userSettings) => {
       if (!userSettings) return;
+
+      console.log('userSettings changed, regenerating dynamicRewriteRules');
 
       /// #if PLATFORM == 'FIREFOX'
       return firefoxSetupDynamicRewriteRules(userSettings);
