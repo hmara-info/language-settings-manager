@@ -63,6 +63,15 @@ function _sendJSON(path, body) {
           userId: userId || 'unknown',
           eventId: uuidv4(),
           version: getExtensionVersion(),
+          /// #if PLATFORM == 'FIREFOX'
+          platform: 'firefox',
+          /// ##elif PLATFORM == 'CHROME'
+          platform: 'chrome',
+          /// ##elif PLATFORM == 'SAFARI'
+          platform: 'safari',
+          /// #else
+          platform: 'unknown',
+          /// #endif
           userSettings: userSettingsCp,
         }),
         method: 'POST',
@@ -98,8 +107,6 @@ function _sendInfo(path, options) {
       return r;
     })
     .catch((error) => {
-      if (process.env.NODE_ENV === 'development') {
-        console.error('Failed to send an event', error);
-      }
+      console.log('Failed to send an event', error);
     });
 }
