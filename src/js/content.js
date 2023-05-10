@@ -11,6 +11,7 @@ storageGetSync('userSettings').then((settings) => {
   let lessLanguages = userSettings.lessLanguages || [];
 
   if (moreLanguages.length === 0) {
+    console.log('moreLanguages not set. Not processing the page');
     return;
   }
 
