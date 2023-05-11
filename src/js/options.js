@@ -2,6 +2,7 @@ import '../css/options.css';
 import 'semantic-ui-css/semantic.min.js';
 import browser from 'webextension-polyfill';
 import { sendEvent } from './networking';
+import { trackAchievement } from './achievements';
 import {
   storageGetSync,
   storageSetSync,
@@ -310,18 +311,25 @@ async function saveLangChoice(e) {
   return storageGetSync('userSettings')
     .then((data) => {
       const firstConfigSave = data.userSettings ? false : true;
+      const lessLanguagesDefined =
+        firstConfigSave && data.userSettings.lessLanguages;
+
       const userSettings = data.userSettings || {};
       userSettings.moreLanguages = moreLanguagesPreference;
       userSettings.lessLanguages = lessLanguagesPreference;
       userSettings.is_18 = is_18;
       userSettings.collectStats = collect_stats;
 
-      storageSetSync({ userSettings: userSettings });
-
-      sendEvent(
-        'savedLanguageChoice',
-        firstConfigSave ? { firstSave: true } : {}
-      );
+      storageSetSync({ userSettings: userSettings }).then(() => {
+        // The user completed language setup first time
+        if (!lessLanguagesDefined) {
+          trackAchievement('lng_choice');
+        }
+        sendEvent(
+          'savedLanguageChoice',
+          firstConfigSave ? { firstSave: true } : {}
+        );
+      });
     })
     .catch((e) => {
       console.log('There was an error saving the languages preference', e);
