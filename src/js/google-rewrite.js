@@ -1,5 +1,6 @@
 import browser from 'webextension-polyfill';
 import { storageGetSync, reportError } from './util';
+import { trackAchievement } from './achievements';
 
 let lessLanguages;
 let moreLanguages;
@@ -9,7 +10,9 @@ export default function setupGoogleRewrite() {}
 
 syncLanguagesConfig();
 
+// TODO:guart by a feature
 browser.storage.onChanged.addListener(syncLanguagesConfig);
+
 async function syncLanguagesConfig() {
   return storageGetSync('userSettings')
     .then((settings) => {
