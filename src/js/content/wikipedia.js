@@ -29,6 +29,15 @@ export default class wikipediaHandler extends defaultHandler {
       )
       .forEach((a) => (langs[a.getAttribute('lang')] = a.getAttribute('href')));
 
+    // Wiki layout changed, we support both
+    if (!Object.keys(langs).length) {
+      document
+        .querySelectorAll('li.interlanguage-link a.interlanguage-link-target')
+        .forEach(
+          (a) => (langs[a.getAttribute('lang')] = a.getAttribute('href'))
+        );
+    }
+
     for (var lng of this.moreLanguages) {
       if (!langs[lng]) continue;
       return [lng, langs[lng]];
