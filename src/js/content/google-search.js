@@ -1,6 +1,7 @@
 import defaultHandler from './default';
 import { reportError } from '../util';
-import { trackAchievement } from './achievements';
+import { trackAchievement } from '../achievements';
+import browser from 'webextension-polyfill';
 
 export default class googleSearchHandler extends defaultHandler {
   handlerName = 'google-search';
@@ -23,8 +24,14 @@ export default class googleSearchHandler extends defaultHandler {
       if (this.lessLanguages && this.lessLanguages.length) {
         const url = new URL(location.href);
         const lr = url.searchParams.get('lr');
+
         if (lr && lr.match('-lang_')) {
-          trackAchievement('gs_rewrite');
+          browser.runtime.sendMessage({
+            type: 'content',
+            subtype: 'MsgAchievementUnlocked',
+            acKey: 'gs_rewrite',
+            options: this._getAchievementVariables(),
+          });
         }
       }
     } catch (e) {

@@ -25,7 +25,7 @@ export async function storageSetSync(data) {
 }
 
 export function getMessage(msg) {
-  return chrome.i18n.getMessage(msg);
+  return browser.i18n.getMessage(msg);
 }
 
 export function localizeHtmlPage() {

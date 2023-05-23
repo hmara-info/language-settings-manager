@@ -27,23 +27,14 @@ storageGetSync('userSettings').then((settings) => {
     handler
       .needToTweakLanguages()
       .then((config) => handler.tweakLanguages())
-      .then((events) => {
-        if (!events) return;
-        console.log(
-          `Postprocessing ${events.length} events after tweaking languages`
-        );
-        for (let evt of events) {
-          sendEvent(e.type, e.data);
-        }
-        return true;
-      })
       .catch((e) => {
-        console.log(
-          `tweakLanguages flow if ${handler.handlerName} ` +
-            `produced an exception`,
-          e
-        );
-        if (e === handler.NOOP) return;
+        if (e === handler.NOOP) {
+          console.log(
+            `tweakLanguages flow if ${handler.handlerName} returned 'nothing to do'`,
+            e
+          );
+          return;
+        }
         reportError(`Error in ${handler.handlerName} content flow`, e);
       });
   } catch (e) {
