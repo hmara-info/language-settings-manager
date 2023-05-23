@@ -1,5 +1,6 @@
 import { storageGet, storageGetSync, storageSet, storageRemove } from '../util';
 import { reportError } from '../util';
+import browser from 'webextension-polyfill';
 
 const promptsFrequency = {
   slow: 7 * 60 * 60 * 1000,
@@ -35,33 +36,65 @@ export default class handler {
   async needToTweakLanguages() {
     console.log(`Entering needToTweakLanguages() of ${this.handlerName}`);
     const $self = this;
-    return storageGetSync(['userSettings', 'lastPromptTs'])
-      .then((data) => {
-        const userSettings = data.userSettings || {};
+    return Promise.all([
+      storageGetSync(['userSettings', 'lastPromptTs']),
+      storageGet($self._achievementKey()),
+    ])
+      .then(async ([userData, expectAchievementData]) => {
+        const expectAchievement =
+          expectAchievementData[$self._achievementKey()];
+        if (expectAchievement) {
+          console.log(
+            `NOT checking the last prompt timestamp, as an achievement is expected`
+          );
+          storageRemove($self._achievementKey());
+          return true;
+        }
+
+        // Check if it's too early for any prompts
+        const userSettings = userData.userSettings || {};
         const speed = userSettings.speed || 'gentle';
-        const lastPromptTs = data.lastPromptTs || 0;
+        const lastPromptTs = userData.lastPromptTs || 0;
         const timeSinceUserPrompted =
           Math.floor(Date.now() / 1000) - lastPromptTs;
 
-        if (
-          process.env.NODE_ENV === 'development' ||
-          promptsFrequency[speed] > timeSinceUserPrompted
-        ) {
-          // User prompted a while ago, we can do it again
-          console.log(
-            `Refreshing targetLanguagesConfig at ${this.handlerName}`
-          );
-          return $self.targetLanguagesConfig();
+        // Caching is disabled in dev environment to ease debugging
+        if (process.env.NODE_ENV === 'development') return false;
+
+        // Too early for any prompts
+        if (promptsFrequency[speed] >= timeSinceUserPrompted) {
+          return Promise.reject($self.NOOP);
         }
 
-        console.log(
-          `No need to refres targetLanguagesConfig at ${this.handlerName}`
-        );
-        return Promise.reject($self.NOOP);
+        // Regular config check, no achievements expected
+        return false;
       })
-      .then((config) => {
-        console.log(`targetLanguagesConfig at ${this.handlerName} is`, config);
-        return config == null ? Promise.reject($self.NOOP) : config;
+      .then(async (expectAchievement) => {
+        console.log(`Refreshing targetLanguagesConfig at ${$self.handlerName}`);
+        const config = await $self.targetLanguagesConfig();
+        console.log(`targetLanguagesConfig at ${$self.handlerName} is`, config);
+
+        if (expectAchievement) {
+          if (!config) {
+            browser.runtime.sendMessage({
+              type: 'content',
+              subtype: 'MsgAchievementUnlocked',
+              acKey: $self._achievementKey(),
+              options: $self._getAchievementVariables(),
+            });
+          } else {
+            console.error(
+              `Expected achievement, but targetLanguagesConfig still present at ${$self.handlerName}`
+            );
+          }
+          return Promise.reject($self.NOOP);
+        }
+
+        if (config == null) {
+          return Promise.reject($self.NOOP);
+        }
+
+        return config;
       });
   }
 
@@ -85,7 +118,19 @@ export default class handler {
   }
 
   _reloadPageOnceLanguagesChanged() {
+    // NOTE: the same key is used in two different namespaces.
+    //
+    // content/default.js is using storage.local to mark that achievement
+    //   is expected and should be visualised;
+    //
+    // achievements.js is using storage.sync to permanently track the goals achieved
+
+    this.storageSet({ [this._achievementKey()]: 1 });
     this.location.reload();
+  }
+
+  _achievementKey() {
+    return `CT_${this.handlerName}`;
   }
 
   _tweakLanguagesCTA(languageConfig) {
@@ -171,9 +216,9 @@ export default class handler {
       if (cachedConfig && cachedConfig.data) {
         return cachedConfig.data;
       }
-      return this._targetLanguagesConfig().then((config) => {
-        return this._targetLanguagesConfigUpdateCache(config);
-      });
+      return this._targetLanguagesConfig().then((config) =>
+        this._targetLanguagesConfigUpdateCache(config)
+      );
     });
   }
 
@@ -183,15 +228,24 @@ export default class handler {
       (value) => moreLanguages.includes(value)
     );
 
-    if (supportedWantedLanguages.length == 0) return null;
+    if (supportedWantedLanguages.length == 0) return Promise.reject(this.NOOP);
 
     const uiLanguage = this.document.documentElement.lang
       .replace(/-.*/, '')
       .toLowerCase();
 
-    if (supportedWantedLanguages.indexOf(uiLanguage) === 0) return;
+    if (supportedWantedLanguages.indexOf(uiLanguage) === 0)
+      return Promise.reject(this.NOOP);
 
-    return supportedWantedLanguages.filter((value) => value !== uiLanguage);
+    const config = supportedWantedLanguages.filter(
+      (value) => value !== uiLanguage
+    );
+
+    if (!config.length) {
+      return Promise.reject(this.NOOP);
+    }
+
+    return config;
   }
 
   _targetLanguagesConfigCached() {
@@ -212,9 +266,10 @@ export default class handler {
 
   async _targetLanguagesConfigUpdateCache(config) {
     const cacheKey = this.cacheKey;
-    return storageSet({
-      [cacheKey]: { data: config, ts: new Date().getTime() },
-    }).then(() => config);
+    storageSet({
+      cacheKey: { data: config, ts: new Date().getTime() },
+    });
+    return config;
   }
 
   async _targetLanguagesConfigDropCache() {
@@ -267,5 +322,25 @@ export default class handler {
 
     // Suggest new config
     return newLangs;
+  }
+
+  _getAchievementVariables() {
+    const dict = {};
+
+    dict.lessLanguages = this.lessLanguages
+      .map((l) => `__MSG_lang_${l.replace(/-/g, '_')}_genetivus__`)
+      .join(', ')
+      .replace(/, ([^,]+)$/, ' та $1');
+    dict.moreLanguages = this.moreLanguages
+      .map((l) => `__MSG_lang_${l.replace(/-/g, '_')}_nominativus__`)
+      .join(', ')
+      .replace(/, ([^,]+)$/, ' та $1');
+
+    dict.firstLanguage = `__MSG_lang_${this.moreLanguages[0].replace(
+      /-/g,
+      '_'
+    )}_nominativus__`;
+
+    return dict;
   }
 }

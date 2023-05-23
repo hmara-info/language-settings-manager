@@ -6,6 +6,7 @@ import {
   getGoogleUILangugagesRequest,
   setGoogleUILangugagesRequest,
 } from './content/shared/google-ui-languages';
+import { trackAchievement } from './achievements';
 
 let config;
 
@@ -86,6 +87,9 @@ function handleContentRequest(request, sender) {
     case 'MsgReportError':
       return reportError(request.desc, request.errorData);
 
+    case 'MsgAchievementUnlocked':
+      return trackAchievement(request.acKey, request.options);
+
     default:
       reportError(
         `-> background messages from content '${request.type}' of subtype '${request.subtype}' are not supported`
@@ -123,24 +127,18 @@ function checkConfigured() {
     console.log('User settings not found. Setting up notification');
 
     try {
-      browser.notifications.create(
-        'PleaseSetUp',
-        {
-          title: 'Лагідна Українізація',
-          message:
-            'Вкажіть, які мови ви хочете бачити більше в Інтернет, будь ласка. Натисніть на це повідомлення',
-          iconUrl: '/icon-128.png',
-          type: 'basic',
-          buttons: [
-            {
-              title: 'Перейти до налаштуваннь',
-            },
-          ],
-        },
-        function (notificationId) {
-          console.log(`Notification ${notificationId} is live`);
-        }
-      );
+      browser.notifications.create('PleaseSetUp', {
+        title: 'Лагідна Українізація',
+        message:
+          'Вкажіть, які мови ви хочете бачити більше в Інтернет, будь ласка. Натисніть на це повідомлення',
+        iconUrl: '/icon-128.png',
+        type: 'basic',
+        buttons: [
+          {
+            title: 'Перейти до налаштуваннь',
+          },
+        ],
+      });
     } catch (e) {
       reportError('Failed to create notification', e);
     }
