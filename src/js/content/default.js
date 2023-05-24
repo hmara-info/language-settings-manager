@@ -114,18 +114,23 @@ export default class handler {
     return $self
       .suggestToChangeLanguages()
       .then((language) => $self.changeLanguageTo(language))
+      .then(() => $self._expectAchievement())
       .then(() => $self._reloadPageOnceLanguagesChanged());
   }
 
-  _reloadPageOnceLanguagesChanged() {
+  async _expectAchievement() {
     // NOTE: the same key is used in two different namespaces.
     //
     // content/default.js is using storage.local to mark that achievement
     //   is expected and should be visualised;
     //
     // achievements.js is using storage.sync to permanently track the goals achieved
+    storageSet({ [this._achievementKey()]: 1 });
 
-    this.storageSet({ [this._achievementKey()]: 1 });
+    return true;
+  }
+
+  _reloadPageOnceLanguagesChanged() {
     this.location.reload();
   }
 
