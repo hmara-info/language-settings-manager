@@ -327,19 +327,24 @@ export default class handler {
   _getAchievementVariables() {
     const dict = {};
 
+    // Don't show languages unsupported by the handler
+    const supportedWantedLanguages = this.SUPPORTED_LANGUAGES().filter(
+      (value) => this.moreLanguages.includes(value)
+    );
+
     dict.lessLanguages = this.lessLanguages
       .map((l) => `__MSG_lang_${l.replace(/-/g, '_')}_genetivus__`)
       .join(', ')
       .replace(/, ([^,]+)$/, ' та $1');
-    dict.moreLanguages = this.moreLanguages
+    dict.moreLanguages = supportedWantedLanguages
       .map((l) => `__MSG_lang_${l.replace(/-/g, '_')}_nominativus__`)
       .join(', ')
       .replace(/, ([^,]+)$/, ' та $1');
 
-    dict.firstLanguage = `__MSG_lang_${this.moreLanguages[0].replace(
+    dict.firstLanguage = `__MSG_lang_${supportedWantedLanguages[0].replace(
       /-/g,
       '_'
-    )}_nominativus__`;
+    )}_instrumentalis__`;
 
     return dict;
   }
