@@ -3,13 +3,60 @@ import defaultHandler from './default';
 export default class wikipediaHandler extends defaultHandler {
   handlerName = 'wikipedia';
 
-  async _targetLanguagesConfigCached() {
-    return null;
+  SUPPORTED_LANGUAGES() {
+    return [
+      'uk',
+      'crh',
+      'hy',
+      'af',
+      'be',
+      'bg',
+      'de',
+      'en',
+      'tl',
+      'id',
+      'sw',
+      'nl',
+      'vi',
+      'tr',
+      'ca',
+      'da',
+      'et',
+      'es',
+      'eo',
+      'fr',
+      'hr',
+      'it',
+      'lv',
+      'lt',
+      'hu',
+      'no',
+      'pl',
+      'pt',
+      'ro',
+      'ru',
+      'sk',
+      'sl',
+      'fi',
+      'sv',
+      'is',
+      'cs',
+      'el',
+      'sr',
+      'iw',
+      'ar',
+      'fa',
+      'hi',
+      'th',
+      'zh-CN',
+      'zh-TW',
+      'ja',
+      'ko',
+    ];
   }
 
-  async needToTweakLanguages() {
-    // skip all caching that base class provides
-    return this._targetLanguagesConfig();
+  async _targetLanguagesConfigCached() {
+    return null;
   }
 
   _tweakLanguagesCTA(languageConfig) {
@@ -19,7 +66,7 @@ export default class wikipediaHandler extends defaultHandler {
   async _targetLanguagesConfig() {
     const currentLang = document.querySelector('html').getAttribute('lang');
     if (this.moreLanguages.includes(currentLang)) {
-      return Promise.reject(this.NOOP);
+      return null;
     }
 
     const langs = {};
@@ -43,7 +90,7 @@ export default class wikipediaHandler extends defaultHandler {
       return [lng, langs[lng]];
     }
 
-    return Promise.reject(this.NOOP);
+    return null;
   }
 
   async _changeLanguageTo(language) {

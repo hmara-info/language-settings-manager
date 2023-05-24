@@ -29,6 +29,19 @@ const ACHIEVEMENTS = {
     description:
       'Вітаємо у вашому оновленому Google!<br />Вам подобається інтерфейс {firstLanguage}?',
   },
+
+  CT_wikipedia: {
+    type: 'stack',
+    milestones: [1, 10, 100],
+    title_1: 'До витоків! Wiki {firstLanguage}',
+    title_10: 'Глибше в інформацію {firstLanguage}!',
+    title_100: 'Інформація {firstLanguage} 🤩',
+    description_1: 'Ця сторінка Wikipedia є {firstLanguage}? О так!',
+    description_10:
+      'Вже десть разів знайшли сторінки Wikipedia вашими мовами!\nВам подобається? Діліться з друзями!',
+    description_100:
+      'Вже в соте знаходите сторінки Wikipedia вашими мовами!\nПодобається? Діліться з друзями!',
+  },
 };
 
 export async function trackAchievement(acKey, options = {}) {
