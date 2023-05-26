@@ -6,6 +6,7 @@ import {
   getGoogleUILangugagesRequest,
   setGoogleUILangugagesRequest,
 } from './content/shared/google-ui-languages';
+import { trackAchievement } from './achievements';
 
 let config;
 
@@ -85,6 +86,9 @@ function handleContentRequest(request, sender) {
 
     case 'MsgReportError':
       return reportError(request.desc, request.errorData);
+
+    case 'MsgAchievementUnlocked':
+      return trackAchievement(request.acKey, request.options);
 
     default:
       reportError(

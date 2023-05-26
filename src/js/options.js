@@ -1,7 +1,8 @@
 import '../css/options.css';
 import 'semantic-ui-css/semantic.min.js';
 import browser from 'webextension-polyfill';
-import { sendEvent } from './networking';
+import { sendEvent, reportError } from './networking';
+import { trackAchievement, ACHIEVEMENTS } from './achievements';
 import {
   storageGetSync,
   storageSetSync,
@@ -193,8 +194,8 @@ if (process.env.NODE_ENV === 'development') {
   // Reset for dev mode
   document.getElementById('reset').classList.remove('hidden');
   const resetSettings = function () {
-    browser.storage.sync.remove(['userSettings']);
-    browser.storage.local.remove(['userSettings', 'requestCounter']);
+    browser.storage.sync.clear();
+    browser.storage.local.clear();
     location.reload();
   };
   document
@@ -310,18 +311,34 @@ async function saveLangChoice(e) {
   return storageGetSync('userSettings')
     .then((data) => {
       const firstConfigSave = data.userSettings ? false : true;
+      let isFullSave = false;
+      try {
+        isFullSave = document
+          .querySelector('#saveUserSpeed')
+          .classList.contains('hidden');
+      } catch (e) {
+        reportError('Could not define isFullSave', e);
+      }
+
       const userSettings = data.userSettings || {};
       userSettings.moreLanguages = moreLanguagesPreference;
       userSettings.lessLanguages = lessLanguagesPreference;
       userSettings.is_18 = is_18;
       userSettings.collectStats = collect_stats;
 
-      storageSetSync({ userSettings: userSettings });
-
-      sendEvent(
-        'savedLanguageChoice',
-        firstConfigSave ? { firstSave: true } : {}
-      );
+      storageSetSync({ userSettings: userSettings }).then(() => {
+        // The user completed language setup first time
+        if (isFullSave) {
+          // Always track a full save as an achievement,
+          // but only display the badge during the onboarding
+          const silent = !onboarding;
+          trackAchievement('lng_choice', { silent });
+        }
+        sendEvent(
+          'savedLanguageChoice',
+          firstConfigSave ? { firstSave: true } : {}
+        );
+      });
     })
     .catch((e) => {
       console.log('There was an error saving the languages preference', e);
