@@ -117,9 +117,8 @@ export default class facebookHandler extends defaultHandler {
   async _targetLanguagesConfig() {
     const $self = this;
     try {
-      // should be: const profileLink = this.document.querySelector('div[role="banner"]');
-      const profileLink = this.document.querySelector('a[href="/me/"]');
-      if (!profileLink) {
+      const logoutForm = this.document.querySelector('form[action^="/logout"]');
+      if (!logoutForm) {
         // Not logged in, nothing to do
         return null;
       }
