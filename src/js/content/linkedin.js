@@ -13,20 +13,95 @@ export default class linkedinHandler extends defaultHandler {
     return ['uk'];
   }
 
+  // scraped from https://www.linkedin.com/mypreferences/d/language
   static LANG_TO_LOCALE = {
-    uk: 'uk_UA',
+    ar: 'ar_AE',
+    cs: 'cs_CZ',
+    da: 'da_DK',
+    de: 'de_DE',
     en: 'en_US',
+    es: 'es_ES',
+    fr: 'fr_FR',
+    hi: 'hi_IN',
+    in: 'in_ID',
+    it: 'it_IT',
+    ja: 'ja_JP',
+    ko: 'ko_KR',
+    ms: 'ms_MY',
+    nl: 'nl_NL',
+    no: 'no_NO',
+    pl: 'pl_PL',
+    pt: 'pt_BR',
+    ro: 'ro_RO',
     ru: 'ru_RU',
+    sv: 'sv_SE',
+    th: 'th_TH',
+    tl: 'tl_PH',
+    tr: 'tr_TR',
+    uk: 'uk_UA',
+    zh: 'zh_CN',
+    zh: 'zh_TW',
   };
-  static LANG_TO_NAME = {
-    uk: 'українська',
-    en: 'English',
-    ru: 'русский',
-  };
+
+  /* scraped via script from https://www.linkedin.com/mypreferences/d/language-for-translation
+     let langs = {};
+     document
+        .querySelectorAll('input[name="secondaryLanguageSetting"]')
+        .forEach((x) => {
+          const locale = x.id.replace(/^secondary_language_(.+?)(_.*)?$/, '$1');
+          const value = x.value;
+          langs[locale] = value;
+        });
+     console.log(JSON.stringify(langs));
+     */
+
   static LANG_TO_SECONDARY_NAME = {
-    uk: 'Українська',
+    af: 'Afrikaans',
+    in: 'Bahasa Indonesia',
+    ms: 'Bahasa Malaysia',
+    bs: 'Bosanski',
+    ca: 'Català',
+    cs: 'Čeština',
+    cy: 'Cymraeg',
+    da: 'Dansk',
+    de: 'Deutsch',
+    et: 'Eesti keel',
     en: 'English',
+    es: 'Español',
+    fr: 'Français',
+    hr: 'Hrvatski',
+    it: 'Italiano',
+    sw: 'Kiswahili',
+    lv: 'Latviešu valoda',
+    lt: 'Lietuvių kalba',
+    hu: 'Magyar',
+    mt: 'Malti',
+    nl: 'Nederlands',
+    no: 'Norsk',
+    pl: 'Polski',
+    pt: 'Português',
+    ro: 'Română',
+    sk: 'Slovenčina',
+    sl: 'Slovenščina',
+    sr: 'Cрпски',
+    fi: 'Suomi',
+    sv: 'Svenska',
+    tl: 'Tagalog',
+    vi: 'Tiếng việt',
+    tr: 'Türkçe',
+    zh: '正體中文',
+    ja: '日本語',
+    ko: '한국어',
+    ar: 'العربية',
+    fa: 'فارسى',
+    he: 'עברית',
+    ur: 'اردو',
+    hi: 'हिन्दी',
+    th: 'ภาษาไทย',
+    el: 'ελληνικά',
+    bg: 'български',
     ru: 'Русский',
+    uk: 'Українська',
   };
 
   // Reverse SECONDARY_NAME_TO_LANG
@@ -41,16 +116,10 @@ export default class linkedinHandler extends defaultHandler {
   async _targetLanguagesConfig() {
     const $self = this;
     return fetch(
-      'https://www.linkedin.com/psettings/select-language-for-translation'
+      'https://www.linkedin.com/psettings/select-language-for-translation?li_theme=light&openInMobileMode=true'
     )
       .then((response) => response.text())
-      .then((html) => $self._parseNotranslateLanguages(html))
-      .catch((e) => {
-        if (e == $self.NOOP) return e;
-
-        reportError('Failed to parse LinkedIn preferences page', e);
-        return Promise.reject($self.NOOP);
-      });
+      .then((html) => $self._parseNotranslateLanguages(html));
   }
 
   _parseNotranslateLanguages(html) {
@@ -58,38 +127,24 @@ export default class linkedinHandler extends defaultHandler {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
 
-    const lang_matched = html.match(/"lang":\s*"(.*?)"/);
-    const CSRF_matched = html.match(/"csrfToken":"(.*?)"/);
-
-    if (!lang_matched || !lang_matched[1]) {
-      throw new Error('Failed to match language on LinkedIn prefereces page');
-    }
-    if (!CSRF_matched || !CSRF_matched[1]) {
-      throw new Error('Failed to match CSRF LinkedIn prefereces page');
-    }
-
-    const uiLanguage = lang_matched[1].replace(/_.*/, ''); // changes uk_UK to uk
+    const uiLanguage = doc.documentElement.lang
+      .replace(/-.*/, '')
+      .toLowerCase();
 
     const languageTranslateTo = doc
-      .querySelector(
-        'select[name="selectLanguageTranslateTo"] > option[selected]'
-      )
-      .getAttribute('value')
-      .replace(/_.*/, ''); // changes uk_UK to uk
+      .querySelector('input[name="primaryLanguageSetting"]:checked')
+      .value.replace(/_.*/, '');
+    if (!languageTranslateTo) {
+      throw new Error(
+        'Failed to match languageTranslateTo language on LinkedIn prefereces page'
+      );
+    }
 
     let dontTranslateLanguagesElements = [];
-    doc
-      .querySelectorAll(
-        'div.existing-secondary-language-detail > span.label-langauge-item'
-      )
-      .forEach((x) => {
-        const text = x.innerText.replace(/\s*\(.*/, '');
-        dontTranslateLanguagesElements.push(
-          linkedinHandler.SECONDARY_NAME_TO_LANG[text]
-        );
-      });
-
-    result['CSRF'] = CSRF_matched[1];
+    doc.querySelectorAll('span.label-secondary-langauge-item').forEach((x) => {
+      const text = x.innerText.replace(/\s*\(.*/, '');
+      dontTranslateLanguagesElements.push(text);
+    });
 
     const oldCfg = {};
     result['oldConfig'] = oldCfg;
@@ -103,10 +158,9 @@ export default class linkedinHandler extends defaultHandler {
         "uiLanguage": "uk",
         "languageTranslateTo": "uk",
         "dontTranslateLanguagesElements": [
-            "Українська (Ukrainian)",
-            "English (English)"
-        ],
-        "CSRF": "ajax:1275605328103358844"
+            "Українська",
+            "English"
+        ]
       }
     */
 
@@ -121,12 +175,15 @@ export default class linkedinHandler extends defaultHandler {
     const moreLanguages = this.moreLanguages;
     const lessLanguages = this.lessLanguages;
     const newDontTranslateLanguagesElements = dontTranslateLanguagesElements.filter(
-      (value) => !lessLanguages.includes(value)
+      (value) =>
+        !lessLanguages.includes(linkedinHandler.SECONDARY_NAME_TO_LANG[value])
     );
-    const addDontTranslate = this.moreLanguages.filter(
-      (lang) => !newDontTranslateLanguagesElements.includes(lang)
-    );
-    newDontTranslateLanguagesElements.push(...addDontTranslate);
+    this.moreLanguages.forEach((lang) => {
+      const langMapped = linkedinHandler.LANG_TO_SECONDARY_NAME[lang];
+      if (!newDontTranslateLanguagesElements.includes(langMapped)) {
+        newDontTranslateLanguagesElements.push(langMapped);
+      }
+    });
 
     if (
       JSON.stringify(dontTranslateLanguagesElements) !==
@@ -138,37 +195,16 @@ export default class linkedinHandler extends defaultHandler {
     }
 
     if (Object.keys(newConfig).length === 0) {
-      return Promise.reject(this.NOOP);
+      return null;
     }
 
     return result;
   }
 
-  async _changeUILanguageTo(config) {
-    if (!config['newConfig']['uiLanguage']) return;
-    const locale = linkedinHandler.LANG_TO_LOCALE[config.newConfig.uiLanguage];
-
-    const requestOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'x-requested-with': 'XMLHttpRequest',
-      },
-      body: `locale=${encodeURIComponent(
-        locale
-      )}&csrfToken=${encodeURIComponent(config.CSRF)}`,
-    };
-
-    return contextFetch(
-      'https://www.linkedin.com/psettings/select-language',
-      requestOptions
-    ).then((response) => {
-      return true;
-    });
-  }
-
   async _changeTranslateLanguageTo(config) {
     if (!config['newConfig']['languageTranslateTo']) return;
+
+    const CSRF = await this._getCSRF();
     const requestOptions = {
       method: 'POST',
       headers: {
@@ -177,7 +213,7 @@ export default class linkedinHandler extends defaultHandler {
       },
       body: `locale=${encodeURIComponent(
         config.newConfig.languageTranslateTo
-      )}&csrfToken=${encodeURIComponent(config.CSRF)}`,
+      )}&csrfToken=${encodeURIComponent(CSRF)}`,
     };
 
     // Translate to https://www.linkedin.com/psettings/select-language-for-translation
@@ -196,6 +232,8 @@ export default class linkedinHandler extends defaultHandler {
     if (!config['newConfig']['uiLanguage']) return;
     const locale = linkedinHandler.LANG_TO_LOCALE[config.newConfig.uiLanguage];
 
+    const CSRF = await this._getCSRF();
+
     const requestOptions = {
       method: 'POST',
       headers: {
@@ -204,7 +242,7 @@ export default class linkedinHandler extends defaultHandler {
       },
       body: `locale=${encodeURIComponent(
         locale
-      )}&csrfToken=${encodeURIComponent(config.CSRF)}`,
+      )}&csrfToken=${encodeURIComponent(CSRF)}`,
     };
 
     return contextFetch(
@@ -216,11 +254,10 @@ export default class linkedinHandler extends defaultHandler {
   }
 
   async _changeNoTranslateLanguagesTo(config) {
-    if (!config['newConfig']['dontTranslateLanguagesElements']) return;
-    const languages = config['newConfig']['dontTranslateLanguagesElements'].map(
-      (lang) => linkedinHandler.LANG_TO_SECONDARY_NAME[lang]
-    );
+    const languages = config['newConfig']['dontTranslateLanguagesElements'];
+    if (!languages) return;
 
+    const CSRF = await this._getCSRF();
     const requestOptions = {
       method: 'POST',
       headers: {
@@ -229,7 +266,7 @@ export default class linkedinHandler extends defaultHandler {
       },
       body: `locales=${encodeURIComponent(
         languages.join(',')
-      )}&csrfToken=${encodeURIComponent(config.CSRF)}`,
+      )}&csrfToken=${encodeURIComponent(CSRF)}`,
     };
 
     // Translate to
@@ -246,35 +283,29 @@ export default class linkedinHandler extends defaultHandler {
   }
 
   async _changeLanguageTo(config) {
-    try {
-      return Promise.all([
-        this._changeUILanguageTo(config),
-        this._changeTranslateLanguageTo(config),
-        this._changeNoTranslateLanguagesTo(config),
-      ])
-        .then((results) => {
-          if (results.filter((r) => r != true).length == 0) {
-            return;
-          }
-          /*
-          const [
-            UILangChangedOK,
-            noTranslateLanguagesChangedOk,
-            translationsChangedOk,
-            disableAutotranslateLanguagesOk,
-          ] = results;
-          return Promise.reject(
-            'One of changeLanguageTo() subcomponents failed',
-            results
-          );
-          */
-        })
-        .catch((e) => {
-          console.log('Error http execution', e);
-          return e;
-        });
-    } catch (e) {
-      return Promise.reject(e);
+    return this._changeUILanguageTo(config)
+      .then(() => this._changeTranslateLanguageTo(config))
+      .then(() => this._changeNoTranslateLanguagesTo(config))
+      .catch((e) => {
+        console.log('Error http execution', e);
+        return e;
+      });
+  }
+
+  async _getCSRF() {
+    return fetch(
+      'https://www.linkedin.com/psettings/select-language-for-translation?li_theme=light&openInMobileMode=true'
+    )
+      .then((response) => response.text())
+      .then((html) => this._parseCSRF(html));
+  }
+
+  _parseCSRF(html) {
+    const CSRF_matched = html.match(/"csrfToken":"(.*?)"/);
+
+    if (!CSRF_matched || !CSRF_matched[1]) {
+      throw new Error('Failed to match CSRF LinkedIn prefereces page');
     }
+    return CSRF_matched[1];
   }
 }
