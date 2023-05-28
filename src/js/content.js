@@ -6,6 +6,8 @@ import { storageGetSync, reportError, FEATURES } from './util';
 import { dispatch } from './routing';
 
 storageGetSync('userSettings').then((settings) => {
+  if (!FEATURES.CONTENT) return;
+
   let userSettings = settings.userSettings || {};
   let moreLanguages = userSettings.moreLanguages || [];
   let lessLanguages = userSettings.lessLanguages || [];
@@ -26,6 +28,8 @@ storageGetSync('userSettings').then((settings) => {
     moreLanguages,
     lessLanguages
   );
+
+  if (!handler.isEnabled) return;
 
   try {
     console.log(`Dispatched to content handler ${handler.handlerName}`);

@@ -65,6 +65,13 @@ export let FEATURES = {
   NOTIFICATIONS: true,
   ACHIEVEMENTS: true,
   ACHIEVEMENTS_DISPLAY: true,
+  CONTENT: true,
+  CT_FACEBOOK: true,
+  CT_GOOGLE_MYACCOUNT: true,
+  CT_GOOGLE_SEARCH: true,
+  CT_WIKIPEDIA: true,
+  CT_LINKEDIN: true,
+  CT_YOUTUBE: true,
 };
 
 async function updateRuntimeFeatures() {

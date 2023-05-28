@@ -1,5 +1,5 @@
 import { storageGet, storageGetSync, storageSet, storageRemove } from '../util';
-import { reportError, ACHIEVEMENTS } from '../util';
+import { reportError, FEATURES } from '../util';
 import browser from 'webextension-polyfill';
 
 const promptsFrequency = {
@@ -31,6 +31,12 @@ export default class handler {
 
   get cacheKey() {
     return `handler.${this.handlerName}`;
+  }
+
+  get isEnabled() {
+    const featureName =
+      'CT_' + this.handlerName.toUpperCase().replace(/-/g, '_');
+    return FEATURES[featureName];
   }
 
   async needToTweakLanguages() {
