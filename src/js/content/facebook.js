@@ -14,12 +14,14 @@ export default class facebookHandler extends defaultHandler {
   targetLanguagesConfigExpiresAfter = 5 * 60; // 6 * 60 * 60;
 
   SUPPORTED_LANGUAGES() {
-    return ['uk'];
+    return ['uk', 'en'];
   }
 
+  // All FB locales for future use
+  // {"uk":"uk_UA","en":"en_UD","so":"so_SO","af":"af_ZA","az":"az_AZ","id":"id_ID","ms":"ms_MY","jv":"jv_ID","cx":"cx_PH","bs":"bs_BA","br":"br_FR","ca":"ca_ES","cs":"cs_CZ","co":"co_FR","cy":"cy_GB","da":"da_DK","de":"de_DE","et":"et_EE","es":"es_ES","eo":"eo_EO","eu":"eu_ES","tl":"tl_PH","fo":"fo_FO","fr":"fr_FR","fy":"fy_NL","ff":"ff_NG","fn":"fn_IT","ga":"ga_IE","gl":"gl_ES","gn":"gn_PY","ha":"ha_NG","hr":"hr_HR","rw":"rw_RW","iu":"iu_CA","ik":"ik_US","is":"is_IS","it":"it_IT","sw":"sw_KE","ht":"ht_HT","ku":"ku_TR","lv":"lv_LV","lt":"lt_LT","hu":"hu_HU","mg":"mg_MG","mt":"mt_MT","nl":"nl_BE","nb":"nb_NO","nn":"nn_NO","uz":"uz_UZ","pl":"pl_PL","pt":"pt_PT","ro":"ro_RO","sc":"sc_IT","sn":"sn_ZW","sq":"sq_AL","sz":"sz_PL","sk":"sk_SK","sl":"sl_SI","fi":"fi_FI","sv":"sv_SE","vi":"vi_VN","tr":"tr_TR","zz":"zz_TR","el":"el_GR","be":"be_BY","bg":"bg_BG","ky":"ky_KG","kk":"kk_KZ","mk":"mk_MK","mn":"mn_MN","ru":"ru_RU","sr":"sr_RS","tt":"tt_RU","tg":"tg_TJ","ka":"ka_GE","hy":"hy_AM","he":"he_IL","ur":"ur_PK","ar":"ar_AR","ps":"ps_AF","fa":"fa_IR","cb":"cb_IQ","sy":"sy_SY","tz":"tz_MA","am":"am_ET","ne":"ne_NP","mr":"mr_IN","hi":"hi_IN","as":"as_IN","bn":"bn_IN","pa":"pa_IN","gu":"gu_IN","or":"or_IN","ta":"ta_IN","te":"te_IN","kn":"kn_IN","ml":"ml_IN","si":"si_LK","th":"th_TH","lo":"lo_LA","my":"my_MM","km":"km_KH","ko":"ko_KR","zh":"zh_HK","ja":"ja_KS","uk_UA":"uk","en_GB":"en","so_SO":"so","af_ZA":"af","az_AZ":"az","id_ID":"id","ms_MY":"ms","jv_ID":"jv","cx_PH":"cx","bs_BA":"bs","br_FR":"br","ca_ES":"ca","cs_CZ":"cs","co_FR":"co","cy_GB":"cy","da_DK":"da","de_DE":"de","et_EE":"et","en_US":"en","en_UD":"en","es_LA":"es","es_ES":"es","eo_EO":"eo","eu_ES":"eu","tl_PH":"tl","fo_FO":"fo","fr_CA":"fr","fr_FR":"fr","fy_NL":"fy","ff_NG":"ff","fn_IT":"fn","ga_IE":"ga","gl_ES":"gl","gn_PY":"gn","ha_NG":"ha","hr_HR":"hr","rw_RW":"rw","iu_CA":"iu","ik_US":"ik","is_IS":"is","it_IT":"it","sw_KE":"sw","ht_HT":"ht","ku_TR":"ku","lv_LV":"lv","lt_LT":"lt","hu_HU":"hu","mg_MG":"mg","mt_MT":"mt","nl_NL":"nl","nb_NO":"nb","nn_NO":"nn","uz_UZ":"uz","pl_PL":"pl","pt_BR":"pt","pt_PT":"pt","ro_RO":"ro","sc_IT":"sc","sn_ZW":"sn","sq_AL":"sq","sz_PL":"sz","sk_SK":"sk","sl_SI":"sl","fi_FI":"fi","sv_SE":"sv","vi_VN":"vi","tr_TR":"tr","nl_BE":"nl","zz_TR":"zz","el_GR":"el","be_BY":"be","bg_BG":"bg","ky_KG":"ky","kk_KZ":"kk","mk_MK":"mk","mn_MN":"mn","ru_RU":"ru","sr_RS":"sr","tt_RU":"tt","tg_TJ":"tg","ka_GE":"ka","hy_AM":"hy","he_IL":"he","ur_PK":"ur","ar_AR":"ar","ps_AF":"ps","fa_IR":"fa","cb_IQ":"cb","sy_SY":"sy","tz_MA":"tz","am_ET":"am","ne_NP":"ne","mr_IN":"mr","hi_IN":"hi","as_IN":"as","bn_IN":"bn","pa_IN":"pa","gu_IN":"gu","or_IN":"or","ta_IN":"ta","te_IN":"te","kn_IN":"kn","ml_IN":"ml","si_LK":"si","th_TH":"th","lo_LA":"lo","my_MM":"my","km_KH":"km","ko_KR":"ko","zh_TW":"zh","zh_CN":"zh","zh_HK":"zh","ja_JP":"ja","ja_KS":"ja"}
   static LANG_MAP = {
     uk: 'uk_UA',
-    en: 'en_XX',
+    en: 'en_GB',
     ru: 'ru_RU',
   };
 
@@ -45,9 +47,8 @@ export default class facebookHandler extends defaultHandler {
       .then((response) => response.text())
       .then((html) => $self._parseNotranslateLanguages(html))
       .catch((e) => {
-        // TODO: report an error
-        console.log(e);
-        return null;
+        reportError('fb _getTargetNoTranslateLangs() failed', e);
+        return e;
       });
   }
 
@@ -83,9 +84,8 @@ export default class facebookHandler extends defaultHandler {
         return null;
       })
       .catch((e) => {
-        // TODO: report an error
-        console.log(e);
-        return null;
+        reportError('fb _getTargetTranslateLang() failed', e);
+        return e;
       });
   }
 
@@ -108,55 +108,43 @@ export default class facebookHandler extends defaultHandler {
       .then((response) => response.text())
       .then((html) => $self._parseNotranslateLanguages(html))
       .catch((e) => {
-        // TODO: report an error
-        console.log(e);
-        return null;
+        reportError('fb _getTargetDisableAutotranslateLangs() failed', e);
+        return e;
       });
   }
 
   async _targetLanguagesConfig() {
     const $self = this;
-    try {
-      const logoutForm = this.document.querySelector('form[action^="/logout"]');
-      if (!logoutForm) {
-        // Not logged in, nothing to do
-        return null;
-      }
-
-      return Promise.all([
-        super._targetLanguagesConfig(),
-        this._getTargetTranslateLang(),
-        this._getTargetNoTranslateLangs(),
-        this._getTargetDisableAutotranslateLangs(),
-      ])
-        .then((results) => {
-          if (results.filter((r) => r != null).length == 0) {
-            return Promise.reject($self.NOOP);
-          }
-          const [
-            uiLangs,
-            translateLang,
-            noTranslateLangs,
-            disableAutotranslateLangs,
-          ] = results;
-
-          return {
-            uiLangs,
-            translateLang,
-            noTranslateLangs,
-            disableAutotranslateLangs,
-          };
-        })
-        .catch((e) => {
-          if (e === $self.NOOP) return e;
-
-          reportError('Failed to parse one of Facebook preferences page', e);
-          return Promise.reject($self.NOOP);
-        });
-    } catch (e) {
-      reportError('Failed to parse Facebook preferences page', e);
-      return Promise.reject(this.NOOP);
+    const logoutForm = this.document.querySelector('form[action^="/logout"]');
+    if (!logoutForm) {
+      // Not logged in, nothing to do
+      return null;
     }
+
+    return Promise.all([
+      super._targetLanguagesConfig(),
+      this._getTargetTranslateLang(),
+      this._getTargetNoTranslateLangs(),
+      this._getTargetDisableAutotranslateLangs(),
+    ]).then((results) => {
+      if (results.filter((r) => r != null).length == 0) {
+        return;
+      }
+      const [
+        uiLangs,
+        translateLang,
+        noTranslateLangs,
+        disableAutotranslateLangs,
+      ] = results;
+      console.log(results);
+
+      return {
+        uiLangs,
+        translateLang,
+        noTranslateLangs,
+        disableAutotranslateLangs,
+      };
+    });
   }
 
   async _changeLanguageTo(languages) {
