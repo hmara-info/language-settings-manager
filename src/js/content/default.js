@@ -1,5 +1,5 @@
 import { storageGet, storageGetSync, storageSet, storageRemove } from '../util';
-import { reportError } from '../util';
+import { reportError, ACHIEVEMENTS } from '../util';
 import browser from 'webextension-polyfill';
 
 const promptsFrequency = {
@@ -43,7 +43,7 @@ export default class handler {
       .then(async ([userData, expectAchievementData]) => {
         const expectAchievement =
           expectAchievementData[$self._achievementKey()];
-        if (expectAchievement) {
+        if (FEATURES.ACHIEVEMENTS && expectAchievement) {
           console.log(
             `NOT checking the last prompt timestamp, as an achievement is expected`
           );
@@ -74,7 +74,7 @@ export default class handler {
         const config = await $self.targetLanguagesConfig();
         console.log(`targetLanguagesConfig at ${$self.handlerName} is`, config);
 
-        if (expectAchievement) {
+        if (FEATURES.ACHIEVEMENTS && expectAchievement) {
           if (!config) {
             browser.runtime.sendMessage({
               type: 'content',
@@ -119,6 +119,7 @@ export default class handler {
   }
 
   async _expectAchievement() {
+    if (!FEATURES.ACHIEVEMENTS) return true;
     // NOTE: the same key is used in two different namespaces.
     //
     // content/default.js is using storage.local to mark that achievement

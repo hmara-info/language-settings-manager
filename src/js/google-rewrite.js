@@ -1,6 +1,5 @@
 import browser from 'webextension-polyfill';
 import { storageGetSync, reportError, FEATURES } from './util';
-import { trackAchievement } from './achievements';
 
 let lessLanguages;
 let moreLanguages;

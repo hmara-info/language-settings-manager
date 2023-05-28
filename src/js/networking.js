@@ -1,6 +1,6 @@
 import { getExtensionVersion } from './util';
 import { v4 as uuidv4 } from 'uuid';
-import { storageGetSync, storageSetSync } from './util';
+import { storageGetSync, storageSetSync, FEATURES } from './util';
 import { serializeError } from 'serialize-error';
 import browser from 'webextension-polyfill';
 

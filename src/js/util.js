@@ -63,6 +63,8 @@ export function reportError(desc, errorData) {
 export let FEATURES = {
   CONTENT: true,
   NOTIFICATIONS: true,
+  ACHIEVEMENTS: true,
+  ACHIEVEMENTS_DISPLAY: true,
 };
 
 async function updateRuntimeFeatures() {
