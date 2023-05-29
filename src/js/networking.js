@@ -1,4 +1,4 @@
-import { getExtensionVersion } from './util';
+import { getExtensionVersion, storageSet } from './util';
 import { v4 as uuidv4 } from 'uuid';
 import { storageGetSync, storageSetSync, FEATURES } from './util';
 import { serializeError } from 'serialize-error';
@@ -6,6 +6,17 @@ import browser from 'webextension-polyfill';
 
 export let API_BASE = process.env.API_BASE_URI;
 export let userId;
+
+export const PLATFORM =
+  /// #if PLATFORM == 'FIREFOX'
+  'firefox';
+/// ##elif PLATFORM == 'CHROME'
+('chrome');
+/// ##elif PLATFORM == 'SAFARI'
+('safari');
+/// #else
+('unknown');
+/// #endif
 
 storageGetSync('userId').then((items) => {
   if (items.userId) {
@@ -63,15 +74,7 @@ function _sendJSON(path, body) {
           userId: userId || 'unknown',
           eventId: uuidv4(),
           version: getExtensionVersion(),
-          /// #if PLATFORM == 'FIREFOX'
-          platform: 'firefox',
-          /// ##elif PLATFORM == 'CHROME'
-          platform: 'chrome',
-          /// ##elif PLATFORM == 'SAFARI'
-          platform: 'safari',
-          /// #else
-          platform: 'unknown',
-          /// #endif
+          platform: PLATFORM,
           userSettings: userSettingsCp,
         }),
         method: 'POST',
@@ -114,15 +117,8 @@ function _sendInfo(path, options) {
 export async function updateLocalFeatures() {
   if (!navigator.onLine) return;
   const env = process.env.NODE_ENV;
-  const platform = process.env.FIREFOX
-    ? 'FIREFOX'
-    : process.env.CHROME
-    ? 'CHROME'
-    : process.env.SAFARI
-    ? 'SAFARI'
-    : 'UNKNOWN';
 
-  const path = `/features/${env}-${platform}-${getExtensionVersion()}.json`;
+  const path = `/features/${getExtensionVersion()}-${PLATFORM}-${env}.json`;
 
   return fetch(API_BASE + path)
     .then((r) => r.json())
@@ -143,8 +139,6 @@ export async function updateLocalFeatures() {
         );
         return;
       }
-      browser.storage.local
-        .set({ features: json })
-        .then(() => (FEATURES = json));
+      storageSet({ features: json }).then(() => (FEATURES = json));
     });
 }
