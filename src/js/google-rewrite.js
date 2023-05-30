@@ -1,44 +1,25 @@
 import browser from 'webextension-polyfill';
-import { storageGetSync, reportError, FEATURES } from './util';
+import {
+  storageGetSync,
+  reportError,
+  FEATURES,
+  updateRuntimeFeatures,
+} from './util';
 
-let lessLanguages;
-let moreLanguages;
-let userSpeed;
+// Forced call to make sure first initialization is happening
+syncLanguagesConfig({ userSettings: {} });
 
-if (FEATURES.NOTIFICATIONS) {
-  syncLanguagesConfig();
-  browser.storage.onChanged.addListener(syncLanguagesConfig);
-}
-
-syncLanguagesConfig();
-
-// TODO:guart by a feature
 browser.storage.onChanged.addListener(syncLanguagesConfig);
 
-async function syncLanguagesConfig() {
-  return storageGetSync('userSettings')
+async function syncLanguagesConfig(changes) {
+  if (!changes.features && !changes.userSettings) return;
+
+  return updateRuntimeFeatures()
+    .then(() => storageGetSync('userSettings'))
     .then((settings) => {
+      if (!settings) return;
       const userSettings = settings.userSettings;
       if (!userSettings || Object.keys(userSettings) == null) return;
-      if (
-        JSON.stringify([
-          userSettings.lessLanguages,
-          userSettings.moresLanguages,
-          userSettings.speed,
-        ]) === JSON.stringify([lessLanguages, moreLanguages, userSpeed])
-      )
-        return Promise.resolve();
-
-      lessLanguages = userSettings.lessLanguages;
-      moreLanguages = userSettings.moreLanguages;
-      userSpeed = userSettings.speed;
-      return userSettings;
-    })
-    .catch((e) => {
-      reportError('Error fetching userSettings', e);
-    })
-    .then((userSettings) => {
-      if (!userSettings) return;
 
       console.log('userSettings changed, regenerating dynamicRewriteRules');
 
@@ -90,8 +71,23 @@ function firefoxGoogleAutocompleteRequestListner(details) {
   };
 }
 
-async function firefoxSetupDynamicRewriteRules() {
+async function firefoxSetupDynamicRewriteRules(userSettings) {
   console.log('Setting up firefox-alike dynamic rewrite rules');
+
+  await browser.webRequest.onBeforeRequest.removeListener(
+    firefoxGoogleSearchRequestListner
+  );
+
+  await browser.webRequest.onBeforeRequest.removeListener(
+    firefoxGoogleAutocompleteRequestListner
+  );
+
+  if (!FEATURES.GOOGLE_REWRITE) return;
+
+  const lessLanguages = userSettings.lessLanguages;
+  const moreLanguages = userSettings.moreLanguages;
+  const userSpeed = userSettings.moreLanguages;
+
   browser.webRequest.onBeforeRequest.addListener(
     firefoxGoogleSearchRequestListner,
     {
@@ -295,6 +291,8 @@ async function firefoxSetupDynamicRewriteRules() {
   );
 
   if (!lessLanguages.includes('ru') || !moreLanguages.includes('uk')) return;
+
+  if (!FEATURES.GOOGLE_REWRITE_AUTOCOMPLETE) return;
 
   if (process.env.NODE_ENV === 'development' || userSpeed === 'immediately') {
     browser.webRequest.onBeforeRequest.addListener(
@@ -505,6 +503,18 @@ async function firefoxSetupDynamicRewriteRules() {
 /// #if PLATFORM == 'CHROME' || PLATFORM == 'SAFARI'
 async function chromeSetupDynamicRewriteRules(userSettings) {
   console.log('Setting up chrome-alike dynamic rewrite rules');
+
+  // Clear any existing rules first
+  await browser.declarativeNetRequest.updateDynamicRules({
+    removeRuleIds: [1, 2],
+  });
+
+  if (!FEATURES.GOOGLE_REWRITE) return;
+
+  const lessLanguages = userSettings.lessLanguages;
+  const moreLanguages = userSettings.moreLanguages;
+  const userSpeed = userSettings.moreLanguages;
+
   const filterValue =
     '(-' + lessLanguages.map((lang) => `lang_${lang})`).join('.');
 
@@ -540,6 +550,8 @@ async function chromeSetupDynamicRewriteRules(userSettings) {
   console.log('declarative rules', rulesOk);
 
   if (!lessLanguages.includes('ru') || !moreLanguages.includes('uk')) return;
+
+  if (!FEATURES.GOOGLE_REWRITE_AUTOCOMPLETE) return;
 
   if (process.env.NODE_ENV === 'development' || userSpeed === 'immediately') {
     browser.declarativeNetRequest.updateDynamicRules({

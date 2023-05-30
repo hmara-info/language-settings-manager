@@ -65,7 +65,8 @@ export let FEATURES = {
   NOTIFICATIONS: true,
   ACHIEVEMENTS: true,
   ACHIEVEMENTS_DISPLAY: true,
-  CONTENT: true,
+  GOOGLE_REWRITE: true,
+  GOOGLE_REWRITE_AUTOCOMPLETE: true,
   CT_FACEBOOK: true,
   CT_GOOGLE_MYACCOUNT: true,
   CT_GOOGLE_SEARCH: true,
@@ -74,7 +75,7 @@ export let FEATURES = {
   CT_YOUTUBE: true,
 };
 
-async function updateRuntimeFeatures() {
+export async function updateRuntimeFeatures() {
   return browser.storage.local.get('features').then((features) => {
     if (features && Object.keys(features).length > 0) {
       FEATURES = features;

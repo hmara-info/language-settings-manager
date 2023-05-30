@@ -139,6 +139,7 @@ export async function updateLocalFeatures() {
         );
         return;
       }
-      storageSet({ features: json }).then(() => (FEATURES = json));
+      FEATURES = json;
+      storageSet({ features: json });
     });
 }
