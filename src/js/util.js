@@ -60,21 +60,7 @@ export function reportError(desc, errorData) {
 }
 
 // Factory settings
-export let FEATURES = {
-  CONTENT: true,
-  NOTIFICATIONS: true,
-  ACHIEVEMENTS: true,
-  ACHIEVEMENTS_DISPLAY: true,
-  GOOGLE_REWRITE: true,
-  GOOGLE_REWRITE_AUTOCOMPLETE: true,
-  CT_FACEBOOK: true,
-  CT_GOOGLE_MYACCOUNT: true,
-  CT_GOOGLE_SEARCH: true,
-  CT_WIKIPEDIA: true,
-  CT_LINKEDIN: true,
-  CT_YOUTUBE: true,
-};
-
+export let FEATURES = __FEATURES__;
 export async function updateRuntimeFeatures() {
   return browser.storage.local.get('features').then((features) => {
     if (features && Object.keys(features).length > 0) {

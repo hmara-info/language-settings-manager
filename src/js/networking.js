@@ -118,7 +118,7 @@ export async function updateLocalFeatures() {
   if (!navigator.onLine) return;
   const env = process.env.NODE_ENV;
 
-  const path = `/features/${getExtensionVersion()}-${PLATFORM}-${env}.json`;
+  const path = `/features/${getExtensionVersion()}-${PLATFORM}.json`;
 
   return fetch(API_BASE + path)
     .then((r) => r.json())
