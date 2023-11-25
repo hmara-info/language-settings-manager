@@ -1,5 +1,5 @@
 import { sendEvent, reportError, updateLocalFeatures } from './networking';
-import { storageGetSync, FEATURES } from './util';
+import { storageGetSync, FEATURES, updateRuntimeFeatures } from './util';
 import browser from 'webextension-polyfill';
 import setupGoogleRewrite from './google-rewrite';
 import {
@@ -7,10 +7,6 @@ import {
   setGoogleUILangugagesRequest,
 } from './content/shared/google-ui-languages';
 import { trackAchievement } from './achievements';
-
-let config;
-
-console.log('Loaded background.js');
 
 browser.runtime.onInstalled.addListener(function (details) {
   // This needs to be the same for Chrome, FF and everybody else
@@ -29,16 +25,23 @@ if (process.env.NODE_ENV === 'development') {
   /// #endif
 }
 
-try {
-  setupMessaging();
+updateLocalFeatures()
+  .then(() => updateRuntimeFeatures())
+  .catch(() => {
+    // On error keep the existing features in tact.
+    // This will fall back to the hardcoded feature set on browser restart
+  })
+  .then(() => {
+    setupMessaging();
 
-  if (FEATURES.NOTIFICATIONS) {
-    setupNotifications();
-    checkConfigured();
-  }
-} catch (e) {
-  reportError('background.js', e);
-}
+    if (FEATURES.NOTIFICATIONS) {
+      setupNotifications();
+      checkConfigured();
+    }
+  })
+  .catch((e) => {
+    reportError('background.js', e);
+  });
 
 function setupMessaging() {
   // Incoming messages
