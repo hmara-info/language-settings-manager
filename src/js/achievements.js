@@ -1,5 +1,5 @@
 import { sendEvent, reportError } from './networking';
-import { storageGetSync, storageSetSync, getMessage } from './util';
+import { storageGetSync, storageSetSync, getMessage, FEATURES } from './util';
 import browser from 'webextension-polyfill';
 
 const ACHIEVEMENTS = {
@@ -45,6 +45,8 @@ const ACHIEVEMENTS = {
 };
 
 export async function trackAchievement(acKey, options = {}) {
+  if (!FEATURES.ACHIEVEMENTS) return true;
+
   const acData = ACHIEVEMENTS[acKey] || {};
   const storageAchievementKey = `AC_${acKey}`;
   if (!acData) {
@@ -73,6 +75,8 @@ export async function trackAchievement(acKey, options = {}) {
 }
 
 async function _displayNewAchievement(acKey, value, options) {
+  if (!FEATURES.ACHIEVEMENTS_DISPLAY) return;
+
   console.log(`Display achievement ${acKey}`, value, options);
   try {
     let titleKey =

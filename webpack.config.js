@@ -17,17 +17,21 @@ require('dotenv').config({
 });
 const DotenvPlugin = require('webpack-dotenv-plugin');
 
-var fileExtensions = ['css', 'jpg', 'jpeg', 'png', 'gif', 'svg', 'ttf'];
-var manifest;
-if (process.env.FIREFOX) {
-  manifest = 'manifest.firefox.json';
-} else if (process.env.CHROME) {
-  manifest = 'manifest.chrome.json';
-} else if (process.env.SAFARI) {
-  manifest = 'manifest.safari.json';
-} else {
+const PLATFORM = process.env.FIREFOX
+  ? 'firefox'
+  : process.env.CHROME
+  ? 'chrome'
+  : process.env.SAFARI
+  ? 'safari'
+  : null;
+
+if (!PLATFORM) {
   throw Error('FIREFOX, CHROME or SAFARI env variable has to be defined');
 }
+var FEATURES = require(`./features/${PACKAGE.version}-${PLATFORM}.json`);
+
+var fileExtensions = ['css', 'jpg', 'jpeg', 'png', 'gif', 'svg', 'ttf'];
+var manifest = `manifest.${PLATFORM}.json`;
 
 var options = {
   mode: process.env.NODE_ENV || 'development',
@@ -56,13 +60,7 @@ var options = {
           {
             loader: 'ifdef-loader',
             options: {
-              PLATFORM: process.env.FIREFOX
-                ? 'FIREFOX'
-                : process.env.CHROME
-                ? 'CHROME'
-                : process.env.SAFARI
-                ? 'SAFARI'
-                : 'UNKNOWN',
+              PLATFORM: PLATFORM.toUpperCase(),
             },
           },
         ],
@@ -89,6 +87,9 @@ var options = {
       path: '/.env.' + env.NODE_ENV,
       sample: '.env.default',
       allowEmptyValues: true,
+    }),
+    new webpack.DefinePlugin({
+      __FEATURES__: JSON.stringify(FEATURES),
     }),
     new CopyWebpackPlugin({
       patterns: [

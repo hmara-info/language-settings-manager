@@ -1,5 +1,5 @@
 import defaultHandler from './default';
-import { reportError } from '../util';
+import { reportError, FEATURES } from '../util';
 import { trackAchievement } from '../achievements';
 import browser from 'webextension-polyfill';
 
@@ -20,8 +20,11 @@ export default class googleSearchHandler extends defaultHandler {
 
   async needToTweakLanguages() {
     try {
-      // TODO:guard by a feature
-      if (this.lessLanguages && this.lessLanguages.length) {
+      if (
+        FEATURES.ACHIEVEMENTS &&
+        this.lessLanguages &&
+        this.lessLanguages.length
+      ) {
         const url = new URL(location.href);
         const lr = url.searchParams.get('lr');
 

@@ -1,11 +1,22 @@
-import { getExtensionVersion } from './util';
+import { getExtensionVersion, storageSet } from './util';
 import { v4 as uuidv4 } from 'uuid';
-import { storageGetSync, storageSetSync } from './util';
+import { storageGetSync, storageSetSync, FEATURES } from './util';
 import { serializeError } from 'serialize-error';
 import browser from 'webextension-polyfill';
 
 export let API_BASE = process.env.API_BASE_URI;
 export let userId;
+
+export const PLATFORM =
+  /// #if PLATFORM == 'FIREFOX'
+  'firefox';
+/// ##elif PLATFORM == 'CHROME'
+('chrome');
+/// ##elif PLATFORM == 'SAFARI'
+('safari');
+/// #else
+('unknown');
+/// #endif
 
 storageGetSync('userId').then((items) => {
   if (items.userId) {
@@ -63,15 +74,7 @@ function _sendJSON(path, body) {
           userId: userId || 'unknown',
           eventId: uuidv4(),
           version: getExtensionVersion(),
-          /// #if PLATFORM == 'FIREFOX'
-          platform: 'firefox',
-          /// ##elif PLATFORM == 'CHROME'
-          platform: 'chrome',
-          /// ##elif PLATFORM == 'SAFARI'
-          platform: 'safari',
-          /// #else
-          platform: 'unknown',
-          /// #endif
+          platform: PLATFORM,
           userSettings: userSettingsCp,
         }),
         method: 'POST',
@@ -108,5 +111,35 @@ function _sendInfo(path, options) {
     })
     .catch((error) => {
       console.log('Failed to send an event', error);
+    });
+}
+
+export async function updateLocalFeatures() {
+  if (!navigator.onLine) return;
+  const env = process.env.NODE_ENV;
+
+  const path = `/features/${getExtensionVersion()}-${PLATFORM}.json`;
+
+  return fetch(API_BASE + path)
+    .then((r) => r.json())
+    .then((json) => {
+      if (!json || Object.keys(json) <= 0) {
+        return;
+      }
+      const missingFeatures = [];
+      for (const k of FEATURES) {
+        if (!k in json) {
+          missingFeatures.push(k);
+        }
+      }
+      if (missingFeatures.length) {
+        reportError(
+          `Incomplete featureset received from ${path}. Missing keys: ` +
+            missingFeatures.sort().join(', ')
+        );
+        return;
+      }
+      FEATURES = json;
+      storageSet({ features: json });
     });
 }
