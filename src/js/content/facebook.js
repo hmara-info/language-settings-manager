@@ -34,10 +34,8 @@ export default class facebookHandler extends defaultHandler {
      * Fetches the "Languages for which you don't
      * want to be offered translations" part of Profile
      */
-    const {
-      fb_dtsg_match_async,
-      user_id_match,
-    } = this._get_fb_tstg_and_user_id();
+    const { fb_dtsg_match_async, user_id_match } =
+      this._get_fb_tstg_and_user_id();
     const $self = this;
 
     return fetch(
@@ -57,11 +55,8 @@ export default class facebookHandler extends defaultHandler {
      * Fetches the "Language into which you'd
      * like to have posts translated"
      */
-    const {
-      fb_dtsg_match,
-      fb_dtsg_match_async,
-      user_id_match,
-    } = this._get_fb_tstg_and_user_id();
+    const { fb_dtsg_match, fb_dtsg_match_async, user_id_match } =
+      this._get_fb_tstg_and_user_id();
 
     return fetch(
       'https://www.facebook.com/ajax/settings/language/primary.php' +
@@ -94,11 +89,8 @@ export default class facebookHandler extends defaultHandler {
      * Fetches the "Language into which you'd
      * like to have posts translated"
      */
-    const {
-      fb_dtsg_match,
-      fb_dtsg_match_async,
-      user_id_match,
-    } = this._get_fb_tstg_and_user_id();
+    const { fb_dtsg_match, fb_dtsg_match_async, user_id_match } =
+      this._get_fb_tstg_and_user_id();
     const $self = this;
 
     return fetch(
@@ -239,9 +231,8 @@ export default class facebookHandler extends defaultHandler {
       return Promise.resolve(true);
     }
 
-    const requestOptions = this._tokenizedDialectsToRequestOptions(
-      dontTranslateLangs
-    );
+    const requestOptions =
+      this._tokenizedDialectsToRequestOptions(dontTranslateLangs);
 
     return contextFetch(
       'https://www.facebook.com/ajax/settings/language/secondary.php',
@@ -277,11 +268,8 @@ export default class facebookHandler extends defaultHandler {
       throw new Error(`Language ${translateLang} is not supported.`);
     }
 
-    const {
-      fb_dtsg_match_async,
-      user_id_match,
-      fb_dtsg_match,
-    } = this._get_fb_tstg_and_user_id();
+    const { fb_dtsg_match_async, user_id_match, fb_dtsg_match } =
+      this._get_fb_tstg_and_user_id();
 
     const requestOptions = {
       method: 'POST',
@@ -334,11 +322,8 @@ export default class facebookHandler extends defaultHandler {
   }
 
   _tokenizedDialectsToRequestOptions(dialects) {
-    const {
-      fb_dtsg_match_async,
-      user_id_match,
-      fb_dtsg_match,
-    } = this._get_fb_tstg_and_user_id();
+    const { fb_dtsg_match_async, user_id_match, fb_dtsg_match } =
+      this._get_fb_tstg_and_user_id();
 
     const tokenizedDialects = dialects.map((l) => `%20${l}`).join('');
 

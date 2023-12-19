@@ -128,7 +128,7 @@ export async function updateLocalFeatures() {
       }
       const missingFeatures = [];
       for (const k of FEATURES) {
-        if (!k in json) {
+        if ((!k) in json) {
           missingFeatures.push(k);
         }
       }

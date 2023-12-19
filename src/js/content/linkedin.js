@@ -174,10 +174,11 @@ export default class linkedinHandler extends defaultHandler {
 
     const moreLanguages = this.moreLanguages;
     const lessLanguages = this.lessLanguages;
-    const newDontTranslateLanguagesElements = dontTranslateLanguagesElements.filter(
-      (value) =>
-        !lessLanguages.includes(linkedinHandler.SECONDARY_NAME_TO_LANG[value])
-    );
+    const newDontTranslateLanguagesElements =
+      dontTranslateLanguagesElements.filter(
+        (value) =>
+          !lessLanguages.includes(linkedinHandler.SECONDARY_NAME_TO_LANG[value])
+      );
     this.moreLanguages.forEach((lang) => {
       const langMapped = linkedinHandler.LANG_TO_SECONDARY_NAME[lang];
       if (!newDontTranslateLanguagesElements.includes(langMapped)) {
@@ -189,9 +190,8 @@ export default class linkedinHandler extends defaultHandler {
       JSON.stringify(dontTranslateLanguagesElements) !==
       JSON.stringify(newDontTranslateLanguagesElements)
     ) {
-      newConfig[
-        'dontTranslateLanguagesElements'
-      ] = newDontTranslateLanguagesElements;
+      newConfig['dontTranslateLanguagesElements'] =
+        newDontTranslateLanguagesElements;
     }
 
     if (Object.keys(newConfig).length === 0) {

@@ -110,14 +110,13 @@ function setupNotifications() {
       }
     });
 
-    browser.notifications.onButtonClicked.addListener(function (
-      notifId,
-      btnIdx
-    ) {
-      if (notifId === 'PleaseSetUp') {
-        browser.runtime.openOptionsPage();
+    browser.notifications.onButtonClicked.addListener(
+      function (notifId, btnIdx) {
+        if (notifId === 'PleaseSetUp') {
+          browser.runtime.openOptionsPage();
+        }
       }
-    });
+    );
   } catch (e) {
     reportError('Failed to set up notification events', e);
   }
