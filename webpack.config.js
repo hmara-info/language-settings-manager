@@ -67,16 +67,11 @@ var options = {
       },
       {
         test: new RegExp('.(' + fileExtensions.join('|') + ')$'),
+        type: 'asset/resource',
         exclude: /node_modules/,
-        use: [
-          'file-loader',
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]'
-            }
-          }
-        ]
+        generator: {
+         filename: '[name][ext]'
+        }
       },
       {
         test: /\.html$/,
