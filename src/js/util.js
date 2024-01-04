@@ -1,7 +1,7 @@
 import browser from 'webextension-polyfill';
 import { serializeError } from 'serialize-error';
 export function getExtensionVersion() {
-  return getMessage('@@extension_id');
+  return browser.runtime.getManifest().version;
 }
 
 export async function storageGet(key) {
