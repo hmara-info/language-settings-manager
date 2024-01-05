@@ -85,6 +85,15 @@ export default class wikipediaHandler extends defaultHandler {
         );
     }
 
+    // Wiki layout changed again, different wikis maintain different layout
+    if (!Object.keys(langs).length) {
+      document
+        .querySelectorAll('#p-lang-btn li.interlanguage-link > a')
+        .forEach(
+          (a) => (langs[a.getAttribute('lang')] = a.getAttribute('href'))
+        );
+    }
+
     for (var lng of this.moreLanguages) {
       if (!langs[lng]) continue;
       return [lng, langs[lng]];
