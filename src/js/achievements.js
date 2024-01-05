@@ -68,7 +68,10 @@ export async function trackAchievement(acKey, options = {}) {
 
   const achievementData = { [storageAchievementKey]: value };
   return storageSetSync(achievementData).then(() => {
-    sendEvent(`Achievement unlocked`, achievementData);
+    sendEvent(`Achievement unlocked`, {
+      achievementKey: storageAchievementKey,
+      achievementValue: value,
+    });
     if (!options.silent) _displayNewAchievement(acKey, value, options);
     return true;
   });
