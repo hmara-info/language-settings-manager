@@ -44,6 +44,8 @@ export default class googleSearchHandler extends defaultHandler {
   }
 
   async _targetLanguagesConfig() {
+    return null;
+
     /*
      * Fetches the "Languages for which you don't
      * want to be offered translations" part of Profile
