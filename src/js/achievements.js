@@ -128,7 +128,7 @@ async function _displayNewAchievement(acKey, value, options) {
     browser.notifications.onButtonClicked.addListener(
       function (notifId, btnIdx) {
         if (notifId.startsWith('AchievementUnlocked') && btnIdx === 0) {
-          browser.tabs.create({ url: "https://lu.hmara.info/achievements" });
+          browser.tabs.create({ url: 'https://lu.hmara.info/achievements' });
         }
       }
     );

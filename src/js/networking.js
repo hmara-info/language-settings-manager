@@ -8,7 +8,7 @@ export let API_BASE = process.env.API_BASE_URI;
 export let userId;
 
 export const PLATFORM =
-/// #if PLATFORM == 'FIREFOX'
+  /// #if PLATFORM == 'FIREFOX'
   'firefox';
 /// #elif PLATFORM == 'CHROME'
 ('chrome');
