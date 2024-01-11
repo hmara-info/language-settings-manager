@@ -12,7 +12,7 @@ jobs:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v4
       with:
-        node-version: '14'
+        node-version: '20'
         check-latest: true
     - run: npm install --production
     - run: CHROME=1 npm run stage
