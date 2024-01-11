@@ -124,6 +124,14 @@ async function _displayNewAchievement(acKey, value, options) {
         },
       ],
     });
+
+    browser.notifications.onButtonClicked.addListener(
+      function (notifId, btnIdx) {
+        if (notifId.startsWith('AchievementUnlocked') && btnIdx === 0) {
+          browser.tabs.create({ url: "https://lu.hmara.info/achievements" });
+        }
+      }
+    );
   } catch (e) {
     reportError('Failed to create achievement notification', e);
   }
