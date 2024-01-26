@@ -353,10 +353,20 @@ export default class handler {
       .join(', ')
       .replace(/, ([^,]+)$/, ' та $1');
 
-    dict.firstLanguage = `__MSG_lang_${supportedWantedLanguages[0].replace(
-      /-/g,
-      '_'
-    )}_instrumentalis__`;
+    if (supportedWantedLanguages.length) {
+      dict.firstLanguage = `__MSG_lang_${supportedWantedLanguages[0].replace(
+        /-/g,
+        '_'
+      )}_instrumentalis__`;
+    } else {
+      // For now this is known to happen with gs_rewrite,
+      // which only requires 'lessLanguages'
+      reportError(
+        'Goal reached, none of wanted languages supported',
+        new Error('stack')
+      );
+      dict.firstLanguage = '';
+    }
 
     return dict;
   }
