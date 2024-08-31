@@ -45,8 +45,7 @@ function firefoxGoogleSearchRequestListner(details) {
 
   const url = new URL(details.url);
   const params = url.searchParams;
-  const filterValue =
-    '(-' + lessLanguages.map((lang) => `lang_${lang})`).join('.');
+  const filterValue = lessLanguages.map((lang) => `(-lang_${lang})`).join('.');
 
   if (url.searchParams.get('lr') == filterValue) {
     return;
@@ -515,8 +514,7 @@ async function chromeSetupDynamicRewriteRules(userSettings) {
   const moreLanguages = userSettings.moreLanguages;
   const userSpeed = userSettings.moreLanguages;
 
-  const filterValue =
-    '(-' + lessLanguages.map((lang) => `lang_${lang})`).join('.');
+  const filterValue = lessLanguages.map((lang) => `(-lang_${lang})`).join('.');
 
   const rulesOk = await browser.declarativeNetRequest
     .updateDynamicRules({
