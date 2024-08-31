@@ -1,0 +1,14 @@
+{
+  "CONTENT": true,
+  "NOTIFICATIONS": true,
+  "ACHIEVEMENTS": true,
+  "ACHIEVEMENTS_DISPLAY": true,
+  "GOOGLE_REWRITE": true,
+  "GOOGLE_REWRITE_AUTOCOMPLETE": true,
+  "CT_FACEBOOK": false,
+  "CT_GOOGLE_MYACCOUNT": false,
+  "CT_GOOGLE_SEARCH": true,
+  "CT_WIKIPEDIA": true,
+  "CT_LINKEDIN": false,
+  "CT_YOUTUBE": false
+}
