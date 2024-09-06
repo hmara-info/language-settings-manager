@@ -13,6 +13,10 @@ browser.runtime.onInstalled.addListener(function (details) {
   sendEvent(`installed: ${details.reason}`);
 });
 
+browser.action.onClicked.addListener(() => {
+  browser.runtime.openOptionsPage();
+});
+
 if (process.env.NODE_ENV === 'development') {
   // Configuration override in development goes here
   // chrome.storage.local.set({});
