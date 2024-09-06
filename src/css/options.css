@@ -227,7 +227,7 @@ input[type='button']:disabled {
 }
 
 #options .hidden {
-  display: none;
+  display: none !important;
 }
 
 #langSelectorContainer div.ui.multiple.dropdown {
