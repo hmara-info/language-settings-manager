@@ -43,8 +43,7 @@ var options = {
   entry: {
     content: path.join(__dirname, 'src', 'js', 'content.js'),
     background: path.join(__dirname, 'src', 'js', 'background.js'),
-    options: path.join(__dirname, 'src', 'js', 'options.js'),
-    popup: path.join(__dirname, 'src', 'js', 'popup.js'),
+    options: path.join(__dirname, 'src', 'js', 'options.js')
   },
   output: {
     path: path.join(__dirname, 'build'),
@@ -130,11 +129,6 @@ var options = {
       template: path.join(__dirname, 'src', 'options.html'),
       filename: 'options.html',
       chunks: ['options'],
-    }),
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'popup.html'),
-      filename: 'popup.html',
-      chunks: ['popup'],
     }),
     new webpack.ProvidePlugin({
       $: 'jquery',
