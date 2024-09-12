@@ -18,9 +18,11 @@ const opts = {
 beforeAll(async () => {
   global.browser = await puppeteer.launch(opts);
   global.page = await global.browser.newPage();
-  await page.setUserAgent(
+
+  await global.page.setUserAgent(
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0'
   );
+
   const workerTarget = await global.browser.waitForTarget(
     (target) =>
       target.type() === 'service_worker' &&

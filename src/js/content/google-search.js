@@ -44,26 +44,58 @@ export default class googleSearchHandler extends defaultHandler {
   }
 
   async _targetLanguagesConfig() {
-    return null;
-
     /*
      * Fetches the "Languages for which you don't
      * want to be offered translations" part of Profile
      */
-    const preferencesUrl = this.location.origin + '/preferences#languages';
+    const preferencesUrl = this.location.origin + '/preferences?lang=1';
     return fetch(preferencesUrl, { credentials: 'same-origin' })
       .then((r) => r.text())
       .then((html) => {
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
-        const googleSearchLangs = [
-          ...doc.querySelectorAll('#tsuid_1 input[name="lr"][checked="1"]'),
-        ].map((x) => x.value);
-        let googleDisplayLang = doc.querySelector(
-          '#tsuid_1 .URIeEf input[name="lang"][checked="1"]'
-        ).value;
+        let googleDisplayLang = doc.documentElement.lang
+          .replace(/-.*/, '')
+          .toLowerCase();
 
-        const sig = doc.querySelector('input[name="sig"]').value;
+        const checkedMenuItems = doc.querySelectorAll(
+          'g-menu-item[aria-checked="true"]'
+        );
+        const resultsLanguageFilterElement = doc.querySelector(
+          '[data-pid="lr"] .vFhVge'
+        );
+        const selectedLangs = resultsLanguageFilterElement
+          .getAttribute('data-selectedlangs')
+          .split('|');
+
+        const langMap = {};
+        const allLangMap = resultsLanguageFilterElement
+          .getAttribute('data-alllangmap')
+          .split(';');
+
+        allLangMap.forEach((langPair) => {
+          let [langCode, langName] = langPair.split('|');
+          langCode = langCode.replace('lang_', '');
+          console.log(langCode);
+          langMap[langName] = langCode;
+        });
+
+        const googleSearchLangs = selectedLangs.map((langName) =>
+          langMap[langName].toLowerCase()
+        );
+
+        const url = doc.querySelector('div[jscontroller="gri7yb"]').dataset
+          .spbu;
+        const sigSearchParams = new URLSearchParams(url.split('?')[1]);
+        const sig = sigSearchParams.get('sig');
+        if (!sig) throw new Error('sig is not defined');
+
+        console.log(
+          'UI lang and selectedFilter langs',
+          googleDisplayLang,
+          googleSearchLangs,
+          sig
+        );
 
         const moreLanguages = this.moreLanguages;
         const lessLanguages = this.lessLanguages;
@@ -80,16 +112,13 @@ export default class googleSearchHandler extends defaultHandler {
           googleDisplayLang = supportedWantedLanguages[0];
         }
 
-        const newGoogleSearchLangs = googleSearchLangs.filter((lang_lang) => {
-          const lang = lang_lang.replace(/^lang_/, '').toLowerCase();
+        const newGoogleSearchLangs = googleSearchLangs.filter((lang) => {
           return (
             lessLanguages.indexOf(lang) < 0 &&
             supportedWantedLanguages.indexOf(lang) < 0
           );
         });
-        newGoogleSearchLangs.unshift(
-          ...supportedWantedLanguages.map((l) => `lang_${l}`)
-        );
+        newGoogleSearchLangs.unshift(...supportedWantedLanguages);
 
         // No changes needed
         if (
@@ -124,7 +153,7 @@ export default class googleSearchHandler extends defaultHandler {
       }
       if (languages.googleSearchLangs) {
         for (let lang of languages.googleSearchLangs) {
-          url.searchParams.append('lr', lang);
+          url.searchParams.append('lr', `lang_${lang}`);
         }
       }
 

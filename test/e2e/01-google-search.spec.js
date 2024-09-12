@@ -1,4 +1,3 @@
-const puppeteer = require('puppeteer');
 require('./lu-puppeteer.js');
 
 describe('Google Search Results', () => {
@@ -21,9 +20,6 @@ describe('Google Search Results', () => {
     await page.setExtraHTTPHeaders({
       'Accept-Language': 'ru-RU,ru',
     });
-    await page.setUserAgent(
-      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0'
-    );
 
     await page.goto('https://www.google.com/search?q=test', {
       waitUntil: 'networkidle0',
