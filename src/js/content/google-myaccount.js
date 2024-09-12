@@ -8,7 +8,7 @@ import {
 export default class googleMyaccountHandler extends defaultHandler {
   handlerName = 'google-myaccount';
 
-  preferencesUrl = 'https://myaccount.google.com/language';
+  preferencesPath = '/language';
   SUPPORTED_LANGUAGES() {
     return ['uk', 'en'];
   }
@@ -29,7 +29,7 @@ export default class googleMyaccountHandler extends defaultHandler {
   async _targetLanguagesConfig() {
     const $self = this;
     const html =
-      $self.location.href === $self.preferencesUrl
+      $self.location.pathname === $self.preferencesPath
         ? $self.document.documentElement.innerHTML
         : null;
 
@@ -37,7 +37,7 @@ export default class googleMyaccountHandler extends defaultHandler {
       .then((GoogleUILangsConfig) => {
         if (!GoogleUILangsConfig || !GoogleUILangsConfig.googleLangs) {
           reportError('Failed to parse Google Account preferences page', e);
-          return;
+          return Promise.reject($self.NOOP);
         }
         GoogleUILangsConfig.googleLangs = $self._generateNewLanguagesConfig(
           GoogleUILangsConfig.googleLangs
@@ -45,13 +45,13 @@ export default class googleMyaccountHandler extends defaultHandler {
         if (!GoogleUILangsConfig.googleLangs) {
           return Promise.reject($self.NOOP);
         }
-        return GoogleUILangsConfig.googleLangs;
+        return GoogleUILangsConfig;
       })
       .catch((e) => {
-        if (e === $self.NOOP) return e;
+        if (e === $self.NOOP) throw e;
 
         reportError('Failed to parse Google Account preferences page', e);
-        return Promise.reject($self.NOOP);
+        throw e;
       });
   }
 
