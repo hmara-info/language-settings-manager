@@ -152,32 +152,78 @@ export default class handler {
   async suggestToChangeLanguages() {
     console.log(`Entering suggestToChangeLanguages of ${this.handlerName}`);
     const $self = this;
-    return $self.targetLanguagesConfig().then(
-      (languageConfig) =>
-        new Promise(async (resolve, reject) => {
+    return $self.targetLanguagesConfig().then(async (languageConfig) => {
+      console.log(
+        `-> ${$self.handlerName}.targetLanguagesConfig() with config:`,
+        languageConfig
+      );
+
+      return new Promise(async (resolve, reject) => {
           $self.removeUI();
           const callToAction = $self._tweakLanguagesCTA(languageConfig);
           const floaterHTML = `
-<div style="z-index:5000; width:100%; position: fixed; top: 0;" class="lahidnaUkrainizatsiya" translate="no">
-  <div style="margin: 20px; padding: 10px; border: 1px solid rgba(0,0,0,.09); box-shadow: 15px -4px 17px 1px rgba(19, 19, 22, 0.28); border-radius: 3px; background: #f3f1f1;">
-    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTgiIGhlaWdodD0iMzQiIHZpZXdCb3g9IjAgMCA1OCAzNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQ4LjYwNTMgMTMuOTg0NUM0Ny44NTM5IDkuMTc0OTUgNDMuNjg0MyA1LjQ4MzQ5IDM4LjY2NjkgNS40ODM0OUMzNi43Nzk0IDUuNDgzNDkgMzQuOTY1NiA2LjAwNTcyIDMzLjM5MjQgNi45Nzk3N0MzMC45OTkxIDIuOTU3NTIgMjYuNjkwNCAwLjQ1NDU1OSAyMS45MDM4IDAuNDU0NTU5QzE0LjUwOTQgMC40NTQ1NTkgOC40OTMzMSA2LjQ3MDYxIDguNDkzMzEgMTMuODY1QzguNDkzMzEgMTMuOTEwOSA4LjQ5MzMxIDEzLjk1ODQgOC40OTQ5OCAxNC4wMDQyQzMuNzQyNjQgMTQuODA0NyAwIDE4Ljk0OCAwIDIzLjkyMjlDMCAyOS40NjkxIDQuNjIzMzggMzMuOTgwOCAxMC4xNjk2IDMzLjk4MDhINDcuMDQ4NUM1Mi41OTQ3IDMzLjk4MDggNTcuMjE4MSAyOS40NjkxIDU3LjIxODEgMjMuOTIyOUM1Ny4yMTgxIDE4LjkwNTUgNTMuNDE0OSAxNC43MzU5IDQ4LjYwNTMgMTMuOTg0NVoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=" style="width: 25px; height: 25px; border-radius: 50%; background-color: #009393; padding: 5px; box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.3); margin-right: 1em; vertical-align:middle;">
-    <span>${callToAction}</span>
-    <div style="float: right">
-      <input type='button' value='Так' style='padding: 4px; margin-top: 4px;' class='yes-btn' />
-      <input type='button' value='Пізніше' style='padding: 4px; margin-top: 4px;' class='no-btn' />
-    </div>
-  </div>
-</div>
 <style>
   /* Make sure inner elements don't inhering any CSS, but browser defaults */
   :host {
-    all: initial !important;
+    all: initial;
   }
+  .lahidnaUkrainizatsiya {
+    z-index:5000;
+    width:100%;
+    position: fixed;
+    top: 0;
+  }
+  .lahidnaUkrainizatsiya > div {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid rgba(0,0,0,.09);
+    box-shadow: 15px -4px 17px 1px rgba(19, 19, 22, 0.28);
+    border-radius: 3px;
+    background: #f3f1f1;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :host {
+      color: #FFFFFF;
+    }
+    .lahidnaUkrainizatsiya > div {
+      background: #27282b;
+      box-shadow: 15px -4px 17px 1px rgba(83, 83, 83, 0.30);
+      border: 1px solid rgba(255,255,255,.09);
+    }
+  }
+
+  .lahidnaUkrainizatsiya input {
+    padding: 4px;
+    margin-top: 4px;
+  }
+  img.lu-logo {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #009393;
+    padding: 5px;
+    box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.3);
+    margin-right: 1em;
+    vertical-align:middle;
+  }
+
 </style>
+<div class="lahidnaUkrainizatsiya" translate="no">
+  <div>
+    <img class="lu-logo" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTgiIGhlaWdodD0iMzQiIHZpZXdCb3g9IjAgMCA1OCAzNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQ4LjYwNTMgMTMuOTg0NUM0Ny44NTM5IDkuMTc0OTUgNDMuNjg0MyA1LjQ4MzQ5IDM4LjY2NjkgNS40ODM0OUMzNi43Nzk0IDUuNDgzNDkgMzQuOTY1NiA2LjAwNTcyIDMzLjM5MjQgNi45Nzk3N0MzMC45OTkxIDIuOTU3NTIgMjYuNjkwNCAwLjQ1NDU1OSAyMS45MDM4IDAuNDU0NTU5QzE0LjUwOTQgMC40NTQ1NTkgOC40OTMzMSA2LjQ3MDYxIDguNDkzMzEgMTMuODY1QzguNDkzMzEgMTMuOTEwOSA4LjQ5MzMxIDEzLjk1ODQgOC40OTQ5OCAxNC4wMDQyQzMuNzQyNjQgMTQuODA0NyAwIDE4Ljk0OCAwIDIzLjkyMjlDMCAyOS40NjkxIDQuNjIzMzggMzMuOTgwOCAxMC4xNjk2IDMzLjk4MDhINDcuMDQ4NUM1Mi41OTQ3IDMzLjk4MDggNTcuMjE4MSAyOS40NjkxIDU3LjIxODEgMjMuOTIyOUM1Ny4yMTgxIDE4LjkwNTUgNTMuNDE0OSAxNC43MzU5IDQ4LjYwNTMgMTMuOTg0NVoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=">
+    <span>${callToAction}</span>
+    <div style="float: right">
+      <input type='button' value='Так' class='yes-btn' />
+      <input type='button' value='Пізніше' class='no-btn' />
+    </div>
+  </div>
+</div>
 `;
           const floaterHost = $self.document.createElement('div');
-          $self.document.body.appendChild(floaterHost);
+        floaterHost.setAttribute('id', 'lu-shadow-host');
           const dom = floaterHost.attachShadow({ mode: 'open' });
+        $self.document.documentElement.appendChild(floaterHost);
           dom.innerHTML = floaterHTML.trim();
           const floater = dom.firstChild;
 
@@ -216,13 +262,13 @@ export default class handler {
               reject = undefined;
               floater.remove();
             });
-        })
-    );
+      });
+    });
   }
 
   async changeLanguageTo(languages) {
     console.log(
-      `Entering changeLanguageTo of ${this.handlerName}. Languages config:`,
+      `-> ${this.handlerName}.changeLanguageTo(languages); languages:`,
       languages
     );
     return this._changeLanguageTo(languages).then(() =>
