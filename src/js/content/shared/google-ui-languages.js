@@ -38,7 +38,9 @@ export async function getGoogleUILangugages(cachedHtml) {
 
 // Takes a data structure returned by getGoogleUILangugages
 export async function setGoogleUILangugages(settings) {
+  console.log('-> setGoogleUILangugagesRequest', settings);
   if (!settings || !settings.settingsAt || !settings.googleLangs) {
+    console.log('Malformed config at setGoogleUILangugagesRequest', settings);
     return;
   }
 
@@ -53,6 +55,10 @@ export async function setGoogleUILangugages(settings) {
 // setGoogleUILangugagesRequest() is meant to be invoked from the background process
 
 export async function setGoogleUILangugagesRequest(newGoogleLangs) {
+  console.log(
+    '-> setGoogleUILangugagesRequest(newGoogleLangs)',
+    newGoogleLangs
+  );
   if (!newGoogleLangs || !newGoogleLangs.length) {
     throw new Error(
       'setGoogleUILangugagesRequest error: No languages provided',
@@ -62,6 +68,9 @@ export async function setGoogleUILangugagesRequest(newGoogleLangs) {
 
   return getGoogleUILangugagesRequest()
     .then((html) => {
+      console.log(
+        '   Received UI languages HTML at setGoogleUILangugagesRequest'
+      );
       const match = html.match(
         /https:\\\/\\\/www\.google\.com\\\/settings','(.*?)'/
       );
@@ -71,6 +80,10 @@ export async function setGoogleUILangugagesRequest(newGoogleLangs) {
       return match[1];
     })
     .then((settingsAt) => {
+      console.log(
+        '   Found "at" value at setGoogleUILangugagesRequest',
+        settingsAt
+      );
       // Example payload: f.req=[["uk", "en-NL"]]&at=AGM9kOYuAHoYlyx1LLunsOPC-EVj:16J1479455245&
       const setAccountLangsBody = _formEncode({
         'f.req': JSON.stringify([newGoogleLangs]),
@@ -79,6 +92,10 @@ export async function setGoogleUILangugagesRequest(newGoogleLangs) {
 
       const disableAutodetectLangsBody = _formEncode({
         'f.req': JSON.stringify([[['NeP2w', '[2]', null, 'generic']]]),
+        at: settingsAt,
+      });
+
+      const setAllLangsBody = _formEncode({
         at: settingsAt,
       });
 
@@ -95,18 +112,37 @@ export async function setGoogleUILangugagesRequest(newGoogleLangs) {
 
         // Disables auto-suggestions of languages by Google
         // as it's known to suggest undesired languages without confirming with the user
-        fetch(
-          'https://myaccount.google.com/_/AccountSettingsUi/data/batchexecute',
-          {
+        // It looks like Google requires a small delay between the two operations for batchexecute to work
+        new Promise((resolve) => setTimeout(resolve, 500)).then(async () =>
+          fetch(
+            'https://myaccount.google.com/_/AccountSettingsUi/data/batchexecute',
+            {
+              headers: {
+                'content-type':
+                  'application/x-www-form-urlencoded;charset=UTF-8',
+              },
+              body: disableAutodetectLangsBody,
+              credentials: 'include',
+              method: 'POST',
+            }
+          )
+        ),
+
+        new Promise((resolve) => setTimeout(resolve, 1000)).then(async () =>
+          fetch('https://myaccount.google.com/_/language_remove_override', {
             headers: {
               'content-type': 'application/x-www-form-urlencoded;charset=UTF-8',
             },
-            body: disableAutodetectLangsBody,
+            body: setAllLangsBody,
             credentials: 'include',
             method: 'POST',
-          }
+          })
         ),
       ]).then((responses) => {
+        console.log(
+          '   All requests complete at setGoogleUILangugagesRequest',
+          responses
+        );
         // Only consider the response to 'update languages' request
         if (responses[0].status == 200) {
           return Promise.resolve(responses[0].status);
