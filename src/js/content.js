@@ -39,7 +39,7 @@ storageGetSync('userSettings').then((settings) => {
       .catch((e) => {
         if (e === handler.NOOP) {
           console.log(
-            `tweakLanguages flow if ${handler.handlerName} returned 'nothing to do'`,
+            `tweakLanguages flow of ${handler.handlerName} returned 'nothing to do'`,
             e
           );
           return;

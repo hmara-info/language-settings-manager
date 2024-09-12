@@ -159,9 +159,9 @@ export default class handler {
       );
 
       return new Promise(async (resolve, reject) => {
-          $self.removeUI();
-          const callToAction = $self._tweakLanguagesCTA(languageConfig);
-          const floaterHTML = `
+        $self.removeUI();
+        const callToAction = $self._tweakLanguagesCTA(languageConfig);
+        const floaterHTML = `
 <style>
   /* Make sure inner elements don't inhering any CSS, but browser defaults */
   :host {
@@ -220,48 +220,48 @@ export default class handler {
   </div>
 </div>
 `;
-          const floaterHost = $self.document.createElement('div');
+        const floaterHost = $self.document.createElement('div');
         floaterHost.setAttribute('id', 'lu-shadow-host');
-          const dom = floaterHost.attachShadow({ mode: 'open' });
+        const dom = floaterHost.attachShadow({ mode: 'open' });
         $self.document.documentElement.appendChild(floaterHost);
-          dom.innerHTML = floaterHTML.trim();
-          const floater = dom.firstChild;
+        dom.innerHTML = floaterHTML.trim();
+        const floater = dom.firstChild;
 
-          const observer = new MutationObserver(function (mutations) {
-            // check for removed target
-            mutations.forEach(function (mutation) {
-              var nodes = Array.from(mutation.removedNodes);
-              if (nodes.indexOf(floater) <= -1) return;
-              if (reject) {
-                reject('node removed');
-              }
-              observer.disconnect();
-            });
+        const observer = new MutationObserver(function (mutations) {
+          // check for removed target
+          mutations.forEach(function (mutation) {
+            var nodes = Array.from(mutation.removedNodes);
+            if (nodes.indexOf(floater) <= -1) return;
+            if (reject) {
+              reject('node removed');
+            }
+            observer.disconnect();
+          });
+        });
+
+        observer.observe(dom, {
+          childList: true,
+        });
+
+        // Create ui in DOM
+        // Bind 'Yes' function
+        dom
+          .querySelector('.lahidnaUkrainizatsiya .yes-btn')
+          .addEventListener('click', function (e) {
+            resolve(languageConfig);
+            reject = undefined;
+            floater.remove();
           });
 
-          observer.observe(dom, {
-            childList: true,
+        // Bind 'No' function
+        dom
+          .querySelector('.lahidnaUkrainizatsiya .no-btn')
+          .addEventListener('click', function (e) {
+            const options = JSON.stringify(languageConfig);
+            reject(`user answered no to options ${options}`);
+            reject = undefined;
+            floater.remove();
           });
-
-          // Create ui in DOM
-          // Bind 'Yes' function
-          dom
-            .querySelector('.lahidnaUkrainizatsiya .yes-btn')
-            .addEventListener('click', function (e) {
-              resolve(languageConfig);
-              reject = undefined;
-              floater.remove();
-            });
-
-          // Bind 'No' function
-          dom
-            .querySelector('.lahidnaUkrainizatsiya .no-btn')
-            .addEventListener('click', function (e) {
-              const options = JSON.stringify(languageConfig);
-              reject(`user answered no to options ${options}`);
-              reject = undefined;
-              floater.remove();
-            });
       });
     });
   }
@@ -277,14 +277,27 @@ export default class handler {
   }
 
   async targetLanguagesConfig() {
-    return this._targetLanguagesConfigCached().then((cachedConfig) => {
-      if (cachedConfig && cachedConfig.data) {
-        return cachedConfig.data;
-      }
-      return this._targetLanguagesConfig().then((config) =>
-        this._targetLanguagesConfigUpdateCache(config)
-      );
-    });
+    const $self = this;
+    return this._targetLanguagesConfigCached()
+      .then((cachedConfig) => {
+        if (cachedConfig && cachedConfig.data) {
+          return cachedConfig.data;
+        }
+        return this._targetLanguagesConfig().then((config) =>
+          this._targetLanguagesConfigUpdateCache(config)
+        );
+      })
+      .then((languageConfig) => {
+        console.log(
+          `${$self.handlerName}.targetLanguagesConfig() result:`,
+          languageConfig
+        );
+        return languageConfig;
+      })
+      .catch((e) => {
+        console.log(`${$self.handlerName}.targetLanguagesConfig() error:`, e);
+        throw e;
+      });
   }
 
   async _targetLanguagesConfig() {
