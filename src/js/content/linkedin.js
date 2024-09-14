@@ -115,6 +115,12 @@ export default class linkedinHandler extends defaultHandler {
 
   async _targetLanguagesConfig() {
     const $self = this;
+
+    // User is not logged in, nothing to do
+    if (!document.querySelector('.global-nav__me')) {
+      return null;
+    }
+
     return fetch(
       'https://www.linkedin.com/psettings/select-language-for-translation?li_theme=light&openInMobileMode=true'
     )
