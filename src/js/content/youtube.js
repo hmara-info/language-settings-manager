@@ -34,7 +34,8 @@ export default class youtubeHandler extends defaultHandler {
     // hl and al define the UI, both paramters can be absent
     let prefValue = document.cookie
       .split('; ')
-      .find((row) => row.startsWith('PREF='));
+      .find((row) => row.startsWith('PREF='))
+      .replace(/^PREF=/, '');
 
     console.log(
       `  ${this.handlerName}._changeLanguageTo() prefValue`,
