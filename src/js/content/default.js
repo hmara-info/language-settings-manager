@@ -77,7 +77,10 @@ export default class handler {
       })
       .then(async (expectAchievement) => {
         console.log(`Refreshing targetLanguagesConfig at ${$self.handlerName}`);
-        const config = await $self.targetLanguagesConfig();
+        const config = await $self.targetLanguagesConfig().catch((e) => {
+          if (e == $self.NOOP) return null;
+          throw e;
+        });
         console.log(`targetLanguagesConfig at ${$self.handlerName} is`, config);
 
         if (FEATURES.ACHIEVEMENTS && expectAchievement) {
