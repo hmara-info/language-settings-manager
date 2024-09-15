@@ -44,5 +44,4 @@ describe('YouTube Content Handler', () => {
     });
     expect(promptVisible).toBe(true);
   }, 10000);
-
 });
