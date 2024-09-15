@@ -27,7 +27,7 @@ const ACHIEVEMENTS = {
     type: 'singular',
     title: 'Google 🔎 з інтерфейсом {firstLanguage}!',
     description:
-      'Вітаємо у вашому оновленому Google!<br />Вам подобається інтерфейс {firstLanguage}?',
+      'Вітаємо у вашому оновленому Google!\nВам подобається інтерфейс {firstLanguage}?',
   },
 
   CT_wikipedia: {
@@ -47,7 +47,13 @@ const ACHIEVEMENTS = {
     type: 'singular',
     title: 'LinkedIn з інтерфейсом {firstLanguage}!',
     description:
-      'Вітаємо у вашому оновленому LinkedIn!<br />Вам подобається інтерфейс {firstLanguage}?',
+      'Вітаємо у вашому оновленому LinkedIn!\nВам подобається інтерфейс {firstLanguage}?',
+  },
+  CT_youtube: {
+    type: 'singular',
+    title: 'YouTube з інтерфейсом {firstLanguage}!',
+    description:
+      'Вітаємо у вашому оновленому YouTube!\nВам подобається інтерфейс {firstLanguage}?',
   },
 };
 
