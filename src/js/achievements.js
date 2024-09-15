@@ -42,6 +42,13 @@ const ACHIEVEMENTS = {
     description_100:
       'Вже в соте знаходите сторінки Wikipedia вашими мовами!\nПодобається? Діліться з друзями!',
   },
+
+  CT_linkedin: {
+    type: 'singular',
+    title: 'LinkedIn з інтерфейсом {firstLanguage}!',
+    description:
+      'Вітаємо у вашому оновленому LinkedIn!<br />Вам подобається інтерфейс {firstLanguage}?',
+  },
 };
 
 export async function trackAchievement(acKey, options = {}) {
