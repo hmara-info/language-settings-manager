@@ -215,7 +215,10 @@
         "https://www.google.co.zm/*",
         "https://www.google.co.zw/*",
         "https://www.google.cat/*",
-        "https://*.wikipedia.org/wiki/*"
+        "https://*.wikipedia.org/wiki/*",
+        "https://*.hmara.info/*",
+        "https://hmara.info/*",
+        "http://dev.hmara.info/*"
       ],
       "js": ["content.bundle.js"]
     }
@@ -226,8 +229,9 @@
     "notifications",
     "webRequest",
     "webRequestBlocking",
-    "https://ls.hmara.info/*",
-    "https://*.ls.hmara.info/*",
+    "https://*.hmara.info/*",
+    "https://hmara.info/*",
+    "http://dev.hmara.info/*",
     "https://www.google.com/*",
     "https://www.google.ad/*",
     "https://www.google.ae/*",
@@ -423,11 +427,12 @@
     "https://www.google.cat/*",
     "https://www.facebook.com/*"
   ],
+  "web_accessible_resources": ["options.html"],
   "browser_specific_settings": {
     "gecko": {
       "id": "language-settings-manager@hmara.info",
       "strict_min_version": "109.0"
     }
   },
-  "content_security_policy": "script-src 'self'; object-src 'self'; img-src * data: 'self'"
+  "content_security_policy": "script-src 'self'; object-src 'self'; img-src * data: 'self'; connect-src https://*.hmara.info;"
 }

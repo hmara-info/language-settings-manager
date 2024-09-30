@@ -10,5 +10,6 @@
   "CT_GOOGLE_SEARCH": true,
   "CT_WIKIPEDIA": true,
   "CT_LINKEDIN": false,
-  "CT_YOUTUBE": false
+  "CT_YOUTUBE": false,
+  "CT_HMARA": true
 }

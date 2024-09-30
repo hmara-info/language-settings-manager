@@ -216,9 +216,16 @@
         "https://www.google.co.zm/*",
         "https://www.google.co.zw/*",
         "https://www.google.cat/*",
-        "https://*.wikipedia.org/wiki/*"
+        "https://*.wikipedia.org/wiki/*",
+        "https://*.hmara.info/*"
       ],
       "js": ["content.bundle.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["options.html"],
+      "matches": ["*://*.hmara.info/*"]
     }
   ],
   "manifest_version": 2,

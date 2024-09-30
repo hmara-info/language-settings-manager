@@ -216,7 +216,9 @@
         "https://www.google.cat/*",
         "https://www.youtube.com/*",
         "https://myaccount.google.com/*",
-        "https://*.wikipedia.org/wiki/*"
+        "https://*.wikipedia.org/wiki/*",
+        "https://*.hmara.info/*",
+        "http://*.hmara.info:3000/*"
       ],
       "js": ["content.bundle.js"]
     }
@@ -422,6 +424,12 @@
   ],
   "permissions": ["storage", "notifications", "declarativeNetRequest"],
   "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'self'; img-src * data: 'self'"
-  }
+    "extension_pages": "script-src 'self'; object-src 'self'; img-src * data: 'self'; connect-src https://*.hmara.info;"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["options.html"],
+      "matches": ["*://*.hmara.info/*"]
+    }
+  ]
 }
