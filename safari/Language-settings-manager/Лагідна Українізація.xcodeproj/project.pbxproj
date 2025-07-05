@@ -18,7 +18,6 @@
 		021A626E2853BD83006B6CF9 /* Лагідна Українізація Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 021A626D2853BD83006B6CF9 /* Лагідна Українізація Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		021A62732853BD83006B6CF9 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021A62722853BD83006B6CF9 /* SafariWebExtensionHandler.swift */; };
 		021A62902853BD84006B6CF9 /* semantic.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 021A62802853BD84006B6CF9 /* semantic.min.css */; };
-		021A62912853BD84006B6CF9 /* popup.html in Resources */ = {isa = PBXBuildFile; fileRef = 021A62812853BD84006B6CF9 /* popup.html */; };
 		021A62922853BD84006B6CF9 /* background.bundle.js in Resources */ = {isa = PBXBuildFile; fileRef = 021A62822853BD84006B6CF9 /* background.bundle.js */; };
 		021A62932853BD84006B6CF9 /* icon-64.png in Resources */ = {isa = PBXBuildFile; fileRef = 021A62832853BD84006B6CF9 /* icon-64.png */; };
 		021A62942853BD84006B6CF9 /* hmara-green.svg in Resources */ = {isa = PBXBuildFile; fileRef = 021A62842853BD84006B6CF9 /* hmara-green.svg */; };
@@ -32,7 +31,6 @@
 		021A629C2853BD84006B6CF9 /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 021A628C2853BD84006B6CF9 /* themes */; };
 		021A629D2853BD84006B6CF9 /* icon-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 021A628D2853BD84006B6CF9 /* icon-32.png */; };
 		021A629E2853BD84006B6CF9 /* options.css in Resources */ = {isa = PBXBuildFile; fileRef = 021A628E2853BD84006B6CF9 /* options.css */; };
-		021A629F2853BD84006B6CF9 /* popup.bundle.js in Resources */ = {isa = PBXBuildFile; fileRef = 021A628F2853BD84006B6CF9 /* popup.bundle.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,7 +75,6 @@
 		021A62742853BD83006B6CF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		021A62752853BD83006B6CF9 /* Language_settings_manager_Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Language_settings_manager_Extension.entitlements; sourceTree = "<group>"; };
 		021A62802853BD84006B6CF9 /* semantic.min.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = semantic.min.css; path = ../../../build/semantic.min.css; sourceTree = "<group>"; };
-		021A62812853BD84006B6CF9 /* popup.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = popup.html; path = ../../../build/popup.html; sourceTree = "<group>"; };
 		021A62822853BD84006B6CF9 /* background.bundle.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.bundle.js; path = ../../../build/background.bundle.js; sourceTree = "<group>"; };
 		021A62832853BD84006B6CF9 /* icon-64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-64.png"; path = "../../../build/icon-64.png"; sourceTree = "<group>"; };
 		021A62842853BD84006B6CF9 /* hmara-green.svg */ = {isa = PBXFileReference; lastKnownFileType = text; name = "hmara-green.svg"; path = "../../../build/hmara-green.svg"; sourceTree = "<group>"; };
@@ -91,7 +88,6 @@
 		021A628C2853BD84006B6CF9 /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = ../../../build/themes; sourceTree = "<group>"; };
 		021A628D2853BD84006B6CF9 /* icon-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-32.png"; path = "../../../build/icon-32.png"; sourceTree = "<group>"; };
 		021A628E2853BD84006B6CF9 /* options.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = options.css; path = ../../../build/options.css; sourceTree = "<group>"; };
-		021A628F2853BD84006B6CF9 /* popup.bundle.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = popup.bundle.js; path = ../../../build/popup.bundle.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,7 +167,6 @@
 			isa = PBXGroup;
 			children = (
 				021A62802853BD84006B6CF9 /* semantic.min.css */,
-				021A62812853BD84006B6CF9 /* popup.html */,
 				021A62822853BD84006B6CF9 /* background.bundle.js */,
 				021A62832853BD84006B6CF9 /* icon-64.png */,
 				021A62842853BD84006B6CF9 /* hmara-green.svg */,
@@ -185,7 +180,6 @@
 				021A628C2853BD84006B6CF9 /* themes */,
 				021A628D2853BD84006B6CF9 /* icon-32.png */,
 				021A628E2853BD84006B6CF9 /* options.css */,
-				021A628F2853BD84006B6CF9 /* popup.bundle.js */,
 			);
 			name = Resources;
 			path = "Language-settings-manager Extension";
@@ -291,11 +285,9 @@
 				021A62922853BD84006B6CF9 /* background.bundle.js in Resources */,
 				021A62962853BD84006B6CF9 /* options.bundle.js in Resources */,
 				021A62932853BD84006B6CF9 /* icon-64.png in Resources */,
-				021A629F2853BD84006B6CF9 /* popup.bundle.js in Resources */,
 				021A62972853BD84006B6CF9 /* manifest.json in Resources */,
 				021A62942853BD84006B6CF9 /* hmara-green.svg in Resources */,
 				021A62952853BD84006B6CF9 /* hmara.svg in Resources */,
-				021A62912853BD84006B6CF9 /* popup.html in Resources */,
 				021A629B2853BD84006B6CF9 /* icon-128.png in Resources */,
 				021A629A2853BD84006B6CF9 /* content.bundle.js in Resources */,
 				021A629D2853BD84006B6CF9 /* icon-32.png in Resources */,

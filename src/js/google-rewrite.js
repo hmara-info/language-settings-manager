@@ -30,6 +30,11 @@ async function syncLanguagesConfig(changes) {
       /// #if PLATFORM == 'CHROME' || PLATFORM == 'SAFARI'
       return chromeSetupDynamicRewriteRules(userSettings);
       /// #endif
+    }).then(() => {
+      if (process.env.NODE_ENV === 'development') {
+        browser.declarativeNetRequest.getDynamicRules()
+          .then((rules) => console.log("Updated rewrite rules: ", rules));
+      }
     })
     .catch((e) => {
       reportError('Error setting up dynamic rewrite rules', e);
@@ -541,6 +546,7 @@ async function chromeSetupDynamicRewriteRules(userSettings) {
             redirect: {
               transform: {
                 queryTransform: {
+                  removeParams: ['lr'],
                   addOrReplaceParams: [{ key: 'lr', value: filterValue }],
                 },
               },
@@ -548,7 +554,7 @@ async function chromeSetupDynamicRewriteRules(userSettings) {
           },
           condition: {
             regexFilter:
-              '^https://(?:www\\.)?google\\.(\\w\\w|co\\.(\\w\\w)|com|com\\.(\\w\\w)|\\w\\w)/search?.*',
+              '^https://(?:www\\.)?google\\..*?/search\\?.*',
             resourceTypes: ['main_frame'],
           },
         },
@@ -579,7 +585,7 @@ async function chromeSetupDynamicRewriteRules(userSettings) {
           },
           condition: {
             regexFilter:
-              '^https://www\\.google\\.(?:\\w\\w|co\\.(?:\\w\\w)|com|com\\.(?:\\w\\w)|\\w\\w)/complete/search?.*',
+              '^https://(?:www\\.)?google\\..*?/complete/search\\?',
             resourceTypes: ['xmlhttprequest', 'other'],
           },
         },
