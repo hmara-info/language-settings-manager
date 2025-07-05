@@ -38,7 +38,13 @@ async function syncLanguagesConfig(changes) {
 
 /// #if PLATFORM == 'FIREFOX'
 
-function firefoxGoogleSearchRequestListner(details) {
+function firefoxGoogleSearchRequestListner(details, userSettings) {
+  if (!FEATURES.GOOGLE_REWRITE) return;
+
+  const lessLanguages = userSettings.lessLanguages;
+  const moreLanguages = userSettings.moreLanguages;
+  const userSpeed = userSettings.moreLanguages;
+
   if (!details.url || !lessLanguages || !lessLanguages.length) {
     return;
   }
@@ -57,7 +63,7 @@ function firefoxGoogleSearchRequestListner(details) {
   };
 }
 
-function firefoxGoogleAutocompleteRequestListner(details) {
+function firefoxGoogleAutocompleteRequestListner(details, userSettings) {
   if (!details.url) {
     return;
   }
@@ -70,16 +76,21 @@ function firefoxGoogleAutocompleteRequestListner(details) {
   };
 }
 
+let firefoxGoogleSearchRequestListner_instance = null;
+
 async function firefoxSetupDynamicRewriteRules(userSettings) {
   console.log('Setting up firefox-alike dynamic rewrite rules');
 
   await browser.webRequest.onBeforeRequest.removeListener(
-    firefoxGoogleSearchRequestListner
-  );
-
-  await browser.webRequest.onBeforeRequest.removeListener(
     firefoxGoogleAutocompleteRequestListner
   );
+
+  if (firefoxGoogleSearchRequestListner_instance) {
+    await browser.webRequest.onBeforeRequest.removeListener(
+      firefoxGoogleSearchRequestListner_instance
+    );
+  }
+  firefoxGoogleSearchRequestListner_instance = null;
 
   if (!FEATURES.GOOGLE_REWRITE) return;
 
@@ -87,8 +98,11 @@ async function firefoxSetupDynamicRewriteRules(userSettings) {
   const moreLanguages = userSettings.moreLanguages;
   const userSpeed = userSettings.moreLanguages;
 
+  firefoxGoogleSearchRequestListner_instance = (details) =>
+    firefoxGoogleSearchRequestListner(details, userSettings);
+
   browser.webRequest.onBeforeRequest.addListener(
-    firefoxGoogleSearchRequestListner,
+    firefoxGoogleSearchRequestListner_instance,
     {
       urls: [
         'https://www.google.com/search?*',
