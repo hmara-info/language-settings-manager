@@ -310,4 +310,8 @@ input[type='button']:disabled {
   #userSpeed .ui.three.item.menu {
     flex-direction: column;
   }
+
+  #userSpeed .ui.three.item.menu .item {
+    width: 100%;
+  }
 }
