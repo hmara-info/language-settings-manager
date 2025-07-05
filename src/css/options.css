@@ -5,10 +5,11 @@ body#options {
 
 body#options {
   width: 100%;
-  min-width: min(620px, 100vw);
   margin: 0;
   font-family: 'Roboto', 'Helvetica Neue', sans-serif;
   background: #ebebeb;
+  padding: 0 16px;
+  box-sizing: border-box;
 }
 
 body#options > header {
@@ -17,14 +18,17 @@ body#options > header {
   color: #fff;
   display: flex;
   align-items: center;
+  margin: 0 -16px;
 }
 
 body#options header .header-content {
   margin: 0 auto;
-  width: min(560px, 100vw);
+  width: 100%;
+  max-width: 560px;
   display: flex;
   align-items: center;
   padding: 0 16px;
+  box-sizing: border-box;
 }
 
 body#options > header > .header-content > h1 {
@@ -44,7 +48,7 @@ body#options > header > .header-content > h1 > span {
 
 main {
   margin: 55px auto;
-  width: min(560px, 100vw);
+  max-width: 560px;
   display: flex !important;
   flex-direction: column;
   gap: 36px;
@@ -164,9 +168,9 @@ input[type='button']:disabled {
 
 #data_settings {
   margin-bottom: 15px;
-  padding-right: 200px;
   margin-right: auto;
   margin-left: auto;
+  overflow-x: auto;
 }
 
 #data_settings tr > * {
@@ -235,8 +239,9 @@ input[type='button']:disabled {
   height: 100%;
 }
 
-#selectLanguageForm > .ui.dropdown {
-  min-width: 450px;
+#selectLanguageForm > .ui.dropdown,
+#selectLessLanguagesForm > .ui.dropdown {
+  width: 100%;
 }
 
 #userSpeed a.item {
@@ -284,5 +289,25 @@ input[type='button']:disabled {
 
   body#options header .header-content {
     justify-content: center;
+  }
+
+  #options section.intro {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  #options #reset {
+    flex-direction: column;
+  }
+
+  .step-name {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #userSpeed .ui.three.item.menu {
+    flex-direction: column;
   }
 }
