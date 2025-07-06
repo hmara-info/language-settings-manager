@@ -27,7 +27,7 @@ async function syncLanguagesConfig(changes) {
       return firefoxSetupDynamicRewriteRules(userSettings);
       /// #endif
 
-      /// #if PLATFORM == 'CHROME' || PLATFORM == 'SAFARI'
+      /// #if PLATFORM == 'CHROME' || PLATFORM == 'SAFARI' || PLATFORM == 'SAFARI-IOS'
       return chromeSetupDynamicRewriteRules(userSettings);
       /// #endif
     })
@@ -520,7 +520,7 @@ async function firefoxSetupDynamicRewriteRules(userSettings) {
 }
 /// #endif
 
-/// #if PLATFORM == 'CHROME' || PLATFORM == 'SAFARI'
+/// #if PLATFORM == 'CHROME' || PLATFORM == 'SAFARI' || PLATFORM == 'SAFARI-IOS'
 async function chromeSetupDynamicRewriteRules(userSettings) {
   console.log('Setting up chrome-alike dynamic rewrite rules');
 

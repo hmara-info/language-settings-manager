@@ -14,6 +14,8 @@ export const PLATFORM =
 ('chrome');
 /// #elif PLATFORM == 'SAFARI'
 ('safari');
+/// #elif PLATFORM == 'SAFARI-IOS'
+('safari-ios');
 /// #else
 ('unknown');
 /// #endif

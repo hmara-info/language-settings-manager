@@ -23,10 +23,12 @@ const PLATFORM = process.env.FIREFOX
   ? 'chrome'
   : process.env.SAFARI
   ? 'safari'
+  : process.env.SAFARIIOS
+  ? 'safari-ios'
   : null;
 
 if (!PLATFORM) {
-  throw Error('FIREFOX, CHROME or SAFARI env variable has to be defined');
+  throw Error('FIREFOX, CHROME, SAFARI, SAFARIIOS env variable has to be defined');
 }
 var FEATURES = require(`./features/${PACKAGE.version}-${PLATFORM}.json`);
 
