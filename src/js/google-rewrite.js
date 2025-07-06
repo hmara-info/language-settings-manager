@@ -14,33 +14,37 @@ browser.storage.onChanged.addListener(syncLanguagesConfig);
 async function syncLanguagesConfig(changes) {
   if (!changes.features && !changes.userSettings) return;
 
-  return updateRuntimeFeatures()
-    .then(() => storageGetSync('userSettings'))
-    .then((settings) => {
-      if (!settings) return;
-      const userSettings = settings.userSettings;
-      if (!userSettings || Object.keys(userSettings) == null) return;
+  return (
+    updateRuntimeFeatures()
+      .then(() => storageGetSync('userSettings'))
+      .then((settings) => {
+        if (!settings) return;
+        const userSettings = settings.userSettings;
+        if (!userSettings || Object.keys(userSettings) == null) return;
 
-      console.log('userSettings changed, regenerating dynamicRewriteRules');
+        console.log('userSettings changed, regenerating dynamicRewriteRules');
 
-      /// #if PLATFORM == 'FIREFOX'
-      return firefoxSetupDynamicRewriteRules(userSettings);
+        /// #if PLATFORM == 'FIREFOX'
+        return firefoxSetupDynamicRewriteRules(userSettings);
+        /// #endif
+
+        /// #if PLATFORM == 'CHROME' || PLATFORM == 'SAFARI' || PLATFORM == 'SAFARI-IOS'
+        return chromeSetupDynamicRewriteRules(userSettings);
+        /// #endif
+      })
+      /// #if PLATFORM == 'CHROME' || PLATFORM == 'SAFARI'
+      .then(() => {
+        if (process.env.NODE_ENV === 'development') {
+          browser.declarativeNetRequest
+            .getDynamicRules()
+            .then((rules) => console.log('Updated rewrite rules: ', rules));
+        }
+      })
       /// #endif
-
-      /// #if PLATFORM == 'CHROME' || PLATFORM == 'SAFARI' || PLATFORM == 'SAFARI-IOS'
-      return chromeSetupDynamicRewriteRules(userSettings);
-      /// #endif
-    })
-    .then(() => {
-      if (process.env.NODE_ENV === 'development') {
-        browser.declarativeNetRequest
-          .getDynamicRules()
-          .then((rules) => console.log('Updated rewrite rules: ', rules));
-      }
-    })
-    .catch((e) => {
-      reportError('Error setting up dynamic rewrite rules', e);
-    });
+      .catch((e) => {
+        reportError('Error setting up dynamic rewrite rules', e);
+      })
+  );
 }
 
 /// #if PLATFORM == 'FIREFOX'

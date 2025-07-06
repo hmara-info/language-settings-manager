@@ -2,7 +2,8 @@
   "description": "Розширення, що робить інтернет Українським",
   "name": "Лагідна Українізація",
   "options_ui": {
-    "page": "options.html"
+    "page": "options.html",
+    "open_in_tab": true
   },
   "browser_action": {
     "default_icon": "icon-128.png"

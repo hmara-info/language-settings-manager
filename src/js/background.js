@@ -13,7 +13,17 @@ browser.runtime.onInstalled.addListener(function (details) {
   sendEvent(`installed: ${details.reason}`);
 });
 
-browser.action.onClicked.addListener(() => {
+browser.browserAction.onClicked.addListener(() => {
+  /// #if PLATFORM == 'FIREFOX'
+  if (navigator.userAgent.toLowerCase().includes('android')) {
+    // Firefox Android has a bug in openOptionsPage()
+    // create a tab instead
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=1795449
+    return browser.tabs.create({
+      url: browser.runtime.getURL('options.html'),
+    });
+  }
+  /// #endif
   browser.runtime.openOptionsPage();
 });
 
