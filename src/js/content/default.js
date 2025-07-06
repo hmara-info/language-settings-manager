@@ -176,24 +176,50 @@ export default class handler {
     position: fixed;
     top: 0;
   }
-  .lahidnaUkrainizatsiya > div {
+  .lahidnaUkrainizatsiya .lu-container {
     margin: 20px;
     padding: 10px;
     border: 1px solid rgba(0,0,0,.09);
     box-shadow: 15px -4px 17px 1px rgba(19, 19, 22, 0.28);
     border-radius: 3px;
-    background: #f3f1f1;
+    background: rgba(243, 241, 241, 0.6);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
   }
 
   @media (prefers-color-scheme: dark) {
     :host {
       color: #FFFFFF;
     }
-    .lahidnaUkrainizatsiya > div {
-      background: #27282b;
+    .lahidnaUkrainizatsiya .lu-container {
+      background: rgba(39, 40, 43, 0.6);
       box-shadow: 15px -4px 17px 1px rgba(83, 83, 83, 0.30);
       border: 1px solid rgba(255,255,255,.09);
     }
+    .lahidnaUkrainizatsiya .lu-content span {
+      text-shadow: 0 1px 10px rgba(0,0,0,1);
+    }
+  }
+
+  .lahidnaUkrainizatsiya .lu-content {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    flex-basis: 300px; /* Prevents squishing on smaller screens */
+  }
+
+  .lahidnaUkrainizatsiya .lu-content span {
+    text-shadow: 0 1px 10px rgba(0,0,0,1);
+  }
+
+  .lahidnaUkrainizatsiya .lu-buttons {
+    display: flex;
+    gap: 5px;
   }
 
   .lahidnaUkrainizatsiya input {
@@ -211,12 +237,39 @@ export default class handler {
     vertical-align:middle;
   }
 
+  @media (max-width: 600px) {
+    .lahidnaUkrainizatsiya .lu-container {
+      flex-direction: column;
+      align-items: stretch;
+      margin: 10px;
+      padding: 15px;
+    }
+    .lahidnaUkrainizatsiya .lu-content {
+      justify-content: center;
+      text-align: center;
+      margin-bottom: 15px;
+      flex-basis: auto;
+    }
+    .lahidnaUkrainizatsiya .lu-buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+    .lahidnaUkrainizatsiya .lu-buttons input {
+      width: 48%;
+      box-sizing: border-box;
+      margin-top: 0;
+      padding: 10px;
+    }
+  }
+
 </style>
 <div class="lahidnaUkrainizatsiya" translate="no">
-  <div>
-    <img class="lu-logo" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTgiIGhlaWdodD0iMzQiIHZpZXdCb3g9IjAgMCA1OCAzNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQ4LjYwNTMgMTMuOTg0NUM0Ny44NTM5IDkuMTc0OTUgNDMuNjg0MyA1LjQ4MzQ5IDM4LjY2NjkgNS40ODM0OUMzNi43Nzk0IDUuNDgzNDkgMzQuOTY1NiA2LjAwNTcyIDMzLjM5MjQgNi45Nzk3N0MzMC45OTkxIDIuOTU3NTIgMjYuNjkwNCAwLjQ1NDU1OSAyMS45MDM4IDAuNDU0NTU5QzE0LjUwOTQgMC40NTQ1NTkgOC40OTMzMSA2LjQ3MDYxIDguNDkzMzEgMTMuODY1QzguNDkzMzEgMTMuOTEwOSA4LjQ5MzMxIDEzLjk1ODQgOC40OTQ5OCAxNC4wMDQyQzMuNzQyNjQgMTQuODA0NyAwIDE4Ljk0OCAwIDIzLjkyMjlDMCAyOS40NjkxIDQuNjIzMzggMzMuOTgwOCAxMC4xNjk2IDMzLjk4MDhINDcuMDQ4NUM1Mi41OTQ3IDMzLjk4MDggNTcuMjE4MSAyOS40NjkxIDU3LjIxODEgMjMuOTIyOUM1Ny4yMTgxIDE4LjkwNTUgNTMuNDE0OSAxNC43MzU5IDQ4LjYwNTMgMTMuOTg0NVoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=">
-    <span>${callToAction}</span>
-    <div style="float: right">
+  <div class="lu-container">
+    <div class="lu-content">
+      <img class="lu-logo" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTgiIGhlaWdodD0iMzQiIHZpZXdCb3g9IjAgMCA1OCAzNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQ4LjYwNTMgMTMuOTg0NUM0Ny44NTM5IDkuMTc0OTUgNDMuNjg0MyA1LjQ4MzQ5IDM4LjY2NjkgNS40ODM0OUMzNi43Nzk0IDUuNDgzNDkgMzQuOTY1NiA2LjAwNTcyIDMzLjM5MjQgNi45Nzk3N0MzMC45OTkxIDIuOTU3NTIgMjYuNjkwNCAwLjQ1NDU1OSAyMS45MDM4IDAuNDU0NTU5QzE0LjUwOTQgMC40NTQ1NTkgOC40OTMzMSA2LjQ3MDYxIDguNDkzMzEgMTMuODY1QzguNDkzMzEgMTMuOTEwOSA4LjQ5MzMxIDEzLjk1ODQgOC40OTQ5OCAxNC4wMDQyQzMuNzQyNjQgMTQuODA0NyAwIDE4Ljk0OCAwIDIzLjkyMjlDMCAyOS40NjkxIDQuNjIzMzggMzMuOTgwOCAxMC4xNjk2IDMzLjk4MDhINDcuMDQ4NUM1Mi41OTQ3IDMzLjk4MDggNTcuMjE4MSAyOS40NjkxIDU3LjIxODEgMjMuOTIyOUM1Ny4yMTgxIDE4LjkwNTUgNTMuNDE0OSAxNC43MzU5IDQ4LjYwNTMgMTMuOTg0NVoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=">
+      <span>${callToAction}</span>
+    </div>
+    <div class="lu-buttons">
       <input type='button' value='Так' class='yes-btn' />
       <input type='button' value='Пізніше' class='no-btn' />
     </div>
