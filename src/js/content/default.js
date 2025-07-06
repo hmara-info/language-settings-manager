@@ -191,27 +191,6 @@ export default class handler {
     gap: 10px;
   }
 
-  @media (prefers-color-scheme: dark) {
-    :host {
-      color: #FFFFFF;
-    }
-    .lahidnaUkrainizatsiya .lu-container {
-      background: rgba(39, 40, 43, 0.6);
-      box-shadow: 15px -4px 17px 1px rgba(83, 83, 83, 0.30);
-      border: 1px solid rgba(255,255,255,.09);
-    }
-    .lahidnaUkrainizatsiya .lu-content span {
-      text-shadow: 0 1px 10px rgba(0,0,0,1);
-    }
-    .lahidnaUkrainizatsiya input {
-      background-color: rgba(50, 50, 50, 0.5);
-      border-color: rgba(255,255,255,.2);
-    }
-    .lahidnaUkrainizatsiya input:hover {
-      background-color: rgba(70, 70, 70, 0.8);
-    }
-  }
-
   .lahidnaUkrainizatsiya .lu-content {
     display: flex;
     align-items: center;
@@ -275,6 +254,28 @@ export default class handler {
       padding: 10px;
     }
   }
+
+  @media (prefers-color-scheme: dark) {
+    :host {
+      color: #FFFFFF;
+    }
+    .lahidnaUkrainizatsiya .lu-container {
+      background: rgba(39, 40, 43, 0.6);
+      box-shadow: 15px -4px 17px 1px rgba(83, 83, 83, 0.30);
+      border: 1px solid rgba(255,255,255,.09);
+    }
+    .lahidnaUkrainizatsiya .lu-content span {
+      text-shadow: 0 0 8px rgba(0, 0, 0, 1), 0 0 15px rgba(0, 0, 0, 0.8), 0 2px 3px rgba(255, 255, 255, 0.5);
+    }
+    .lahidnaUkrainizatsiya input {
+      background-color: rgba(50, 50, 50, 0.5);
+      border-color: rgba(255,255,255,.2);
+    }
+    .lahidnaUkrainizatsiya input:hover {
+      background-color: rgba(70, 70, 70, 0.8);
+    }
+  }
+
 
 </style>
 <div class="lahidnaUkrainizatsiya" translate="no">
