@@ -270,9 +270,26 @@ export default class handler {
     .lahidnaUkrainizatsiya input {
       background-color: rgba(50, 50, 50, 0.5);
       border-color: rgba(255,255,255,.2);
+      color: white;
     }
     .lahidnaUkrainizatsiya input:hover {
       background-color: rgba(70, 70, 70, 0.8);
+    }
+    .lahidnaUkrainizatsiya .yes-btn {
+      background-color: hsla(0,0%,100%,.9);
+      color: #333;
+      border: 1px solid transparent;
+    }
+    .lahidnaUkrainizatsiya .yes-btn:hover {
+      background-color: #fff;
+    }
+    .lahidnaUkrainizatsiya .no-btn {
+      background-color: hsla(0,0%,30%,.7);
+      color: white;
+      border: 1px solid hsla(0,0%,100%,.2);
+    }
+    .lahidnaUkrainizatsiya .no-btn:hover {
+      background-color: hsla(0,0%,40%,.8);
     }
   }
 
