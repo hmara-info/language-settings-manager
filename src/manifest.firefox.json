@@ -433,6 +433,10 @@
     "gecko": {
       "id": "language-settings-manager@hmara.info",
       "strict_min_version": "109.0"
+    },
+    "gecko_android": {
+      "id": "language-settings-manager@hmara.info",
+      "strict_min_version": "113.0"
     }
   },
   "content_security_policy": "script-src 'self'; object-src 'self'; img-src * data: 'self'; connect-src https://*.hmara.info;"
