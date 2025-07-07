@@ -124,20 +124,27 @@ function setupNotifications() {
       }
     });
 
-    browser.notifications.onButtonClicked.addListener(
-      function (notifId, btnIdx) {
-        if (notifId === 'PleaseSetUp') {
-          browser.runtime.openOptionsPage();
-        }
+    /// #if PLATFORM != 'FIREFOX'
+    // Firefox doesn't support buttons
+    browser.runtime.getBrowserInfo().then((browserInfo) => {
+      if (browserInfo.name !== 'Firefox') {
+        browser.notifications.onButtonClicked.addListener(
+          function (notifId, btnIdx) {
+            if (notifId === 'PleaseSetUp') {
+              browser.runtime.openOptionsPage();
+            }
+          }
+        );
       }
-    );
+    });
+    /// #endif
   } catch (e) {
     reportError('Failed to set up notification events', e);
   }
 }
 
 function checkConfigured() {
-  storageGetSync('userSettings').then((data) => {
+  storageGetSync('userSettings').then(async (data) => {
     if (data.userSettings) {
       return;
     }
@@ -151,11 +158,14 @@ function checkConfigured() {
           'Вкажіть, які мови ви хочете бачити більше в Інтернет, будь ласка. Натисніть на це повідомлення',
         iconUrl: '/icon-128.png',
         type: 'basic',
+        /// #if PLATFORM != 'FIREFOX'
+        // Firefox doesn't support buttons
         buttons: [
           {
             title: 'Перейти до налаштуваннь',
           },
         ],
+        /// #endif
       });
     } catch (e) {
       reportError('Failed to create notification', e);

@@ -131,13 +131,17 @@ async function _displayNewAchievement(acKey, value, options) {
       message: description,
       iconUrl: '/icon-128.png',
       type: 'basic',
+      /// #if PLATFORM != 'FIREFOX'
+      // Firefox doesn't support buttons
       buttons: [
         {
           title: 'Всі досягнення',
         },
       ],
+      /// #endif
     });
 
+    /// #if PLATFORM != 'FIREFOX'
     browser.notifications.onButtonClicked.addListener(
       function (notifId, btnIdx) {
         if (notifId.startsWith('AchievementUnlocked') && btnIdx === 0) {
@@ -145,6 +149,7 @@ async function _displayNewAchievement(acKey, value, options) {
         }
       }
     );
+    /// #endif
   } catch (e) {
     reportError('Failed to create achievement notification', e);
   }
