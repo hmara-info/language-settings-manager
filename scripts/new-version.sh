@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# TODO: add safari support
+SAFARI_PROJ="safari/Лагідна Українізація/"
+
 # Check if version is provided
 if [ -z "$1" ]; then
   echo "Please provide a new version number (e.g., 1.2.3)"
@@ -28,6 +29,12 @@ do
     echo "# copy $file -> ${file/$CURRENT_VERSION/$NEW_VERSION}";
     cp "$file" "${file/$CURRENT_VERSION/$NEW_VERSION}";
 done
+
+pushd "$SAFARI_PROJ"
+
+xcrun agvtool new-marketing-version "$NEW_VERSION"
+sed -i '' 's/MARKETING_VERSION = [^;]*/MARKETING_VERSION = '"$NEW_VERSION"'/g' Лагідна\ Українізація.xcodeproj/project.pbxproj
+popd
 
 # Check if the operation was successful
 if [ $? -eq 0 ]; then
