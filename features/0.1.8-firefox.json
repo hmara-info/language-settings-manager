@@ -7,7 +7,7 @@
   "GOOGLE_REWRITE_AUTOCOMPLETE": true,
   "CT_FACEBOOK": false,
   "CT_GOOGLE_MYACCOUNT": false,
-  "CT_GOOGLE_SEARCH": true,
+  "CT_GOOGLE_SEARCH": false,
   "CT_WIKIPEDIA": true,
   "CT_LINKEDIN": false,
   "CT_YOUTUBE": false,
