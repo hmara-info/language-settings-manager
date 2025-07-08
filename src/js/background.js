@@ -62,9 +62,6 @@ function setupMessaging() {
   browser.runtime.onMessage.addListener((request, sender) => {
     try {
       switch (request.type) {
-        case 'options':
-          return handleOptionsRequest(request);
-
         case 'content':
           return handleContentRequest(request, sender);
 
@@ -81,18 +78,6 @@ function setupMessaging() {
     }
     return false;
   });
-}
-
-function handleOptionsRequest(request) {
-  switch (request.subtype) {
-    case 'MsgOptionsToBackgroundOne':
-      break;
-
-    default:
-      reportError(
-        `-> background messages from content '${request.type}' of subtype '${request.subtype}' are not supported`
-      );
-  }
 }
 
 function handleContentRequest(request, sender) {
