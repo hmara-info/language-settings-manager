@@ -60,11 +60,12 @@ export function reportError(desc, errorData) {
 }
 
 // Factory settings
-export let FEATURES = __FEATURES__;
+export const FEATURES = __FEATURES__;
 export async function updateRuntimeFeatures() {
-  return browser.storage.local.get('features').then((features) => {
+  return storageGet('features').then((data) => {
+    const features = data.features;
     if (features && Object.keys(features).length > 0) {
-      FEATURES = features;
+      Object.assign(FEATURES, features);
     }
     return FEATURES;
   });

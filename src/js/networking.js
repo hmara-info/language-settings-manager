@@ -129,8 +129,8 @@ export async function updateLocalFeatures() {
         return;
       }
       const missingFeatures = [];
-      for (const k of FEATURES) {
-        if ((!k) in json) {
+      for (const k in FEATURES) {
+        if (!(k in json)) {
           missingFeatures.push(k);
         }
       }
@@ -141,7 +141,7 @@ export async function updateLocalFeatures() {
         );
         return;
       }
-      FEATURES = json;
+      Object.assign(FEATURES, json);
       storageSet({ features: json });
     });
 }
