@@ -13,8 +13,8 @@ browser.runtime.onInstalled.addListener(function (details) {
   sendEvent(`installed: ${details.reason}`);
 });
 
+/// #if PLATFORM == 'FIREFOX'
 browser.browserAction.onClicked.addListener(() => {
-  /// #if PLATFORM == 'FIREFOX'
   if (navigator.userAgent.toLowerCase().includes('android')) {
     // Firefox Android has a bug in openOptionsPage()
     // create a tab instead
@@ -23,9 +23,13 @@ browser.browserAction.onClicked.addListener(() => {
       url: browser.runtime.getURL('options.html'),
     });
   }
-  /// #endif
   browser.runtime.openOptionsPage();
 });
+/// #else
+browser.action.onClicked.addListener(() => {
+  browser.runtime.openOptionsPage();
+});
+/// #endif
 
 if (process.env.NODE_ENV === 'development') {
   // Configuration override in development goes here
