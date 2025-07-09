@@ -94,6 +94,15 @@ export default class wikipediaHandler extends defaultHandler {
         );
     }
 
+    const userSettings = await storageGetSync('userSettings');
+    const speed = userSettings.speed || 'gentle';
+    if (!(speed in ['fast', 'immediately'])) {
+      // On slow speeds, only offer a redirect if the user is visiting wiki in 'lessLanguages'
+      if (!this.lessLanguages.includes(currentLang)) {
+        return null;
+      }
+    }
+
     for (var lng of this.moreLanguages) {
       if (!langs[lng]) continue;
       return [lng, langs[lng]];
