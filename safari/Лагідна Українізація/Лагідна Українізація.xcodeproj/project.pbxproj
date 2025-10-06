@@ -11,38 +11,14 @@
 		966597952E1DA51300E2288D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966597942E1DA51300E2288D /* SceneDelegate.swift */; };
 		966597982E1DA51300E2288D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 966597962E1DA51300E2288D /* LaunchScreen.storyboard */; };
 		9665979B2E1DA51300E2288D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 966597992E1DA51300E2288D /* Main.storyboard */; };
-		966597A42E1DA51300E2288D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966597A32E1DA51300E2288D /* AppDelegate.swift */; };
-		966597A72E1DA51300E2288D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 966597A52E1DA51300E2288D /* Main.storyboard */; };
 		966597AF2E1DA51300E2288D /* Лагідна Українізація Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 966597AE2E1DA51300E2288D /* Лагідна Українізація Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		966597B92E1DA51300E2288D /* Лагідна Українізація Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 966597B82E1DA51300E2288D /* Лагідна Українізація Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		966597BF2E1DA51300E2288D /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 966597822E1DA51200E2288D /* Main.html */; };
-		966597C02E1DA51300E2288D /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 966597822E1DA51200E2288D /* Main.html */; };
 		966597C12E1DA51300E2288D /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 966597842E1DA51200E2288D /* Icon.png */; };
-		966597C22E1DA51300E2288D /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 966597842E1DA51200E2288D /* Icon.png */; };
 		966597C32E1DA51300E2288D /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 966597852E1DA51200E2288D /* Style.css */; };
-		966597C42E1DA51300E2288D /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 966597852E1DA51200E2288D /* Style.css */; };
 		966597C52E1DA51300E2288D /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 966597862E1DA51200E2288D /* Script.js */; };
-		966597C62E1DA51300E2288D /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 966597862E1DA51200E2288D /* Script.js */; };
 		966597C72E1DA51300E2288D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966597872E1DA51200E2288D /* ViewController.swift */; };
-		966597C82E1DA51300E2288D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966597872E1DA51200E2288D /* ViewController.swift */; };
 		966597C92E1DA51300E2288D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 966597882E1DA51300E2288D /* Assets.xcassets */; };
-		966597CA2E1DA51300E2288D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 966597882E1DA51300E2288D /* Assets.xcassets */; };
 		966597CB2E1DA51300E2288D /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665978A2E1DA51300E2288D /* SafariWebExtensionHandler.swift */; };
-		966597CC2E1DA51300E2288D /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665978A2E1DA51300E2288D /* SafariWebExtensionHandler.swift */; };
-		966597EF2E1DA51300E2288D /* semantic.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 966597DF2E1DA51300E2288D /* semantic.min.css */; };
-		966597F02E1DA51300E2288D /* background.bundle.js in Resources */ = {isa = PBXBuildFile; fileRef = 966597E12E1DA51300E2288D /* background.bundle.js */; };
-		966597F12E1DA51300E2288D /* icon-64.png in Resources */ = {isa = PBXBuildFile; fileRef = 966597E22E1DA51300E2288D /* icon-64.png */; };
-		966597F22E1DA51300E2288D /* hmara-green.svg in Resources */ = {isa = PBXBuildFile; fileRef = 966597E32E1DA51300E2288D /* hmara-green.svg */; };
-		966597F32E1DA51300E2288D /* hmara.svg in Resources */ = {isa = PBXBuildFile; fileRef = 966597E42E1DA51300E2288D /* hmara.svg */; };
-		966597F42E1DA51300E2288D /* options.bundle.js in Resources */ = {isa = PBXBuildFile; fileRef = 966597E52E1DA51300E2288D /* options.bundle.js */; };
-		966597F52E1DA51300E2288D /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 966597E62E1DA51300E2288D /* manifest.json */; };
-		966597F62E1DA51300E2288D /* options.html in Resources */ = {isa = PBXBuildFile; fileRef = 966597E72E1DA51300E2288D /* options.html */; };
-		966597F72E1DA51300E2288D /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = 966597E82E1DA51300E2288D /* _locales */; };
-		966597F82E1DA51300E2288D /* content.bundle.js in Resources */ = {isa = PBXBuildFile; fileRef = 966597E92E1DA51300E2288D /* content.bundle.js */; };
-		966597F92E1DA51300E2288D /* icon-128.png in Resources */ = {isa = PBXBuildFile; fileRef = 966597EA2E1DA51300E2288D /* icon-128.png */; };
-		966597FA2E1DA51300E2288D /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 966597EB2E1DA51300E2288D /* themes */; };
-		966597FB2E1DA51300E2288D /* icon-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 966597ED2E1DA51300E2288D /* icon-32.png */; };
-		966597FC2E1DA51300E2288D /* options.css in Resources */ = {isa = PBXBuildFile; fileRef = 966597EE2E1DA51300E2288D /* options.css */; };
 		966597FD2E1DA51300E2288D /* semantic.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 966597DF2E1DA51300E2288D /* semantic.min.css */; };
 		966597FE2E1DA51300E2288D /* background.bundle.js in Resources */ = {isa = PBXBuildFile; fileRef = 966597E12E1DA51300E2288D /* background.bundle.js */; };
 		966597FF2E1DA51300E2288D /* icon-64.png in Resources */ = {isa = PBXBuildFile; fileRef = 966597E22E1DA51300E2288D /* icon-64.png */; };
@@ -67,13 +43,6 @@
 			remoteGlobalIDString = 966597AD2E1DA51300E2288D;
 			remoteInfo = "Лагідна Українізація Extension (iOS)";
 		};
-		966597BA2E1DA51300E2288D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9665977C2E1DA51100E2288D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 966597B72E1DA51300E2288D;
-			remoteInfo = "Лагідна Українізація Extension (macOS)";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -84,17 +53,6 @@
 			dstSubfolderSpec = 13;
 			files = (
 				966597AF2E1DA51300E2288D /* Лагідна Українізація Extension.appex in Embed Foundation Extensions */,
-			);
-			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		966597D92E1DA51300E2288D /* Embed Foundation Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				966597B92E1DA51300E2288D /* Лагідна Українізація Extension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -115,14 +73,12 @@
 		966597972E1DA51300E2288D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9665979A2E1DA51300E2288D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9665979C2E1DA51300E2288D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		966597A12E1DA51300E2288D /* Лагідна Українізація.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Лагідна Українізація.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		966597A32E1DA51300E2288D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		966597A62E1DA51300E2288D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		966597A82E1DA51300E2288D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		966597A92E1DA51300E2288D /* Лагідна Українізація.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Лагідна Українізація.entitlements"; sourceTree = "<group>"; };
 		966597AE2E1DA51300E2288D /* Лагідна Українізація Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Лагідна Українізація Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		966597B32E1DA51300E2288D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		966597B82E1DA51300E2288D /* Лагідна Українізація Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Лагідна Українізація Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		966597BD2E1DA51300E2288D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		966597BE2E1DA51300E2288D /* Лагідна Українізація.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Лагідна Українізація.entitlements"; sourceTree = "<group>"; };
 		966597DE2E1DA51300E2288D /* content.bundle.js.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = content.bundle.js.map; path = ../../../build/content.bundle.js.map; sourceTree = "<group>"; };
@@ -152,21 +108,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9665979E2E1DA51300E2288D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		966597AB2E1DA51300E2288D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		966597B52E1DA51300E2288D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -223,9 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				9665978F2E1DA51300E2288D /* Лагідна Українізація.app */,
-				966597A12E1DA51300E2288D /* Лагідна Українізація.app */,
 				966597AE2E1DA51300E2288D /* Лагідна Українізація Extension.appex */,
-				966597B82E1DA51300E2288D /* Лагідна Українізація Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -319,27 +259,6 @@
 			productReference = 9665978F2E1DA51300E2288D /* Лагідна Українізація.app */;
 			productType = "com.apple.product-type.application";
 		};
-		966597A02E1DA51300E2288D /* Лагідна Українізація (macOS) */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 966597DA2E1DA51300E2288D /* Build configuration list for PBXNativeTarget "Лагідна Українізація (macOS)" */;
-			buildPhases = (
-				9665979D2E1DA51300E2288D /* Sources */,
-				9665979E2E1DA51300E2288D /* Frameworks */,
-				9665979F2E1DA51300E2288D /* Resources */,
-				966597D92E1DA51300E2288D /* Embed Foundation Extensions */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				966597BB2E1DA51300E2288D /* PBXTargetDependency */,
-			);
-			name = "Лагідна Українізація (macOS)";
-			packageProductDependencies = (
-			);
-			productName = "Лагідна Українізація (macOS)";
-			productReference = 966597A12E1DA51300E2288D /* Лагідна Українізація.app */;
-			productType = "com.apple.product-type.application";
-		};
 		966597AD2E1DA51300E2288D /* Лагідна Українізація Extension (iOS) */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 966597CF2E1DA51300E2288D /* Build configuration list for PBXNativeTarget "Лагідна Українізація Extension (iOS)" */;
@@ -359,25 +278,6 @@
 			productReference = 966597AE2E1DA51300E2288D /* Лагідна Українізація Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		966597B72E1DA51300E2288D /* Лагідна Українізація Extension (macOS) */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 966597D62E1DA51300E2288D /* Build configuration list for PBXNativeTarget "Лагідна Українізація Extension (macOS)" */;
-			buildPhases = (
-				966597B42E1DA51300E2288D /* Sources */,
-				966597B52E1DA51300E2288D /* Frameworks */,
-				966597B62E1DA51300E2288D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Лагідна Українізація Extension (macOS)";
-			packageProductDependencies = (
-			);
-			productName = "Лагідна Українізація Extension (macOS)";
-			productReference = 966597B82E1DA51300E2288D /* Лагідна Українізація Extension.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -391,13 +291,7 @@
 					9665978E2E1DA51300E2288D = {
 						CreatedOnToolsVersion = 16.2;
 					};
-					966597A02E1DA51300E2288D = {
-						CreatedOnToolsVersion = 16.2;
-					};
 					966597AD2E1DA51300E2288D = {
-						CreatedOnToolsVersion = 16.2;
-					};
-					966597B72E1DA51300E2288D = {
 						CreatedOnToolsVersion = 16.2;
 					};
 				};
@@ -417,9 +311,7 @@
 			projectRoot = "";
 			targets = (
 				9665978E2E1DA51300E2288D /* Лагідна Українізація (iOS) */,
-				966597A02E1DA51300E2288D /* Лагідна Українізація (macOS) */,
 				966597AD2E1DA51300E2288D /* Лагідна Українізація Extension (iOS) */,
-				966597B72E1DA51300E2288D /* Лагідна Українізація Extension (macOS) */,
 			);
 		};
 /* End PBXProject section */
@@ -436,19 +328,6 @@
 				966597C92E1DA51300E2288D /* Assets.xcassets in Resources */,
 				9665979B2E1DA51300E2288D /* Main.storyboard in Resources */,
 				966597C32E1DA51300E2288D /* Style.css in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9665979F2E1DA51300E2288D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				966597C22E1DA51300E2288D /* Icon.png in Resources */,
-				966597C42E1DA51300E2288D /* Style.css in Resources */,
-				966597A72E1DA51300E2288D /* Main.storyboard in Resources */,
-				966597C62E1DA51300E2288D /* Script.js in Resources */,
-				966597CA2E1DA51300E2288D /* Assets.xcassets in Resources */,
-				966597C02E1DA51300E2288D /* Main.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,27 +352,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		966597B62E1DA51300E2288D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				966597F72E1DA51300E2288D /* _locales in Resources */,
-				966597F82E1DA51300E2288D /* content.bundle.js in Resources */,
-				966597F22E1DA51300E2288D /* hmara-green.svg in Resources */,
-				966597F52E1DA51300E2288D /* manifest.json in Resources */,
-				966597FC2E1DA51300E2288D /* options.css in Resources */,
-				966597F92E1DA51300E2288D /* icon-128.png in Resources */,
-				966597EF2E1DA51300E2288D /* semantic.min.css in Resources */,
-				966597F62E1DA51300E2288D /* options.html in Resources */,
-				966597F42E1DA51300E2288D /* options.bundle.js in Resources */,
-				966597FA2E1DA51300E2288D /* themes in Resources */,
-				966597FB2E1DA51300E2288D /* icon-32.png in Resources */,
-				966597F02E1DA51300E2288D /* background.bundle.js in Resources */,
-				966597F12E1DA51300E2288D /* icon-64.png in Resources */,
-				966597F32E1DA51300E2288D /* hmara.svg in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -507,28 +365,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9665979D2E1DA51300E2288D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				966597C82E1DA51300E2288D /* ViewController.swift in Sources */,
-				966597A42E1DA51300E2288D /* AppDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		966597AA2E1DA51300E2288D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				966597CB2E1DA51300E2288D /* SafariWebExtensionHandler.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		966597B42E1DA51300E2288D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				966597CC2E1DA51300E2288D /* SafariWebExtensionHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -539,11 +380,6 @@
 			isa = PBXTargetDependency;
 			target = 966597AD2E1DA51300E2288D /* Лагідна Українізація Extension (iOS) */;
 			targetProxy = 966597B02E1DA51300E2288D /* PBXContainerItemProxy */;
-		};
-		966597BB2E1DA51300E2288D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 966597B72E1DA51300E2288D /* Лагідна Українізація Extension (macOS) */;
-			targetProxy = 966597BA2E1DA51300E2288D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -795,6 +631,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "info.hmara.---------------------";
 				PRODUCT_NAME = "Лагідна Українізація";
+				REGISTER_APP_GROUPS = NO;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -835,6 +672,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "info.hmara.---------------------";
 				PRODUCT_NAME = "Лагідна Українізація";
+				REGISTER_APP_GROUPS = NO;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -844,136 +682,6 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		966597D72E1DA51300E2288D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "macOS (Extension)/Лагідна Українізація.entitlements";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Лагідна Українізація Extension";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 0.1.9;
-				OTHER_LDFLAGS = (
-					"-framework",
-					SafariServices,
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "info.hmara.---------------------.Extension";
-				PRODUCT_NAME = "Лагідна Українізація Extension";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		966597D82E1DA51300E2288D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "macOS (Extension)/Лагідна Українізація.entitlements";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Лагідна Українізація Extension";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 0.1.9;
-				OTHER_LDFLAGS = (
-					"-framework",
-					SafariServices,
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "info.hmara.---------------------.Extension";
-				PRODUCT_NAME = "Лагідна Українізація Extension";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		966597DB2E1DA51300E2288D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "macOS (App)/Лагідна Українізація.entitlements";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "macOS (App)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Лагідна Українізація";
-				INFOPLIST_KEY_NSMainStoryboardFile = Main;
-				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 0.1.9;
-				OTHER_LDFLAGS = (
-					"-framework",
-					SafariServices,
-					"-framework",
-					WebKit,
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "info.hmara.---------------------";
-				PRODUCT_NAME = "Лагідна Українізація";
-				SDKROOT = macosx;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		966597DC2E1DA51300E2288D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "macOS (App)/Лагідна Українізація.entitlements";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "macOS (App)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Лагідна Українізація";
-				INFOPLIST_KEY_NSMainStoryboardFile = Main;
-				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 0.1.9;
-				OTHER_LDFLAGS = (
-					"-framework",
-					SafariServices,
-					"-framework",
-					WebKit,
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "info.hmara.---------------------";
-				PRODUCT_NAME = "Лагідна Українізація";
-				SDKROOT = macosx;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -1003,24 +711,6 @@
 			buildConfigurations = (
 				966597D42E1DA51300E2288D /* Debug */,
 				966597D52E1DA51300E2288D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		966597D62E1DA51300E2288D /* Build configuration list for PBXNativeTarget "Лагідна Українізація Extension (macOS)" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				966597D72E1DA51300E2288D /* Debug */,
-				966597D82E1DA51300E2288D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		966597DA2E1DA51300E2288D /* Build configuration list for PBXNativeTarget "Лагідна Українізація (macOS)" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				966597DB2E1DA51300E2288D /* Debug */,
-				966597DC2E1DA51300E2288D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
