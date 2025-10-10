@@ -75,6 +75,12 @@ class ViewController: PlatformViewController, WKNavigationDelegate, WKScriptMess
                 NSApp.terminate(self)
             }
         }
+#elseif os(iOS)
+        if let messageBody = message.body as? String, messageBody == "openSafari" {
+            if let url = URL(string: "https://hmara.info/ios-setup") {
+                UIApplication.shared.open(url)
+            }
+        }
 #endif
     }
 

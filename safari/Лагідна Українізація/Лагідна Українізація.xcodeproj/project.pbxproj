@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9620621B2E97C0BB00E84EEE /* safari-extension-icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 9620621A2E97C0BB00E84EEE /* safari-extension-icon.svg */; };
+		9620621C2E97C0BB00E84EEE /* safari-extension-icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 9620621A2E97C0BB00E84EEE /* safari-extension-icon.svg */; };
+		9620621E2E97C0C600E84EEE /* toggle.svg in Resources */ = {isa = PBXBuildFile; fileRef = 9620621D2E97C0C600E84EEE /* toggle.svg */; };
+		96281D882E99924E008491CB /* safari-extensions.png in Resources */ = {isa = PBXBuildFile; fileRef = 96281D872E99924E008491CB /* safari-extensions.png */; };
 		966597932E1DA51300E2288D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966597922E1DA51300E2288D /* AppDelegate.swift */; };
 		966597952E1DA51300E2288D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966597942E1DA51300E2288D /* SceneDelegate.swift */; };
 		966597982E1DA51300E2288D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 966597962E1DA51300E2288D /* LaunchScreen.storyboard */; };
@@ -60,6 +64,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9620621A2E97C0BB00E84EEE /* safari-extension-icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "safari-extension-icon.svg"; sourceTree = "<group>"; };
+		9620621D2E97C0C600E84EEE /* toggle.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = toggle.svg; sourceTree = "<group>"; };
+		96281D872E99924E008491CB /* safari-extensions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "safari-extensions.png"; sourceTree = "<group>"; };
 		966597832E1DA51200E2288D /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Main.html; sourceTree = "<group>"; };
 		966597842E1DA51200E2288D /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		966597852E1DA51200E2288D /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
@@ -144,10 +151,13 @@
 		966597812E1DA51200E2288D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9620621D2E97C0C600E84EEE /* toggle.svg */,
+				9620621A2E97C0BB00E84EEE /* safari-extension-icon.svg */,
 				966597822E1DA51200E2288D /* Main.html */,
 				966597842E1DA51200E2288D /* Icon.png */,
 				966597852E1DA51200E2288D /* Style.css */,
 				966597862E1DA51200E2288D /* Script.js */,
+				96281D872E99924E008491CB /* safari-extensions.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -326,7 +336,10 @@
 				966597BF2E1DA51300E2288D /* Main.html in Resources */,
 				966597C52E1DA51300E2288D /* Script.js in Resources */,
 				966597C92E1DA51300E2288D /* Assets.xcassets in Resources */,
+				9620621B2E97C0BB00E84EEE /* safari-extension-icon.svg in Resources */,
 				9665979B2E1DA51300E2288D /* Main.storyboard in Resources */,
+				96281D882E99924E008491CB /* safari-extensions.png in Resources */,
+				9620621E2E97C0C600E84EEE /* toggle.svg in Resources */,
 				966597C32E1DA51300E2288D /* Style.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -337,6 +350,7 @@
 			files = (
 				966598052E1DA51300E2288D /* _locales in Resources */,
 				966598062E1DA51300E2288D /* content.bundle.js in Resources */,
+				9620621C2E97C0BB00E84EEE /* safari-extension-icon.svg in Resources */,
 				966598002E1DA51300E2288D /* hmara-green.svg in Resources */,
 				966598032E1DA51300E2288D /* manifest.json in Resources */,
 				9665980A2E1DA51300E2288D /* options.css in Resources */,
