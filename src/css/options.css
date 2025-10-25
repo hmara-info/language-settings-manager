@@ -248,6 +248,10 @@ input[type='button']:disabled {
   border: 0px solid #009393;
 }
 
+#userSpeed a.item.active {
+  font-weight: bold;
+}
+
 #languagesMismatch {
   margin-bottom: 15px;
   margin-right: auto;

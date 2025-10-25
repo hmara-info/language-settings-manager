@@ -1,4 +1,7 @@
+/// #if PLATFORM != 'SAFARI-IOS'
 import browser from 'webextension-polyfill';
+/// #endif
+
 import { serializeError } from 'serialize-error';
 export function getExtensionVersion() {
   return browser.runtime.getManifest().version;

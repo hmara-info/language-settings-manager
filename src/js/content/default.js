@@ -1,6 +1,8 @@
 import { storageGet, storageGetSync, storageSet, storageRemove } from '../util';
 import { reportError, FEATURES } from '../util';
+/// #if PLATFORM != 'SAFARI-IOS'
 import browser from 'webextension-polyfill';
+/// #endif
 
 const promptsFrequency = {
   slow: 7 * 60 * 60 * 1000,

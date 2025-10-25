@@ -20,12 +20,14 @@ export const PLATFORM =
 ('unknown');
 /// #endif
 
-storageGetSync('userId').then((items) => {
+storageGetSync('userId').then(async (items) => {
+  'use strict';
   if (items.userId) {
     userId = items.userId;
   } else {
     userId = uuidv4();
-    storageSetSync({ userId: userId }, function () {
+    storageSetSync({ userId: userId }, async () => {
+      console.log('Opening options page!');
       browser.runtime.openOptionsPage();
     });
   }

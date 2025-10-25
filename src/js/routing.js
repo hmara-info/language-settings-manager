@@ -1,3 +1,4 @@
+console.log('Loaded content');
 import defaultHandler from './content/default';
 import facebookHandler from './content/facebook';
 import googleSearchHandler from './content/google-search';
@@ -7,7 +8,8 @@ import youtubeHandler from './content/youtube';
 import googleMyaccountHandler from './content/google-myaccount';
 import hmaraHandler from './content/hmara';
 
-export function dispatch(location, document, moreLanguages, lessLanguages) {
+export function dispatch(location) {
+  console.log('Loaded on', location.hostname);
   if (location.hostname.match(/\.facebook.com$/i)) {
     return new facebookHandler(...arguments);
   } else if (location.hostname.match(/myaccount\.google\.com$/i)) {

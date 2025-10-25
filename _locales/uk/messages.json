@@ -6,10 +6,16 @@
     "message": "<span>Лагідна</span> Українізація"
   },
   "opt_thanks_for_joining": {
-    "message": "Дякуємо, що приєдналися до проєкту!"
+    "message": "Дякуємо, користуєтеся послугами Лагідної Українізації!"
   },
   "opt_make_internet_speak_your_lang": {
     "message": "Допоможіть Інтернету говорити з вами вашою мовою!"
+  },
+  "opt_config_not_finished": {
+    "message": "Оберіть улюблену мову!"
+  },
+  "opt_finish_config_to_make_internet_speak_your_lang": {
+    "message": "Завершіть налаштування, щоб Інтернет говорив вашою мовою!"
   },
   "no_language_selected_err": {
     "message": "Не вибрано жожної мови.\nВиберіть, будь ласка, одну або більше."

@@ -1,4 +1,6 @@
+/// #if PLATFORM != 'SAFARI-IOS'
 import browser from 'webextension-polyfill';
+/// #endif
 
 // This set of functions is to be called from a content process
 // with the goal to prepare HTTP requests,

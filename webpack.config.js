@@ -50,6 +50,7 @@ var options = {
   output: {
     path: path.join(__dirname, 'build'),
     filename: '[name].bundle.js',
+    publicPath: '',
   },
   module: {
     rules: [

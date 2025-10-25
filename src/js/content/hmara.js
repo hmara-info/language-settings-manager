@@ -1,6 +1,8 @@
 import defaultHandler from './default';
 import { storageGetSync, getExtensionVersion } from '../util';
+/// #if PLATFORM != 'SAFARI-IOS'
 import browser from 'webextension-polyfill';
+/// #endif
 
 export default class hmaraHandler extends defaultHandler {
   handlerName = 'hmara';
@@ -26,6 +28,8 @@ export default class hmaraHandler extends defaultHandler {
         isExperienced: !!achievements?.length,
         optionsUrl: browser.runtime.getURL('options.html'),
         userId: userId,
+        moreLanguages,
+        lessLanguages,
       };
 
       const event = new CustomEvent('LU', {

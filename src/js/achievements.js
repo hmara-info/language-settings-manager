@@ -1,6 +1,8 @@
 import { sendEvent, reportError } from './networking';
 import { storageGetSync, storageSetSync, getMessage, FEATURES } from './util';
+/// #if PLATFORM != 'SAFARI-IOS'
 import browser from 'webextension-polyfill';
+/// #endif
 
 const ACHIEVEMENTS = {
   lng_choice: {

@@ -1,7 +1,9 @@
 import defaultHandler from './default';
 import { reportError, FEATURES } from '../util';
 import { trackAchievement } from '../achievements';
+/// #if PLATFORM != 'SAFARI-IOS'
 import browser from 'webextension-polyfill';
+/// #endif
 
 export default class googleSearchHandler extends defaultHandler {
   handlerName = 'google-search';
