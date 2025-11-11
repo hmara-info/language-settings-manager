@@ -1,4 +1,5 @@
 import defaultHandler from './default';
+import { storageGetSync } from '../util';
 
 export default class wikipediaHandler extends defaultHandler {
   handlerName = 'wikipedia';

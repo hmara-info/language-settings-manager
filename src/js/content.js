@@ -19,7 +19,7 @@ storageGetSync('userSettings').then((settings) => {
     return;
   }
 
-  const handler = dispatch(window.location, document);
+  const handler = dispatch(window.location, document, userSettings);
 
   if (!handler.isEnabled) return;
 

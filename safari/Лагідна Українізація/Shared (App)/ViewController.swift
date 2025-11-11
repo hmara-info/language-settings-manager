@@ -28,8 +28,7 @@ class ViewController: PlatformViewController {
             self.webView.loadFileURL(url, allowingReadAccessTo: url.deletingLastPathComponent())
         }
         #elseif os(iOS)
-        if let url = URL(string: "x-safari-https://hmara.info/") {
-            print("Going to hmara.info")
+        if let url = URL(string: "x-safari-https://hmara.info/onboarding/ios-safari.html") {
             UIApplication.shared.open(url)
         }
         #endif

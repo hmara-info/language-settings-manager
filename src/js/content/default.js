@@ -20,11 +20,11 @@ export default class handler {
   // as retrieving it is a cheap operation
   targetLanguagesConfigExpiresAfter = 0;
 
-  constructor(location, document, moreLanguages, lessLanguages) {
+  constructor(location, document, userSettings) {
     this.location = location;
     this.document = document;
-    this.moreLanguages = moreLanguages;
-    this.lessLanguages = lessLanguages;
+    this.moreLanguages = userSettings.moreLanguages;
+    this.lessLanguages = userSettings.lessLanguages;
   }
 
   SUPPORTED_LANGUAGES() {
