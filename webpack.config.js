@@ -79,6 +79,19 @@ var options = {
         test: /\.html$/,
         loader: 'html-loader',
         exclude: /node_modules/,
+        options: {
+          sources: {
+            list: [
+              '...',
+              {
+                tag: 'link',
+                attribute: 'href',
+                type: 'src',
+                filter: () => false,
+              },
+            ],
+          },
+        },
       },
     ],
   },
