@@ -40,6 +40,7 @@ var options = {
   node: false,
   optimization: {
     minimize: false,
+    nodeEnv: false,
   },
   devtool: 'cheap-module-source-map',
   entry: {
