@@ -1,6 +1,6 @@
 {
   "name": "language-settings-manager",
-  "version": "0.1.9.1",
+  "version": "0.2.0",
   "description": "Лагідна Українізація",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack --mode development",
@@ -9,8 +9,8 @@
     "prod": "cross-env NODE_ENV=production webpack --mode production",
     "test": "jest",
     "format": "prettier-eslint --write $PWD/'src/**/*.js' $PWD/'src/**/*.css' $PWD/'src/**/*.html' $PWD/'src/**/*.json' $PWD/'test/**/*.js'",
-    "safari:build": "xcodebuild -project 'safari/Language-settings-manager/Лагідна Українізація.xcodeproj'",
-    "safari:start": "npm run safari:build && open 'safari/Language-settings-manager/build/Release/Лагідна Українізація.app'",
+    "safari:build": "xcodebuild -project './safari/Лагідна Українізація/Лагідна Українізація.xcodeproj'",
+    "safari:start": "npm run safari:build && open 'safari/Лагідна Українізація/build/Release-iphoneos/Лагідна Українізація.app'",
     "safari:dev": "npm run safari:start && chokidar \"build\" -c \"npm run safari:build\""
   },
   "devDependencies": {
