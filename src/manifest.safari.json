@@ -231,6 +231,8 @@
   "permissions": [
     "storage",
     "notifications",
+    "webNavigation",
+    "tabs",
     "declarativeNetRequest",
     "https://*.hmara.info/*",
     "https://www.google.com/search?*",

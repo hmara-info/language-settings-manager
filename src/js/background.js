@@ -13,6 +13,12 @@ browser.runtime.onInstalled.addListener(function (details) {
   sendEvent(`installed: ${details.reason}`);
 });
 
+/// #if PLATFORM == 'CHROME'
+browser.action.onClicked.addListener(() => {
+  browser.runtime.openOptionsPage();
+});
+/// #endif
+
 /// #if PLATFORM == 'FIREFOX'
 browser.browserAction.onClicked.addListener(() => {
   if (navigator.userAgent.toLowerCase().includes('android')) {
@@ -25,8 +31,10 @@ browser.browserAction.onClicked.addListener(() => {
   }
   browser.runtime.openOptionsPage();
 });
-/// #else
-browser.action.onClicked.addListener(() => {
+/// #endif
+
+/// #if PLATFORM == 'SAFARI' || PLATFORM == 'SAFARI-IOS'
+browser.browserAction.onClicked.addListener(() => {
   browser.runtime.openOptionsPage();
 });
 /// #endif
