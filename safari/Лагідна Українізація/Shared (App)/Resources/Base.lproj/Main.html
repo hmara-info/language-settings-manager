@@ -4,7 +4,32 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
     <title>Активуйте розширення</title>
+    <style>
+        :root {
+            color-scheme: light dark;
+            /* Light mode colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9f9f9;
+            --text-primary: #000000;
+            --text-secondary: #333333;
+            --header-bg: #009393;
+            --tint-color: #009393;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                /* Dark mode colors */
+                --bg-primary: #1c1c1e;
+                --bg-secondary: #2c2c2e;
+                --text-primary: #ffffff;
+                --text-secondary: #cccccc;
+                --header-bg: #006666;
+                --tint-color: #00d4d4;
+            }
+        }
+    </style>
     <style>
         html,
         body {
@@ -13,7 +38,8 @@
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
                 'Helvetica Neue', Arial, sans-serif;
-            background: #f9f9f9;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -22,7 +48,7 @@
 
         header {
             width: 100%;
-            background-color: #009393;
+            background-color: var(--header-bg);
             padding: 1em 0;
             color: white;
             box-sizing: border-box;
@@ -85,8 +111,8 @@
             -webkit-transform: rotate(45deg);
             border-left: none;
             border-top: none;
-            border-right: 10px solid #009393;
-            border-bottom: 10px solid #009393;
+            border-right: 10px solid var(--tint-color);
+            border-bottom: 10px solid var(--tint-color);
             animation: arrow-animation 1.5s infinite;
         }
 
@@ -107,7 +133,7 @@
         .instructions-text {
             margin-top: 120px; /* Space for the arrow animation */
             font-size: 1.2em;
-            color: #333;
+            color: var(--text-secondary);
         }
 
         .non-safari-instructions {
@@ -117,7 +143,7 @@
         #options section {
             padding: 18px;
             font-size: 18px;
-            background-color: #ffffff;
+            background-color: var(--bg-primary);
             display: flex;
             flex-direction: column;
             gap: 12px;
@@ -130,11 +156,11 @@
             line-height: 20px;
             align-items: center;
             text-align: center;
-            border: 2px solid #009393;
+            border: 2px solid var(--tint-color);
             box-sizing: border-box;
             border-radius: 110px;
-            color: #009393;
-            background-color: #fff;
+            color: var(--tint-color);
+            background-color: var(--bg-secondary);
             padding: 10px 30px;
             margin: 20px;
             outline: 0;
@@ -142,7 +168,7 @@
         }
 
         button:hover:enabled {
-            background-color: #009393;
+            background-color: var(--tint-color);
             color: #ffffff;
         }
     </style>
