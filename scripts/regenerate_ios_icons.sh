@@ -21,11 +21,11 @@ else
         "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/LargeIcon.imageset/icon.pdf"
     echo "✅ Generated PDF using ImageMagick"
 fi
+
 FILES=(
     "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/LargeIcon.imageset/icon-128.png"
     "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-128@2x.png"
     "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-256@2x.png"
-    "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/universal-icon-1024@1x.png"
     "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-512@1x.png"
     "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-32@2x.png"
     "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-16@2x.png"
@@ -47,7 +47,6 @@ for file in "${FILES[@]}"; do
         width=$(sips -g pixelWidth "$file" | awk '/pixelWidth/ {print $2}')
         height=$(sips -g pixelHeight "$file" | awk '/pixelHeight/ {print $2}')
         echo "Regenerating $file with dimensions ${width}x${height}"
-        echo magick -background none -alpha on -resize "${width}x${height}" -extent "${width}x${height}" -gravity center "$SOURCE_SVG" "$file"
         magick -background none "$SOURCE_SVG" \
                -resize "${width}x${height}" \
                -gravity center \
@@ -59,5 +58,22 @@ for file in "${FILES[@]}"; do
         echo "File not found: $file"
     fi
 done
+
+# Generate large app icon with white background for App Store submission
+LARGE_ICON="./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/universal-icon-1024@1x.png"
+if [ -f "$LARGE_ICON" ]; then
+    width=$(sips -g pixelWidth "$LARGE_ICON" | awk '/pixelWidth/ {print $2}')
+    height=$(sips -g pixelHeight "$LARGE_ICON" | awk '/pixelHeight/ {print $2}')
+    echo "Regenerating $LARGE_ICON with dimensions ${width}x${height} on white background"
+    magick "$SOURCE_SVG" \
+           -resize "${width}x${height}" \
+           -gravity center \
+           -background white \
+           -extent "${width}x${height}" \
+           "$LARGE_ICON"
+    echo "✅ Generated large app icon with white background"
+else
+    echo "File not found: $LARGE_ICON"
+fi
 
 echo "Done."
