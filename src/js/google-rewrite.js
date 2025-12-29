@@ -29,7 +29,13 @@ async function syncLanguagesConfig(changes) {
         /// #endif
 
         /// #if PLATFORM == 'CHROME' || PLATFORM == 'SAFARI' || PLATFORM == 'SAFARI-IOS'
-        return chromeSetupDynamicRewriteRules(userSettings);
+        const chromeRules = chromeSetupDynamicRewriteRules(userSettings);
+        /// #if PLATFORM == 'SAFARI' || PLATFORM == 'SAFARI-IOS'
+        const safariRules = safariSetupNavigationRewriteRules(userSettings);
+        return Promise.all([chromeRules, safariRules]);
+        /// #else
+        return chromeRules;
+        /// #endif
         /// #endif
       })
       /// #if PLATFORM == 'CHROME' || PLATFORM == 'SAFARI'
@@ -597,5 +603,64 @@ async function chromeSetupDynamicRewriteRules(userSettings) {
       removeRuleIds: [2],
     });
   }
+}
+/// #endif
+
+/// #if PLATFORM == 'SAFARI' || PLATFORM == 'SAFARI-IOS'
+
+let safariNavigationListener = null;
+
+async function safariSetupNavigationRewriteRules(userSettings) {
+  if (safariNavigationListener) {
+    browser.webNavigation.onBeforeNavigate.removeListener(
+      safariNavigationListener
+    );
+    safariNavigationListener = null;
+  }
+
+  if (!FEATURES.GOOGLE_REWRITE) return;
+
+  const lessLanguages = userSettings.lessLanguages;
+  if (!lessLanguages || !lessLanguages.length) return;
+
+  const filterValue = lessLanguages.map((lang) => `(-lang_${lang})`).join('.');
+
+  safariNavigationListener = async (details) => {
+    if (details.frameId !== 0) return;
+
+    const url = new URL(details.url);
+    const googleSearchRegex = /^https:\/\/(?:www\.)?google\..*?\/search\?/;
+    if (!googleSearchRegex.test(details.url)) return;
+
+    if (url.searchParams.get('lr') === filterValue) return;
+
+    url.searchParams.set('lr', filterValue);
+    const targetUrl = url.toString();
+
+    console.log(`[Safari] Redirecting ${details.url} to ${targetUrl}`);
+
+    try {
+      // Method A: Content Script redirection
+      const response = await browser.tabs
+        .sendMessage(details.tabId, {
+          type: 'content',
+          subtype: 'MsgRedirectContentPage',
+          url: targetUrl,
+          replacesBrowserHistory: true,
+        })
+        .catch(() => {
+          return null;
+        });
+
+      if (!response) {
+        // Method B: Standard API fallback
+        await browser.tabs.update(details.tabId, { url: targetUrl });
+      }
+    } catch (e) {
+      console.error('[Safari] Navigation redirect failed:', e);
+    }
+  };
+
+  browser.webNavigation.onBeforeNavigate.addListener(safariNavigationListener);
 }
 /// #endif
