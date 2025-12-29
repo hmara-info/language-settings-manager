@@ -18,16 +18,10 @@ let extensionBundleIdentifier = "info.hmara.---------------------.Extension"
 
 class ViewController: PlatformViewController {
 
-    @IBOutlet var webView: WKWebView!
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        #if os(macOS)
-        if let url = Bundle.main.url(forResource: "Main", withExtension: "html") {
-            self.webView.loadFileURL(url, allowingReadAccessTo: url.deletingLastPathComponent())
-        }
-        #elseif os(iOS)
+        #if os(iOS)
         if let url = URL(string: "x-safari-https://hmara.info/onboarding/ios-safari.html") {
             UIApplication.shared.open(url)
         }
