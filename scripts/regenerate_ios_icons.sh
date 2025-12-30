@@ -1,26 +1,20 @@
 #!/bin/bash
 
-# Check if convert (from ImageMagick) is installed
-if ! command -v magick &> /dev/null
+# Check if rsvg-convert is installed (primary tool for SVG rendering)
+if ! command -v rsvg-convert &> /dev/null
 then
-    echo "magick (from ImageMagick) could not be found. Please install it."
-    echo "On macOS, you can install it with: brew install imagemagick"
-    exit
+    echo "rsvg-convert (from librsvg) could not be found. Please install it."
+    echo "On macOS, you can install it with: brew install librsvg"
+    exit 1
 fi
 
 SOURCE_SVG="src/img/hmara-green-bg.svg"
 
 # Generate PDF for vector-based launch screen (no pixelation at any size)
 echo "Generating vector PDF for launch screen..."
-if command -v rsvg-convert &> /dev/null; then
-    rsvg-convert -f pdf "$SOURCE_SVG" \
-        -o "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/LargeIcon.imageset/icon.pdf"
-    echo "✅ Generated PDF using rsvg-convert"
-else
-    magick "$SOURCE_SVG" \
-        "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/LargeIcon.imageset/icon.pdf"
-    echo "✅ Generated PDF using ImageMagick"
-fi
+rsvg-convert -f pdf "$SOURCE_SVG" \
+    -o "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/LargeIcon.imageset/icon.pdf"
+echo "✅ Generated PDF using rsvg-convert"
 
 FILES=(
     "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/LargeIcon.imageset/icon-128.png"
@@ -47,12 +41,10 @@ for file in "${FILES[@]}"; do
         width=$(sips -g pixelWidth "$file" | awk '/pixelWidth/ {print $2}')
         height=$(sips -g pixelHeight "$file" | awk '/pixelHeight/ {print $2}')
         echo "Regenerating $file with dimensions ${width}x${height}"
-        magick -background none "$SOURCE_SVG" \
-               -resize "${width}x${height}" \
-               -gravity center \
-               -background none \
-               -extent "${width}x${height}" \
-               "$file"
+        rsvg-convert -f png "$SOURCE_SVG" \
+                     -o "$file" \
+                     -w "$width" \
+                     -h "$height"
 
     else
         echo "File not found: $file"
@@ -65,12 +57,22 @@ if [ -f "$LARGE_ICON" ]; then
     width=$(sips -g pixelWidth "$LARGE_ICON" | awk '/pixelWidth/ {print $2}')
     height=$(sips -g pixelHeight "$LARGE_ICON" | awk '/pixelHeight/ {print $2}')
     echo "Regenerating $LARGE_ICON with dimensions ${width}x${height} on white background"
-    magick "$SOURCE_SVG" \
-           -resize "${width}x${height}" \
-           -gravity center \
-           -background white \
-           -extent "${width}x${height}" \
-           "$LARGE_ICON"
+
+    # Create temporary transparent PNG, then composite onto white background
+    tmp_png=$(mktemp).png
+    rsvg-convert -f png "$SOURCE_SVG" \
+                 -o "$tmp_png" \
+                 -w "$width" \
+                 -h "$height"
+
+    # Use ImageMagick to add white background
+    if command -v magick &> /dev/null; then
+        magick "$tmp_png" -background white -flatten "$LARGE_ICON"
+    else
+        convert "$tmp_png" -background white -flatten "$LARGE_ICON"
+    fi
+
+    rm "$tmp_png"
     echo "✅ Generated large app icon with white background"
 else
     echo "File not found: $LARGE_ICON"
