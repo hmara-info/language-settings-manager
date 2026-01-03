@@ -1,6 +1,0 @@
-<svg width="100" height="50" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background of the toggle switch -->
-  <rect x="0" y="0" width="100" height="50" rx="25" ry="25" fill="#4CAF50" />
-  <!-- The circular handle -->
-  <circle cx="75" cy="25" r="22" fill="#FFFFFF" />
-</svg>
