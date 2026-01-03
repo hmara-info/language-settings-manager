@@ -25,15 +25,15 @@ class ViewController: PlatformViewController, WKNavigationDelegate, WKScriptMess
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.webView.navigationDelegate = self
-
 #if os(iOS)
-        self.webView.scrollView.isScrollEnabled = false
-#endif
-
+        // On iOS, we open Safari directly from SceneDelegate, so hide the webView
+        self.webView.isHidden = true
+        self.view.backgroundColor = .systemBackground
+#elseif os(macOS)
+        self.webView.navigationDelegate = self
         self.webView.configuration.userContentController.add(self, name: "controller")
-
         self.webView.loadFileURL(Bundle.main.url(forResource: "Main", withExtension: "html")!, allowingReadAccessTo: Bundle.main.resourceURL!)
+#endif
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {

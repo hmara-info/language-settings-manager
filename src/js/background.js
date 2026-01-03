@@ -11,6 +11,13 @@ import { trackAchievement } from './achievements';
 browser.runtime.onInstalled.addListener(function (details) {
   // This needs to be the same for Chrome, FF and everybody else
   sendEvent(`installed: ${details.reason}`);
+
+  /// #if PLATFORM == 'SAFARI' || PLATFORM == 'SAFARI-IOS'
+  // Open options page on first install so user can configure the extension
+  if (details.reason === 'install') {
+    browser.runtime.openOptionsPage();
+  }
+  /// #endif
 });
 
 /// #if PLATFORM == 'CHROME'
