@@ -7,56 +7,94 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9620621B2E97C0BB00E84EEE /* safari-extension-icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 9620621A2E97C0BB00E84EEE /* safari-extension-icon.svg */; };
-		9620621C2E97C0BB00E84EEE /* safari-extension-icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 9620621A2E97C0BB00E84EEE /* safari-extension-icon.svg */; };
-		9620621E2E97C0C600E84EEE /* toggle.svg in Resources */ = {isa = PBXBuildFile; fileRef = 9620621D2E97C0C600E84EEE /* toggle.svg */; };
-		96281D882E99924E008491CB /* safari-extensions.png in Resources */ = {isa = PBXBuildFile; fileRef = 96281D872E99924E008491CB /* safari-extensions.png */; };
-		966597932E1DA51300E2288D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966597922E1DA51300E2288D /* AppDelegate.swift */; };
-		966597952E1DA51300E2288D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966597942E1DA51300E2288D /* SceneDelegate.swift */; };
-		966597982E1DA51300E2288D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 966597962E1DA51300E2288D /* LaunchScreen.storyboard */; };
-		9665979B2E1DA51300E2288D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 966597992E1DA51300E2288D /* Main.storyboard */; };
-		966597AF2E1DA51300E2288D /* Лагідна Українізація Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 966597AE2E1DA51300E2288D /* Лагідна Українізація Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		966597BF2E1DA51300E2288D /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 966597822E1DA51200E2288D /* Main.html */; };
-		966597C12E1DA51300E2288D /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 966597842E1DA51200E2288D /* Icon.png */; };
-		966597C32E1DA51300E2288D /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 966597852E1DA51200E2288D /* Style.css */; };
-		966597C52E1DA51300E2288D /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 966597862E1DA51200E2288D /* Script.js */; };
-		966597C72E1DA51300E2288D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966597872E1DA51200E2288D /* ViewController.swift */; };
-		966597C92E1DA51300E2288D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 966597882E1DA51300E2288D /* Assets.xcassets */; };
-		966597CB2E1DA51300E2288D /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665978A2E1DA51300E2288D /* SafariWebExtensionHandler.swift */; };
-		966597FD2E1DA51300E2288D /* semantic.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 966597DF2E1DA51300E2288D /* semantic.min.css */; };
-		966597FE2E1DA51300E2288D /* background.bundle.js in Resources */ = {isa = PBXBuildFile; fileRef = 966597E12E1DA51300E2288D /* background.bundle.js */; };
-		966597FF2E1DA51300E2288D /* icon-64.png in Resources */ = {isa = PBXBuildFile; fileRef = 966597E22E1DA51300E2288D /* icon-64.png */; };
-		966598002E1DA51300E2288D /* hmara-green.svg in Resources */ = {isa = PBXBuildFile; fileRef = 966597E32E1DA51300E2288D /* hmara-green.svg */; };
-		966598012E1DA51300E2288D /* hmara.svg in Resources */ = {isa = PBXBuildFile; fileRef = 966597E42E1DA51300E2288D /* hmara.svg */; };
-		966598022E1DA51300E2288D /* options.bundle.js in Resources */ = {isa = PBXBuildFile; fileRef = 966597E52E1DA51300E2288D /* options.bundle.js */; };
-		966598032E1DA51300E2288D /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 966597E62E1DA51300E2288D /* manifest.json */; };
-		966598042E1DA51300E2288D /* options.html in Resources */ = {isa = PBXBuildFile; fileRef = 966597E72E1DA51300E2288D /* options.html */; };
-		966598052E1DA51300E2288D /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = 966597E82E1DA51300E2288D /* _locales */; };
-		966598062E1DA51300E2288D /* content.bundle.js in Resources */ = {isa = PBXBuildFile; fileRef = 966597E92E1DA51300E2288D /* content.bundle.js */; };
-		966598072E1DA51300E2288D /* icon-128.png in Resources */ = {isa = PBXBuildFile; fileRef = 966597EA2E1DA51300E2288D /* icon-128.png */; };
-		966598082E1DA51300E2288D /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 966597EB2E1DA51300E2288D /* themes */; };
-		966598092E1DA51300E2288D /* icon-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 966597ED2E1DA51300E2288D /* icon-32.png */; };
-		9665980A2E1DA51300E2288D /* options.css in Resources */ = {isa = PBXBuildFile; fileRef = 966597EE2E1DA51300E2288D /* options.css */; };
+		967C79862F093F81000A6DED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967C79852F093F81000A6DED /* AppDelegate.swift */; };
+		967C79882F093F81000A6DED /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967C79872F093F81000A6DED /* SceneDelegate.swift */; };
+		967C798B2F093F81000A6DED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 967C79892F093F81000A6DED /* LaunchScreen.storyboard */; };
+		967C798E2F093F81000A6DED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 967C798C2F093F81000A6DED /* Main.storyboard */; };
+		967C79972F093F81000A6DED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967C79962F093F81000A6DED /* AppDelegate.swift */; };
+		967C799A2F093F81000A6DED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 967C79982F093F81000A6DED /* Main.storyboard */; };
+		967C79A12F093F81000A6DED /* Лагідна Українізація Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 967C79A02F093F81000A6DED /* Лагідна Українізація Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		967C79AB2F093F81000A6DED /* Лагідна Українізація Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 967C79AA2F093F81000A6DED /* Лагідна Українізація Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		967C79B02F093F81000A6DED /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 967C79752F093F80000A6DED /* Main.html */; };
+		967C79B12F093F81000A6DED /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 967C79752F093F80000A6DED /* Main.html */; };
+		967C79B22F093F81000A6DED /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 967C79772F093F80000A6DED /* Icon.png */; };
+		967C79B32F093F81000A6DED /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 967C79772F093F80000A6DED /* Icon.png */; };
+		967C79B42F093F81000A6DED /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 967C79782F093F80000A6DED /* Style.css */; };
+		967C79B52F093F81000A6DED /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 967C79782F093F80000A6DED /* Style.css */; };
+		967C79B62F093F81000A6DED /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 967C79792F093F80000A6DED /* Script.js */; };
+		967C79B72F093F81000A6DED /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 967C79792F093F80000A6DED /* Script.js */; };
+		967C79B82F093F81000A6DED /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967C797A2F093F80000A6DED /* ViewController.swift */; };
+		967C79B92F093F81000A6DED /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967C797A2F093F80000A6DED /* ViewController.swift */; };
+		967C79BA2F093F81000A6DED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 967C797B2F093F81000A6DED /* Assets.xcassets */; };
+		967C79BB2F093F81000A6DED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 967C797B2F093F81000A6DED /* Assets.xcassets */; };
+		967C79BC2F093F81000A6DED /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967C797D2F093F81000A6DED /* SafariWebExtensionHandler.swift */; };
+		967C79BD2F093F81000A6DED /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967C797D2F093F81000A6DED /* SafariWebExtensionHandler.swift */; };
+		967C79E02F093F81000A6DED /* semantic.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 967C79D02F093F81000A6DED /* semantic.min.css */; };
+		967C79E12F093F81000A6DED /* background.bundle.js in Resources */ = {isa = PBXBuildFile; fileRef = 967C79D22F093F81000A6DED /* background.bundle.js */; };
+		967C79E22F093F81000A6DED /* icon-64.png in Resources */ = {isa = PBXBuildFile; fileRef = 967C79D32F093F81000A6DED /* icon-64.png */; };
+		967C79E32F093F81000A6DED /* hmara-green.svg in Resources */ = {isa = PBXBuildFile; fileRef = 967C79D42F093F81000A6DED /* hmara-green.svg */; };
+		967C79E42F093F81000A6DED /* hmara.svg in Resources */ = {isa = PBXBuildFile; fileRef = 967C79D52F093F81000A6DED /* hmara.svg */; };
+		967C79E52F093F81000A6DED /* options.bundle.js in Resources */ = {isa = PBXBuildFile; fileRef = 967C79D62F093F81000A6DED /* options.bundle.js */; };
+		967C79E62F093F81000A6DED /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 967C79D72F093F81000A6DED /* manifest.json */; };
+		967C79E72F093F81000A6DED /* options.html in Resources */ = {isa = PBXBuildFile; fileRef = 967C79D82F093F81000A6DED /* options.html */; };
+		967C79E82F093F81000A6DED /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = 967C79D92F093F81000A6DED /* _locales */; };
+		967C79E92F093F81000A6DED /* content.bundle.js in Resources */ = {isa = PBXBuildFile; fileRef = 967C79DA2F093F81000A6DED /* content.bundle.js */; };
+		967C79EA2F093F81000A6DED /* icon-128.png in Resources */ = {isa = PBXBuildFile; fileRef = 967C79DB2F093F81000A6DED /* icon-128.png */; };
+		967C79EB2F093F81000A6DED /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 967C79DC2F093F81000A6DED /* themes */; };
+		967C79EC2F093F81000A6DED /* icon-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 967C79DE2F093F81000A6DED /* icon-32.png */; };
+		967C79ED2F093F81000A6DED /* options.css in Resources */ = {isa = PBXBuildFile; fileRef = 967C79DF2F093F81000A6DED /* options.css */; };
+		967C79EE2F093F81000A6DED /* semantic.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 967C79D02F093F81000A6DED /* semantic.min.css */; };
+		967C79EF2F093F81000A6DED /* background.bundle.js in Resources */ = {isa = PBXBuildFile; fileRef = 967C79D22F093F81000A6DED /* background.bundle.js */; };
+		967C79F02F093F81000A6DED /* icon-64.png in Resources */ = {isa = PBXBuildFile; fileRef = 967C79D32F093F81000A6DED /* icon-64.png */; };
+		967C79F12F093F81000A6DED /* hmara-green.svg in Resources */ = {isa = PBXBuildFile; fileRef = 967C79D42F093F81000A6DED /* hmara-green.svg */; };
+		967C79F22F093F81000A6DED /* hmara.svg in Resources */ = {isa = PBXBuildFile; fileRef = 967C79D52F093F81000A6DED /* hmara.svg */; };
+		967C79F32F093F81000A6DED /* options.bundle.js in Resources */ = {isa = PBXBuildFile; fileRef = 967C79D62F093F81000A6DED /* options.bundle.js */; };
+		967C79F42F093F81000A6DED /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 967C79D72F093F81000A6DED /* manifest.json */; };
+		967C79F52F093F81000A6DED /* options.html in Resources */ = {isa = PBXBuildFile; fileRef = 967C79D82F093F81000A6DED /* options.html */; };
+		967C79F62F093F81000A6DED /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = 967C79D92F093F81000A6DED /* _locales */; };
+		967C79F72F093F81000A6DED /* content.bundle.js in Resources */ = {isa = PBXBuildFile; fileRef = 967C79DA2F093F81000A6DED /* content.bundle.js */; };
+		967C79F82F093F81000A6DED /* icon-128.png in Resources */ = {isa = PBXBuildFile; fileRef = 967C79DB2F093F81000A6DED /* icon-128.png */; };
+		967C79F92F093F81000A6DED /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 967C79DC2F093F81000A6DED /* themes */; };
+		967C79FA2F093F81000A6DED /* icon-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 967C79DE2F093F81000A6DED /* icon-32.png */; };
+		967C79FB2F093F81000A6DED /* options.css in Resources */ = {isa = PBXBuildFile; fileRef = 967C79DF2F093F81000A6DED /* options.css */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		966597B02E1DA51300E2288D /* PBXContainerItemProxy */ = {
+		967C79A22F093F81000A6DED /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 9665977C2E1DA51100E2288D /* Project object */;
+			containerPortal = 967C796F2F093F80000A6DED /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 966597AD2E1DA51300E2288D;
+			remoteGlobalIDString = 967C799F2F093F81000A6DED;
 			remoteInfo = "Лагідна Українізація Extension (iOS)";
+		};
+		967C79AC2F093F81000A6DED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 967C796F2F093F80000A6DED /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 967C79A92F093F81000A6DED;
+			remoteInfo = "Лагідна Українізація Extension (macOS)";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		966597D22E1DA51300E2288D /* Embed Foundation Extensions */ = {
+		967C79C32F093F81000A6DED /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				966597AF2E1DA51300E2288D /* Лагідна Українізація Extension.appex in Embed Foundation Extensions */,
+				967C79A12F093F81000A6DED /* Лагідна Українізація Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		967C79CA2F093F81000A6DED /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				967C79AB2F093F81000A6DED /* Лагідна Українізація Extension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -64,58 +102,69 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		9620621A2E97C0BB00E84EEE /* safari-extension-icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "safari-extension-icon.svg"; sourceTree = "<group>"; };
-		9620621D2E97C0C600E84EEE /* toggle.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = toggle.svg; sourceTree = "<group>"; };
-		96281D872E99924E008491CB /* safari-extensions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "safari-extensions.png"; sourceTree = "<group>"; };
-		966597832E1DA51200E2288D /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Main.html; sourceTree = "<group>"; };
-		966597842E1DA51200E2288D /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		966597852E1DA51200E2288D /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
-		966597862E1DA51200E2288D /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
-		966597872E1DA51200E2288D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		966597882E1DA51300E2288D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		9665978A2E1DA51300E2288D /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
-		9665978F2E1DA51300E2288D /* Лагідна Українізація.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Лагідна Українізація.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		966597922E1DA51300E2288D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		966597942E1DA51300E2288D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		966597972E1DA51300E2288D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		9665979A2E1DA51300E2288D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		9665979C2E1DA51300E2288D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		966597A32E1DA51300E2288D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		966597A62E1DA51300E2288D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		966597A82E1DA51300E2288D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		966597A92E1DA51300E2288D /* Лагідна Українізація.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Лагідна Українізація.entitlements"; sourceTree = "<group>"; };
-		966597AE2E1DA51300E2288D /* Лагідна Українізація Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Лагідна Українізація Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		966597B32E1DA51300E2288D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		966597BD2E1DA51300E2288D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		966597BE2E1DA51300E2288D /* Лагідна Українізація.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Лагідна Українізація.entitlements"; sourceTree = "<group>"; };
-		966597DE2E1DA51300E2288D /* content.bundle.js.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = content.bundle.js.map; path = ../../../build/content.bundle.js.map; sourceTree = "<group>"; };
-		966597DF2E1DA51300E2288D /* semantic.min.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = semantic.min.css; path = ../../../build/semantic.min.css; sourceTree = "<group>"; };
-		966597E02E1DA51300E2288D /* options.bundle.js.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = options.bundle.js.map; path = ../../../build/options.bundle.js.map; sourceTree = "<group>"; };
-		966597E12E1DA51300E2288D /* background.bundle.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.bundle.js; path = ../../../build/background.bundle.js; sourceTree = "<group>"; };
-		966597E22E1DA51300E2288D /* icon-64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-64.png"; path = "../../../build/icon-64.png"; sourceTree = "<group>"; };
-		966597E32E1DA51300E2288D /* hmara-green.svg */ = {isa = PBXFileReference; lastKnownFileType = text; name = "hmara-green.svg"; path = "../../../build/hmara-green.svg"; sourceTree = "<group>"; };
-		966597E42E1DA51300E2288D /* hmara.svg */ = {isa = PBXFileReference; lastKnownFileType = text; name = hmara.svg; path = ../../../build/hmara.svg; sourceTree = "<group>"; };
-		966597E52E1DA51300E2288D /* options.bundle.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = options.bundle.js; path = ../../../build/options.bundle.js; sourceTree = "<group>"; };
-		966597E62E1DA51300E2288D /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../../build/manifest.json; sourceTree = "<group>"; };
-		966597E72E1DA51300E2288D /* options.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = options.html; path = ../../../build/options.html; sourceTree = "<group>"; };
-		966597E82E1DA51300E2288D /* _locales */ = {isa = PBXFileReference; lastKnownFileType = folder; name = _locales; path = ../../../build/_locales; sourceTree = "<group>"; };
-		966597E92E1DA51300E2288D /* content.bundle.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = content.bundle.js; path = ../../../build/content.bundle.js; sourceTree = "<group>"; };
-		966597EA2E1DA51300E2288D /* icon-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-128.png"; path = "../../../build/icon-128.png"; sourceTree = "<group>"; };
-		966597EB2E1DA51300E2288D /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = ../../../build/themes; sourceTree = "<group>"; };
-		966597EC2E1DA51300E2288D /* background.bundle.js.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = background.bundle.js.map; path = ../../../build/background.bundle.js.map; sourceTree = "<group>"; };
-		966597ED2E1DA51300E2288D /* icon-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-32.png"; path = "../../../build/icon-32.png"; sourceTree = "<group>"; };
-		966597EE2E1DA51300E2288D /* options.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = options.css; path = ../../../build/options.css; sourceTree = "<group>"; };
+		967C79762F093F80000A6DED /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Main.html; sourceTree = "<group>"; };
+		967C79772F093F80000A6DED /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		967C79782F093F80000A6DED /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+		967C79792F093F80000A6DED /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
+		967C797A2F093F80000A6DED /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		967C797B2F093F81000A6DED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		967C797D2F093F81000A6DED /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		967C79822F093F81000A6DED /* Лагідна Українізація.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Лагідна Українізація.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		967C79852F093F81000A6DED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		967C79872F093F81000A6DED /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		967C798A2F093F81000A6DED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		967C798D2F093F81000A6DED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		967C798F2F093F81000A6DED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		967C79942F093F81000A6DED /* Лагідна Українізація.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Лагідна Українізація.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		967C79962F093F81000A6DED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		967C79992F093F81000A6DED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		967C799B2F093F81000A6DED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		967C79A02F093F81000A6DED /* Лагідна Українізація Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Лагідна Українізація Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		967C79A52F093F81000A6DED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		967C79AA2F093F81000A6DED /* Лагідна Українізація Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Лагідна Українізація Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		967C79AF2F093F81000A6DED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		967C79CF2F093F81000A6DED /* content.bundle.js.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = content.bundle.js.map; path = ../../../build/content.bundle.js.map; sourceTree = "<group>"; };
+		967C79D02F093F81000A6DED /* semantic.min.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = semantic.min.css; path = ../../../build/semantic.min.css; sourceTree = "<group>"; };
+		967C79D12F093F81000A6DED /* options.bundle.js.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = options.bundle.js.map; path = ../../../build/options.bundle.js.map; sourceTree = "<group>"; };
+		967C79D22F093F81000A6DED /* background.bundle.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.bundle.js; path = ../../../build/background.bundle.js; sourceTree = "<group>"; };
+		967C79D32F093F81000A6DED /* icon-64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-64.png"; path = "../../../build/icon-64.png"; sourceTree = "<group>"; };
+		967C79D42F093F81000A6DED /* hmara-green.svg */ = {isa = PBXFileReference; lastKnownFileType = text; name = "hmara-green.svg"; path = "../../../build/hmara-green.svg"; sourceTree = "<group>"; };
+		967C79D52F093F81000A6DED /* hmara.svg */ = {isa = PBXFileReference; lastKnownFileType = text; name = hmara.svg; path = ../../../build/hmara.svg; sourceTree = "<group>"; };
+		967C79D62F093F81000A6DED /* options.bundle.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = options.bundle.js; path = ../../../build/options.bundle.js; sourceTree = "<group>"; };
+		967C79D72F093F81000A6DED /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../../build/manifest.json; sourceTree = "<group>"; };
+		967C79D82F093F81000A6DED /* options.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = options.html; path = ../../../build/options.html; sourceTree = "<group>"; };
+		967C79D92F093F81000A6DED /* _locales */ = {isa = PBXFileReference; lastKnownFileType = folder; name = _locales; path = ../../../build/_locales; sourceTree = "<group>"; };
+		967C79DA2F093F81000A6DED /* content.bundle.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = content.bundle.js; path = ../../../build/content.bundle.js; sourceTree = "<group>"; };
+		967C79DB2F093F81000A6DED /* icon-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-128.png"; path = "../../../build/icon-128.png"; sourceTree = "<group>"; };
+		967C79DC2F093F81000A6DED /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = ../../../build/themes; sourceTree = "<group>"; };
+		967C79DD2F093F81000A6DED /* background.bundle.js.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = background.bundle.js.map; path = ../../../build/background.bundle.js.map; sourceTree = "<group>"; };
+		967C79DE2F093F81000A6DED /* icon-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-32.png"; path = "../../../build/icon-32.png"; sourceTree = "<group>"; };
+		967C79DF2F093F81000A6DED /* options.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = options.css; path = ../../../build/options.css; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		9665978C2E1DA51300E2288D /* Frameworks */ = {
+		967C797F2F093F81000A6DED /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		966597AB2E1DA51300E2288D /* Frameworks */ = {
+		967C79912F093F81000A6DED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		967C799D2F093F81000A6DED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		967C79A72F093F81000A6DED /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -125,121 +174,118 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9665977B2E1DA51100E2288D = {
+		967C796E2F093F80000A6DED = {
 			isa = PBXGroup;
 			children = (
-				966597802E1DA51200E2288D /* Shared (App) */,
-				966597892E1DA51300E2288D /* Shared (Extension) */,
-				966597912E1DA51300E2288D /* iOS (App) */,
-				966597A22E1DA51300E2288D /* macOS (App) */,
-				966597B22E1DA51300E2288D /* iOS (Extension) */,
-				966597BC2E1DA51300E2288D /* macOS (Extension) */,
-				966597902E1DA51300E2288D /* Products */,
+				967C79732F093F80000A6DED /* Shared (App) */,
+				967C797C2F093F81000A6DED /* Shared (Extension) */,
+				967C79842F093F81000A6DED /* iOS (App) */,
+				967C79952F093F81000A6DED /* macOS (App) */,
+				967C79A42F093F81000A6DED /* iOS (Extension) */,
+				967C79AE2F093F81000A6DED /* macOS (Extension) */,
+				967C79832F093F81000A6DED /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		966597802E1DA51200E2288D /* Shared (App) */ = {
+		967C79732F093F80000A6DED /* Shared (App) */ = {
 			isa = PBXGroup;
 			children = (
-				966597872E1DA51200E2288D /* ViewController.swift */,
-				966597882E1DA51300E2288D /* Assets.xcassets */,
-				966597812E1DA51200E2288D /* Resources */,
+				967C797A2F093F80000A6DED /* ViewController.swift */,
+				967C797B2F093F81000A6DED /* Assets.xcassets */,
+				967C79742F093F80000A6DED /* Resources */,
 			);
 			path = "Shared (App)";
 			sourceTree = "<group>";
 		};
-		966597812E1DA51200E2288D /* Resources */ = {
+		967C79742F093F80000A6DED /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				9620621D2E97C0C600E84EEE /* toggle.svg */,
-				9620621A2E97C0BB00E84EEE /* safari-extension-icon.svg */,
-				966597822E1DA51200E2288D /* Main.html */,
-				966597842E1DA51200E2288D /* Icon.png */,
-				966597852E1DA51200E2288D /* Style.css */,
-				966597862E1DA51200E2288D /* Script.js */,
-				96281D872E99924E008491CB /* safari-extensions.png */,
+				967C79752F093F80000A6DED /* Main.html */,
+				967C79772F093F80000A6DED /* Icon.png */,
+				967C79782F093F80000A6DED /* Style.css */,
+				967C79792F093F80000A6DED /* Script.js */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		966597892E1DA51300E2288D /* Shared (Extension) */ = {
+		967C797C2F093F81000A6DED /* Shared (Extension) */ = {
 			isa = PBXGroup;
 			children = (
-				966597DD2E1DA51300E2288D /* Resources */,
-				9665978A2E1DA51300E2288D /* SafariWebExtensionHandler.swift */,
+				967C79CE2F093F81000A6DED /* Resources */,
+				967C797D2F093F81000A6DED /* SafariWebExtensionHandler.swift */,
 			);
 			path = "Shared (Extension)";
 			sourceTree = "<group>";
 		};
-		966597902E1DA51300E2288D /* Products */ = {
+		967C79832F093F81000A6DED /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9665978F2E1DA51300E2288D /* Лагідна Українізація.app */,
-				966597AE2E1DA51300E2288D /* Лагідна Українізація Extension.appex */,
+				967C79822F093F81000A6DED /* Лагідна Українізація.app */,
+				967C79942F093F81000A6DED /* Лагідна Українізація.app */,
+				967C79A02F093F81000A6DED /* Лагідна Українізація Extension.appex */,
+				967C79AA2F093F81000A6DED /* Лагідна Українізація Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		966597912E1DA51300E2288D /* iOS (App) */ = {
+		967C79842F093F81000A6DED /* iOS (App) */ = {
 			isa = PBXGroup;
 			children = (
-				966597922E1DA51300E2288D /* AppDelegate.swift */,
-				966597942E1DA51300E2288D /* SceneDelegate.swift */,
-				966597962E1DA51300E2288D /* LaunchScreen.storyboard */,
-				966597992E1DA51300E2288D /* Main.storyboard */,
-				9665979C2E1DA51300E2288D /* Info.plist */,
+				967C79852F093F81000A6DED /* AppDelegate.swift */,
+				967C79872F093F81000A6DED /* SceneDelegate.swift */,
+				967C79892F093F81000A6DED /* LaunchScreen.storyboard */,
+				967C798C2F093F81000A6DED /* Main.storyboard */,
+				967C798F2F093F81000A6DED /* Info.plist */,
 			);
 			path = "iOS (App)";
 			sourceTree = "<group>";
 		};
-		966597A22E1DA51300E2288D /* macOS (App) */ = {
+		967C79952F093F81000A6DED /* macOS (App) */ = {
 			isa = PBXGroup;
 			children = (
-				966597A32E1DA51300E2288D /* AppDelegate.swift */,
-				966597A52E1DA51300E2288D /* Main.storyboard */,
-				966597A82E1DA51300E2288D /* Info.plist */,
-				966597A92E1DA51300E2288D /* Лагідна Українізація.entitlements */,
+				967C79962F093F81000A6DED /* AppDelegate.swift */,
+				967C79982F093F81000A6DED /* Main.storyboard */,
+				967C799B2F093F81000A6DED /* Info.plist */,
 			);
 			path = "macOS (App)";
 			sourceTree = "<group>";
 		};
-		966597B22E1DA51300E2288D /* iOS (Extension) */ = {
+		967C79A42F093F81000A6DED /* iOS (Extension) */ = {
 			isa = PBXGroup;
 			children = (
-				966597B32E1DA51300E2288D /* Info.plist */,
+				967C79A52F093F81000A6DED /* Info.plist */,
 			);
 			path = "iOS (Extension)";
 			sourceTree = "<group>";
 		};
-		966597BC2E1DA51300E2288D /* macOS (Extension) */ = {
+		967C79AE2F093F81000A6DED /* macOS (Extension) */ = {
 			isa = PBXGroup;
 			children = (
-				966597BD2E1DA51300E2288D /* Info.plist */,
-				966597BE2E1DA51300E2288D /* Лагідна Українізація.entitlements */,
+				967C79AF2F093F81000A6DED /* Info.plist */,
 			);
 			path = "macOS (Extension)";
 			sourceTree = "<group>";
 		};
-		966597DD2E1DA51300E2288D /* Resources */ = {
+		967C79CE2F093F81000A6DED /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				966597DE2E1DA51300E2288D /* content.bundle.js.map */,
-				966597DF2E1DA51300E2288D /* semantic.min.css */,
-				966597E02E1DA51300E2288D /* options.bundle.js.map */,
-				966597E12E1DA51300E2288D /* background.bundle.js */,
-				966597E22E1DA51300E2288D /* icon-64.png */,
-				966597E32E1DA51300E2288D /* hmara-green.svg */,
-				966597E42E1DA51300E2288D /* hmara.svg */,
-				966597E52E1DA51300E2288D /* options.bundle.js */,
-				966597E62E1DA51300E2288D /* manifest.json */,
-				966597E72E1DA51300E2288D /* options.html */,
-				966597E82E1DA51300E2288D /* _locales */,
-				966597E92E1DA51300E2288D /* content.bundle.js */,
-				966597EA2E1DA51300E2288D /* icon-128.png */,
-				966597EB2E1DA51300E2288D /* themes */,
-				966597EC2E1DA51300E2288D /* background.bundle.js.map */,
-				966597ED2E1DA51300E2288D /* icon-32.png */,
-				966597EE2E1DA51300E2288D /* options.css */,
+				967C79CF2F093F81000A6DED /* content.bundle.js.map */,
+				967C79D02F093F81000A6DED /* semantic.min.css */,
+				967C79D12F093F81000A6DED /* options.bundle.js.map */,
+				967C79D22F093F81000A6DED /* background.bundle.js */,
+				967C79D32F093F81000A6DED /* icon-64.png */,
+				967C79D42F093F81000A6DED /* hmara-green.svg */,
+				967C79D52F093F81000A6DED /* hmara.svg */,
+				967C79D62F093F81000A6DED /* options.bundle.js */,
+				967C79D72F093F81000A6DED /* manifest.json */,
+				967C79D82F093F81000A6DED /* options.html */,
+				967C79D92F093F81000A6DED /* _locales */,
+				967C79DA2F093F81000A6DED /* content.bundle.js */,
+				967C79DB2F093F81000A6DED /* icon-128.png */,
+				967C79DC2F093F81000A6DED /* themes */,
+				967C79DD2F093F81000A6DED /* background.bundle.js.map */,
+				967C79DE2F093F81000A6DED /* icon-32.png */,
+				967C79DF2F093F81000A6DED /* options.css */,
 			);
 			name = Resources;
 			path = "Shared (Extension)";
@@ -248,34 +294,55 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9665978E2E1DA51300E2288D /* Лагідна Українізація (iOS) */ = {
+		967C79812F093F81000A6DED /* Лагідна Українізація (iOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 966597D32E1DA51300E2288D /* Build configuration list for PBXNativeTarget "Лагідна Українізація (iOS)" */;
+			buildConfigurationList = 967C79C42F093F81000A6DED /* Build configuration list for PBXNativeTarget "Лагідна Українізація (iOS)" */;
 			buildPhases = (
-				9665978B2E1DA51300E2288D /* Sources */,
-				9665978C2E1DA51300E2288D /* Frameworks */,
-				9665978D2E1DA51300E2288D /* Resources */,
-				966597D22E1DA51300E2288D /* Embed Foundation Extensions */,
+				967C797E2F093F81000A6DED /* Sources */,
+				967C797F2F093F81000A6DED /* Frameworks */,
+				967C79802F093F81000A6DED /* Resources */,
+				967C79C32F093F81000A6DED /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				966597B12E1DA51300E2288D /* PBXTargetDependency */,
+				967C79A32F093F81000A6DED /* PBXTargetDependency */,
 			);
 			name = "Лагідна Українізація (iOS)";
 			packageProductDependencies = (
 			);
 			productName = "Лагідна Українізація (iOS)";
-			productReference = 9665978F2E1DA51300E2288D /* Лагідна Українізація.app */;
+			productReference = 967C79822F093F81000A6DED /* Лагідна Українізація.app */;
 			productType = "com.apple.product-type.application";
 		};
-		966597AD2E1DA51300E2288D /* Лагідна Українізація Extension (iOS) */ = {
+		967C79932F093F81000A6DED /* Лагідна Українізація (macOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 966597CF2E1DA51300E2288D /* Build configuration list for PBXNativeTarget "Лагідна Українізація Extension (iOS)" */;
+			buildConfigurationList = 967C79CB2F093F81000A6DED /* Build configuration list for PBXNativeTarget "Лагідна Українізація (macOS)" */;
 			buildPhases = (
-				966597AA2E1DA51300E2288D /* Sources */,
-				966597AB2E1DA51300E2288D /* Frameworks */,
-				966597AC2E1DA51300E2288D /* Resources */,
+				967C79902F093F81000A6DED /* Sources */,
+				967C79912F093F81000A6DED /* Frameworks */,
+				967C79922F093F81000A6DED /* Resources */,
+				967C79CA2F093F81000A6DED /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				967C79AD2F093F81000A6DED /* PBXTargetDependency */,
+			);
+			name = "Лагідна Українізація (macOS)";
+			packageProductDependencies = (
+			);
+			productName = "Лагідна Українізація (macOS)";
+			productReference = 967C79942F093F81000A6DED /* Лагідна Українізація.app */;
+			productType = "com.apple.product-type.application";
+		};
+		967C799F2F093F81000A6DED /* Лагідна Українізація Extension (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 967C79C02F093F81000A6DED /* Build configuration list for PBXNativeTarget "Лагідна Українізація Extension (iOS)" */;
+			buildPhases = (
+				967C799C2F093F81000A6DED /* Sources */,
+				967C799D2F093F81000A6DED /* Frameworks */,
+				967C799E2F093F81000A6DED /* Resources */,
 			);
 			buildRules = (
 			);
@@ -285,147 +352,226 @@
 			packageProductDependencies = (
 			);
 			productName = "Лагідна Українізація Extension (iOS)";
-			productReference = 966597AE2E1DA51300E2288D /* Лагідна Українізація Extension.appex */;
+			productReference = 967C79A02F093F81000A6DED /* Лагідна Українізація Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		967C79A92F093F81000A6DED /* Лагідна Українізація Extension (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 967C79C72F093F81000A6DED /* Build configuration list for PBXNativeTarget "Лагідна Українізація Extension (macOS)" */;
+			buildPhases = (
+				967C79A62F093F81000A6DED /* Sources */,
+				967C79A72F093F81000A6DED /* Frameworks */,
+				967C79A82F093F81000A6DED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Лагідна Українізація Extension (macOS)";
+			packageProductDependencies = (
+			);
+			productName = "Лагідна Українізація Extension (macOS)";
+			productReference = 967C79AA2F093F81000A6DED /* Лагідна Українізація Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		9665977C2E1DA51100E2288D /* Project object */ = {
+		967C796F2F093F80000A6DED /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1620;
-				LastUpgradeCheck = 1620;
+				LastSwiftUpdateCheck = 2620;
+				LastUpgradeCheck = 2620;
 				TargetAttributes = {
-					9665978E2E1DA51300E2288D = {
-						CreatedOnToolsVersion = 16.2;
+					967C79812F093F81000A6DED = {
+						CreatedOnToolsVersion = 26.2;
 					};
-					966597AD2E1DA51300E2288D = {
-						CreatedOnToolsVersion = 16.2;
+					967C79932F093F81000A6DED = {
+						CreatedOnToolsVersion = 26.2;
+					};
+					967C799F2F093F81000A6DED = {
+						CreatedOnToolsVersion = 26.2;
+					};
+					967C79A92F093F81000A6DED = {
+						CreatedOnToolsVersion = 26.2;
 					};
 				};
 			};
-			buildConfigurationList = 9665977F2E1DA51100E2288D /* Build configuration list for PBXProject "Лагідна Українізація" */;
+			buildConfigurationList = 967C79722F093F80000A6DED /* Build configuration list for PBXProject "Лагідна Українізація" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 9665977B2E1DA51100E2288D;
+			mainGroup = 967C796E2F093F80000A6DED;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 966597902E1DA51300E2288D /* Products */;
+			productRefGroup = 967C79832F093F81000A6DED /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9665978E2E1DA51300E2288D /* Лагідна Українізація (iOS) */,
-				966597AD2E1DA51300E2288D /* Лагідна Українізація Extension (iOS) */,
+				967C79812F093F81000A6DED /* Лагідна Українізація (iOS) */,
+				967C79932F093F81000A6DED /* Лагідна Українізація (macOS) */,
+				967C799F2F093F81000A6DED /* Лагідна Українізація Extension (iOS) */,
+				967C79A92F093F81000A6DED /* Лагідна Українізація Extension (macOS) */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		9665978D2E1DA51300E2288D /* Resources */ = {
+		967C79802F093F81000A6DED /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				966597C12E1DA51300E2288D /* Icon.png in Resources */,
-				966597982E1DA51300E2288D /* LaunchScreen.storyboard in Resources */,
-				966597BF2E1DA51300E2288D /* Main.html in Resources */,
-				966597C52E1DA51300E2288D /* Script.js in Resources */,
-				966597C92E1DA51300E2288D /* Assets.xcassets in Resources */,
-				9620621B2E97C0BB00E84EEE /* safari-extension-icon.svg in Resources */,
-				9665979B2E1DA51300E2288D /* Main.storyboard in Resources */,
-				96281D882E99924E008491CB /* safari-extensions.png in Resources */,
-				9620621E2E97C0C600E84EEE /* toggle.svg in Resources */,
-				966597C32E1DA51300E2288D /* Style.css in Resources */,
+				967C79B22F093F81000A6DED /* Icon.png in Resources */,
+				967C798B2F093F81000A6DED /* LaunchScreen.storyboard in Resources */,
+				967C79B02F093F81000A6DED /* Main.html in Resources */,
+				967C79B62F093F81000A6DED /* Script.js in Resources */,
+				967C79BA2F093F81000A6DED /* Assets.xcassets in Resources */,
+				967C798E2F093F81000A6DED /* Main.storyboard in Resources */,
+				967C79B42F093F81000A6DED /* Style.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		966597AC2E1DA51300E2288D /* Resources */ = {
+		967C79922F093F81000A6DED /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				966598052E1DA51300E2288D /* _locales in Resources */,
-				966598062E1DA51300E2288D /* content.bundle.js in Resources */,
-				9620621C2E97C0BB00E84EEE /* safari-extension-icon.svg in Resources */,
-				966598002E1DA51300E2288D /* hmara-green.svg in Resources */,
-				966598032E1DA51300E2288D /* manifest.json in Resources */,
-				9665980A2E1DA51300E2288D /* options.css in Resources */,
-				966598072E1DA51300E2288D /* icon-128.png in Resources */,
-				966597FD2E1DA51300E2288D /* semantic.min.css in Resources */,
-				966598042E1DA51300E2288D /* options.html in Resources */,
-				966598022E1DA51300E2288D /* options.bundle.js in Resources */,
-				966598082E1DA51300E2288D /* themes in Resources */,
-				966598092E1DA51300E2288D /* icon-32.png in Resources */,
-				966597FE2E1DA51300E2288D /* background.bundle.js in Resources */,
-				966597FF2E1DA51300E2288D /* icon-64.png in Resources */,
-				966598012E1DA51300E2288D /* hmara.svg in Resources */,
+				967C79B32F093F81000A6DED /* Icon.png in Resources */,
+				967C79B52F093F81000A6DED /* Style.css in Resources */,
+				967C799A2F093F81000A6DED /* Main.storyboard in Resources */,
+				967C79B72F093F81000A6DED /* Script.js in Resources */,
+				967C79BB2F093F81000A6DED /* Assets.xcassets in Resources */,
+				967C79B12F093F81000A6DED /* Main.html in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		967C799E2F093F81000A6DED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				967C79F62F093F81000A6DED /* _locales in Resources */,
+				967C79F72F093F81000A6DED /* content.bundle.js in Resources */,
+				967C79F12F093F81000A6DED /* hmara-green.svg in Resources */,
+				967C79F42F093F81000A6DED /* manifest.json in Resources */,
+				967C79FB2F093F81000A6DED /* options.css in Resources */,
+				967C79F82F093F81000A6DED /* icon-128.png in Resources */,
+				967C79EE2F093F81000A6DED /* semantic.min.css in Resources */,
+				967C79F52F093F81000A6DED /* options.html in Resources */,
+				967C79F32F093F81000A6DED /* options.bundle.js in Resources */,
+				967C79F92F093F81000A6DED /* themes in Resources */,
+				967C79FA2F093F81000A6DED /* icon-32.png in Resources */,
+				967C79EF2F093F81000A6DED /* background.bundle.js in Resources */,
+				967C79F02F093F81000A6DED /* icon-64.png in Resources */,
+				967C79F22F093F81000A6DED /* hmara.svg in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		967C79A82F093F81000A6DED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				967C79E82F093F81000A6DED /* _locales in Resources */,
+				967C79E92F093F81000A6DED /* content.bundle.js in Resources */,
+				967C79E32F093F81000A6DED /* hmara-green.svg in Resources */,
+				967C79E62F093F81000A6DED /* manifest.json in Resources */,
+				967C79ED2F093F81000A6DED /* options.css in Resources */,
+				967C79EA2F093F81000A6DED /* icon-128.png in Resources */,
+				967C79E02F093F81000A6DED /* semantic.min.css in Resources */,
+				967C79E72F093F81000A6DED /* options.html in Resources */,
+				967C79E52F093F81000A6DED /* options.bundle.js in Resources */,
+				967C79EB2F093F81000A6DED /* themes in Resources */,
+				967C79EC2F093F81000A6DED /* icon-32.png in Resources */,
+				967C79E12F093F81000A6DED /* background.bundle.js in Resources */,
+				967C79E22F093F81000A6DED /* icon-64.png in Resources */,
+				967C79E42F093F81000A6DED /* hmara.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		9665978B2E1DA51300E2288D /* Sources */ = {
+		967C797E2F093F81000A6DED /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				966597C72E1DA51300E2288D /* ViewController.swift in Sources */,
-				966597932E1DA51300E2288D /* AppDelegate.swift in Sources */,
-				966597952E1DA51300E2288D /* SceneDelegate.swift in Sources */,
+				967C79B82F093F81000A6DED /* ViewController.swift in Sources */,
+				967C79862F093F81000A6DED /* AppDelegate.swift in Sources */,
+				967C79882F093F81000A6DED /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		966597AA2E1DA51300E2288D /* Sources */ = {
+		967C79902F093F81000A6DED /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				966597CB2E1DA51300E2288D /* SafariWebExtensionHandler.swift in Sources */,
+				967C79B92F093F81000A6DED /* ViewController.swift in Sources */,
+				967C79972F093F81000A6DED /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		967C799C2F093F81000A6DED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				967C79BC2F093F81000A6DED /* SafariWebExtensionHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		967C79A62F093F81000A6DED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				967C79BD2F093F81000A6DED /* SafariWebExtensionHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		966597B12E1DA51300E2288D /* PBXTargetDependency */ = {
+		967C79A32F093F81000A6DED /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 966597AD2E1DA51300E2288D /* Лагідна Українізація Extension (iOS) */;
-			targetProxy = 966597B02E1DA51300E2288D /* PBXContainerItemProxy */;
+			target = 967C799F2F093F81000A6DED /* Лагідна Українізація Extension (iOS) */;
+			targetProxy = 967C79A22F093F81000A6DED /* PBXContainerItemProxy */;
+		};
+		967C79AD2F093F81000A6DED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 967C79A92F093F81000A6DED /* Лагідна Українізація Extension (macOS) */;
+			targetProxy = 967C79AC2F093F81000A6DED /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		966597822E1DA51200E2288D /* Main.html */ = {
+		967C79752F093F80000A6DED /* Main.html */ = {
 			isa = PBXVariantGroup;
 			children = (
-				966597832E1DA51200E2288D /* Base */,
+				967C79762F093F80000A6DED /* Base */,
 			);
 			name = Main.html;
 			sourceTree = "<group>";
 		};
-		966597962E1DA51300E2288D /* LaunchScreen.storyboard */ = {
+		967C79892F093F81000A6DED /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				966597972E1DA51300E2288D /* Base */,
+				967C798A2F093F81000A6DED /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		966597992E1DA51300E2288D /* Main.storyboard */ = {
+		967C798C2F093F81000A6DED /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				9665979A2E1DA51300E2288D /* Base */,
+				967C798D2F093F81000A6DED /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		966597A52E1DA51300E2288D /* Main.storyboard */ = {
+		967C79982F093F81000A6DED /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				966597A62E1DA51300E2288D /* Base */,
+				967C79992F093F81000A6DED /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -433,7 +579,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		966597CD2E1DA51300E2288D /* Debug */ = {
+		967C79BE2F093F81000A6DED /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -494,7 +640,7 @@
 			};
 			name = Debug;
 		};
-		966597CE2E1DA51300E2288D /* Release */ = {
+		967C79BF2F093F81000A6DED /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -543,98 +689,84 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
 		};
-		966597D02E1DA51300E2288D /* Debug */ = {
+		967C79C12F093F81000A6DED /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = TSN945264Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Лагідна Українізація Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.2.1;
+				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "info.hmara.Language-settings-manager.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "info.hmara.language-settings-manager.Extension";
 				PRODUCT_NAME = "Лагідна Українізація Extension";
-				REGISTER_APP_GROUPS = NO;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		966597D12E1DA51300E2288D /* Release */ = {
+		967C79C22F093F81000A6DED /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = TSN945264Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Лагідна Українізація Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.2.1;
+				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "info.hmara.Language-settings-manager.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "info.hmara.language-settings-manager.Extension";
 				PRODUCT_NAME = "Лагідна Українізація Extension";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "App Store distribution profile";
-				REGISTER_APP_GROUPS = NO;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		966597D42E1DA51300E2288D /* Debug */ = {
+		967C79C52F093F81000A6DED /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Лагідна Українізація";
@@ -643,44 +775,38 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.2.1;
+				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "info.hmara.Language-settings-manager";
+				PRODUCT_BUNDLE_IDENTIFIER = "info.hmara.language-settings-manager";
 				PRODUCT_NAME = "Лагідна Українізація";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				REGISTER_APP_GROUPS = NO;
 				SDKROOT = iphoneos;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		966597D52E1DA51300E2288D /* Release */ = {
+		967C79C62F093F81000A6DED /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = TSN945264Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Лагідна Українізація";
@@ -689,66 +815,233 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.2.1;
+				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "info.hmara.Language-settings-manager";
+				PRODUCT_BUNDLE_IDENTIFIER = "info.hmara.language-settings-manager";
 				PRODUCT_NAME = "Лагідна Українізація";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "App Store distribution profile";
-				REGISTER_APP_GROUPS = NO;
 				SDKROOT = iphoneos;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		967C79C82F093F81000A6DED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Лагідна Українізація Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "info.hmara.language-settings-manager.Extension";
+				PRODUCT_NAME = "Лагідна Українізація Extension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		967C79C92F093F81000A6DED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Лагідна Українізація Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "info.hmara.language-settings-manager.Extension";
+				PRODUCT_NAME = "Лагідна Українізація Extension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		967C79CC2F093F81000A6DED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Лагідна Українізація";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "info.hmara.language-settings-manager";
+				PRODUCT_NAME = "Лагідна Українізація";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		967C79CD2F093F81000A6DED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Лагідна Українізація";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "info.hmara.language-settings-manager";
+				PRODUCT_NAME = "Лагідна Українізація";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9665977F2E1DA51100E2288D /* Build configuration list for PBXProject "Лагідна Українізація" */ = {
+		967C79722F093F80000A6DED /* Build configuration list for PBXProject "Лагідна Українізація" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				966597CD2E1DA51300E2288D /* Debug */,
-				966597CE2E1DA51300E2288D /* Release */,
+				967C79BE2F093F81000A6DED /* Debug */,
+				967C79BF2F093F81000A6DED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		966597CF2E1DA51300E2288D /* Build configuration list for PBXNativeTarget "Лагідна Українізація Extension (iOS)" */ = {
+		967C79C02F093F81000A6DED /* Build configuration list for PBXNativeTarget "Лагідна Українізація Extension (iOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				966597D02E1DA51300E2288D /* Debug */,
-				966597D12E1DA51300E2288D /* Release */,
+				967C79C12F093F81000A6DED /* Debug */,
+				967C79C22F093F81000A6DED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		966597D32E1DA51300E2288D /* Build configuration list for PBXNativeTarget "Лагідна Українізація (iOS)" */ = {
+		967C79C42F093F81000A6DED /* Build configuration list for PBXNativeTarget "Лагідна Українізація (iOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				966597D42E1DA51300E2288D /* Debug */,
-				966597D52E1DA51300E2288D /* Release */,
+				967C79C52F093F81000A6DED /* Debug */,
+				967C79C62F093F81000A6DED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		967C79C72F093F81000A6DED /* Build configuration list for PBXNativeTarget "Лагідна Українізація Extension (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				967C79C82F093F81000A6DED /* Debug */,
+				967C79C92F093F81000A6DED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		967C79CB2F093F81000A6DED /* Build configuration list for PBXNativeTarget "Лагідна Українізація (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				967C79CC2F093F81000A6DED /* Debug */,
+				967C79CD2F093F81000A6DED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 9665977C2E1DA51100E2288D /* Project object */;
+	rootObject = 967C796F2F093F80000A6DED /* Project object */;
 }

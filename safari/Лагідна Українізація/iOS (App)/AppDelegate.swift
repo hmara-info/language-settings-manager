@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  iOS (App)
 //
-//  Created by Yaroslav Korshak on 08/07/2025.
+//  Created by Yaroslav Korshak on 03/01/2026.
 //
 
 import UIKit
@@ -22,4 +22,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 }
- 
