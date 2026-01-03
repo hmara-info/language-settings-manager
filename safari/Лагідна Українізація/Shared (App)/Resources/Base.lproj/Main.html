@@ -1,20 +1,170 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'">
+    <title>Активуйте розширення</title>
     <link rel="stylesheet" href="../Style.css">
     <script src="../Script.js" defer></script>
+    <style>
+        header {
+            width: 100%;
+            background-color: var(--tint-color);
+            padding: 1em 0;
+            color: white;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1em;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .header-content img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .header-content h1 {
+            font-size: 1.5em;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            margin-top: 60px;
+        }
+
+        /* iOS arrow animation for Safari activation */
+        .arrow-container {
+            position: relative;
+            width: 100%;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .arrow {
+            width: 60px;
+            height: 60px;
+            position: absolute;
+            top: 10px;
+            transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+            border-left: none;
+            border-top: none;
+            border-right: 8px solid var(--tint-color);
+            border-bottom: 8px solid var(--tint-color);
+            animation: arrow-animation 1.5s infinite;
+        }
+
+        @keyframes arrow-animation {
+            0% {
+                opacity: 0;
+                top: 0;
+            }
+            70% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                top: 30px;
+            }
+        }
+
+        .instructions-text {
+            margin-top: 80px;
+            font-size: 1.1em;
+            color: var(--text-secondary);
+        }
+
+        /* macOS step-by-step instructions */
+        .onboarding-section {
+            padding: 18px;
+            font-size: 16px;
+            background-color: var(--bg-secondary);
+            border-radius: 12px;
+            max-width: 400px;
+        }
+
+        .onboarding-section h2 {
+            margin-top: 0;
+            margin-bottom: 16px;
+        }
+
+        .onboarding-section ol {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 16px 0;
+            text-align: left;
+        }
+
+        .onboarding-section li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+        }
+
+        .onboarding-section li img {
+            height: 1em;
+            width: auto;
+        }
+    </style>
 </head>
 <body>
-    <img src="../Icon.png" width="128" height="128" alt="Лагідна Українізація Icon">
-    <p class="platform-ios">You can turn on Лагідна Українізація’s Safari extension in Settings.</p>
-    <p class="platform-mac state-unknown">You can turn on Лагідна Українізація’s extension in Safari Extensions preferences.</p>
-    <p class="platform-mac state-on">Лагідна Українізація’s extension is currently on. You can turn it off in Safari Extensions preferences.</p>
-    <p class="platform-mac state-off">Лагідна Українізація’s extension is currently off. You can turn it on in Safari Extensions preferences.</p>
-    <button class="platform-mac open-preferences">Quit and Open Safari Extensions Preferences…</button>
+    <header>
+        <div class="header-content">
+            <img src="../Icon.png" alt="App Icon" />
+            <h1>Лагідна Українізація</h1>
+        </div>
+    </header>
+    <main>
+        <!-- iOS: Arrow animation pointing to Safari extensions -->
+        <div class="platform-ios">
+            <div class="arrow-container">
+                <div class="arrow"></div>
+            </div>
+            <div class="instructions-text">
+                <p>Натисніть на іконку розширень в адресному рядку Safari, щоб активувати</p>
+            </div>
+        </div>
+
+        <!-- macOS: State-based messages -->
+        <img src="../Icon.png" width="128" height="128" alt="Лагідна Українізація Icon" class="platform-mac">
+
+        <!-- Initial state: Step-by-step instructions -->
+        <div class="platform-mac state-unknown onboarding-section">
+            <h2>Активуйте в Safari</h2>
+            <ol>
+                <li><span>Натисніть <img src="../safari-extension-icon.svg" alt=""> в адресному рядку Safari</span></li>
+                <li><span>Натисніть "Керувати розширеннями" <img src="../safari-extension-icon.svg" alt=""></span></li>
+                <li><span>Активуйте Лагідну Українізацію <img src="../toggle.svg" alt=""></span></li>
+            </ol>
+        </div>
+
+        <p class="platform-mac state-on">Розширення Лагідна Українізація зараз увімкнене. Ви можете вимкнути його в налаштуваннях розширень Safari.</p>
+        <p class="platform-mac state-off">Розширення Лагідна Українізація зараз вимкнене. Ви можете увімкнути його в налаштуваннях розширень Safari.</p>
+        <button class="platform-mac open-preferences">Відкрити налаштування Safari…</button>
+    </main>
 </body>
 </html>

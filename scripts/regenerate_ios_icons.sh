@@ -17,23 +17,20 @@ rsvg-convert -f pdf "$SOURCE_SVG" \
 echo "✅ Generated PDF using rsvg-convert"
 
 FILES=(
-    "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/LargeIcon.imageset/icon-128.png"
-    "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-128@2x.png"
-    "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-256@2x.png"
-    "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-512@1x.png"
-    "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-32@2x.png"
-    "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-16@2x.png"
-    "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-32@1x.png"
-    "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-16@1x.png"
-    "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-512@2x.png"
-    "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-256@1x.png"
-    "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-128@1x.png"
+    "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-128@2x.png"
+    "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-256@2x.png"
+    "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-512@1x.png"
+    "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-32@2x.png"
+    "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-16@2x.png"
+    "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-32@1x.png"
+    "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-16@1x.png"
+    "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-512@2x.png"
+    "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-256@1x.png"
+    "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-128@1x.png"
     "./src/img/icon-64.png"
     "./src/img/icon-128.png"
     "./src/img/icon-32.png"
-    "./safari/Лагідна Українізація/Shared (App)/Resources/Icon.png"
-    "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/LargeIcon.imageset/icon-dark-256.png"
-    "./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/LargeIcon.imageset/icon-light-256.png"
+    "./safari/Лагідна Українізація/Shared (App)/Resources/Icon.png"
 )
 
 for file in "${FILES[@]}"; do
@@ -52,7 +49,7 @@ for file in "${FILES[@]}"; do
 done
 
 # Generate large app icon with white background for App Store submission
-LARGE_ICON="./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/universal-icon-1024@1x.png"
+LARGE_ICON="./safari/Лагідна Українізація/Shared (App)/Assets.xcassets/AppIcon.appiconset/universal-icon-1024@1x.png"
 if [ -f "$LARGE_ICON" ]; then
     width=$(sips -g pixelWidth "$LARGE_ICON" | awk '/pixelWidth/ {print $2}')
     height=$(sips -g pixelHeight "$LARGE_ICON" | awk '/pixelHeight/ {print $2}')

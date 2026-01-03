@@ -8,6 +8,26 @@
     color-scheme: light dark;
 
     --spacing: 20px;
+
+    /* Light mode colors - matching hmara green logo */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f5f5f5;
+    --text-primary: #000000;
+    --text-secondary: #666666;
+    --border-color: #e0e0e0;
+    --tint-color: #009393;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Dark mode colors - lighter teal for visibility */
+        --bg-primary: #1c1c1e;
+        --bg-secondary: #2c2c2e;
+        --text-primary: #ffffff;
+        --text-secondary: #a0a0a0;
+        --border-color: #444444;
+        --tint-color: #00d4d4;
+    }
 }
 
 html {
@@ -26,6 +46,9 @@ body {
 
     font: -apple-system-short-body;
     text-align: center;
+
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
 }
 
 body:not(.platform-mac, .platform-ios) :is(.platform-mac, .platform-ios) {
@@ -58,4 +81,33 @@ body.state-off :is(.state-on, .state-unknown) {
 
 button {
     font-size: 1em;
+    background-color: var(--tint-color);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s ease-in-out;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+button:active {
+    opacity: 0.6;
+}
+
+h1, h2, h3 {
+    color: var(--text-primary);
+}
+
+p, section {
+    color: var(--text-secondary);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
 }
