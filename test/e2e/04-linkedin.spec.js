@@ -1,5 +1,4 @@
 require('./lu-puppeteer.js');
-import { FEATURES } from '../../src/js/util.js';
 
 const linkedInTestUrl = 'https://www.linkedin.com/feed/';
 
