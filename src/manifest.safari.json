@@ -219,6 +219,11 @@
         "https://*.hmara.info/*"
       ],
       "js": ["content.bundle.js"]
+    },
+    {
+      "matches": ["https://duckduckgo.com/*", "https://*.duckduckgo.com/*"],
+      "js": ["content.bundle.js"],
+      "run_at": "document_start"
     }
   ],
   "web_accessible_resources": [
@@ -236,7 +241,9 @@
     "declarativeNetRequest",
     "https://*.hmara.info/*",
     "https://www.google.com/search?*",
-    "https://www.facebook.com/*"
+    "https://www.facebook.com/*",
+    "https://duckduckgo.com/*",
+    "https://*.duckduckgo.com/*"
   ],
   "content_security_policy": "script-src 'self'; object-src 'self'; img-src * data: 'self'"
 }

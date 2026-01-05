@@ -11,6 +11,24 @@ const promptsFrequency = {
   immediately: 1 * 60 * 1000,
 };
 
+/**
+ * Base handler for content tweaking across different websites.
+ *
+ * Handler lifecycle:
+ *
+ * 1. needToTweakLanguages() - GATE: Determine if any action is needed
+ *    - Return config/true to proceed to tweakLanguages()
+ *    - Reject with this.NOOP to skip entirely
+ *    - Side effects are OK here for actions that don't require user prompts
+ *
+ * 2. tweakLanguages() - ACTION: Show prompts and make changes
+ *    - Only called if needToTweakLanguages() succeeded
+ *    - Shows UI prompt, then calls changeLanguageTo()
+ *
+ * Minimal override principle: Check if base class methods work before
+ * overriding. Often you only need to override _targetLanguagesConfig()
+ * or _changeLanguageTo().
+ */
 export default class handler {
   handlerName = 'default';
 
