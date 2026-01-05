@@ -7,6 +7,7 @@ import linkedinHandler from './content/linkedin';
 import youtubeHandler from './content/youtube';
 import googleMyaccountHandler from './content/google-myaccount';
 import hmaraHandler from './content/hmara';
+import duckduckgoHandler from './content/duckduckgo';
 
 export function dispatch(location) {
   console.log('Loaded on', location.hostname);
@@ -28,6 +29,8 @@ export function dispatch(location) {
     return new youtubeHandler(...arguments);
   } else if (location.hostname.match(/(^|\.)hmara\.info$/i)) {
     return new hmaraHandler(...arguments);
+  } else if (location.hostname.match(/(^|\.)duckduckgo\.com$/i)) {
+    return new duckduckgoHandler(...arguments);
   } else {
     //return new defaultHandler(...arguments);
   }

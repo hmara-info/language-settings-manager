@@ -222,6 +222,11 @@
         "http://dev.hmara.info/*"
       ],
       "js": ["content.bundle.js"]
+    },
+    {
+      "matches": ["https://duckduckgo.com/*", "https://*.duckduckgo.com/*"],
+      "js": ["content.bundle.js"],
+      "run_at": "document_start"
     }
   ],
   "manifest_version": 2,
@@ -426,7 +431,9 @@
     "https://www.google.co.zm/*",
     "https://www.google.co.zw/*",
     "https://www.google.cat/*",
-    "https://www.facebook.com/*"
+    "https://www.facebook.com/*",
+    "https://duckduckgo.com/*",
+    "https://*.duckduckgo.com/*"
   ],
   "web_accessible_resources": ["options.html"],
   "browser_specific_settings": {

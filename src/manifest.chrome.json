@@ -221,6 +221,11 @@
         "http://*.hmara.info:3000/*"
       ],
       "js": ["content.bundle.js"]
+    },
+    {
+      "matches": ["https://duckduckgo.com/*", "https://*.duckduckgo.com/*"],
+      "js": ["content.bundle.js"],
+      "run_at": "document_start"
     }
   ],
   "manifest_version": 3,
@@ -420,7 +425,9 @@
     "https://www.google.cat/*",
     "https://www.youtube.com/*",
     "https://myaccount.google.com/*",
-    "https://*.hmara.info/*"
+    "https://*.hmara.info/*",
+    "https://duckduckgo.com/*",
+    "https://*.duckduckgo.com/*"
   ],
   "permissions": ["storage", "notifications", "declarativeNetRequest"],
   "content_security_policy": {
