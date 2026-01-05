@@ -26,12 +26,14 @@ describe('Wikipedia handler', () => {
 
   const testCases = [
     {
-      description: 'does not prompt the user when the page is in a desired language',
+      description:
+        'does not prompt the user when the page is in a desired language',
       url: 'https://uk.wikipedia.org/wiki/Головна_сторінка',
       expectPrompt: false,
     },
     {
-      description: 'from undesired language page, prompts the user to go to a page in a desired language',
+      description:
+        'from undesired language page, prompts the user to go to a page in a desired language',
       url: 'https://ru.wikipedia.org/wiki/Тест',
       expectPrompt: true,
     },
@@ -51,9 +53,10 @@ describe('Wikipedia handler', () => {
       it(testCase.description, async () => {
         await page.goto(testCase.url, { waitUntil: 'networkidle0' });
         const shadowHostPresent = await checkShadowHostPresence();
-        const expectedPrompt = typeof testCase.expectPrompt === 'function'
-          ? testCase.expectPrompt(speed)
-          : testCase.expectPrompt;
+        const expectedPrompt =
+          typeof testCase.expectPrompt === 'function'
+            ? testCase.expectPrompt(speed)
+            : testCase.expectPrompt;
         expect(shadowHostPresent).toBe(expectedPrompt);
       });
     });
