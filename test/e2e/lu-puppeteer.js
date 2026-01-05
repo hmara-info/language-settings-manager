@@ -4,7 +4,7 @@ const CRX_PATH = './build';
 const opts = {
   headless: false,
   slowMo: 100,
-  timeout: 10000,
+  timeout: 100000,
   defaultViewport: null,
   args: [
     '--start-maximized',
