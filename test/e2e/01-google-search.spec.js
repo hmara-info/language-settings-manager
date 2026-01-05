@@ -16,7 +16,7 @@ describe('Google Search Results handler', () => {
     });
 
     await page.goto('https://www.google.com/search?q=test', {
-      waitUntil: 'networkidle0',
+      waitUntil: 'networkidle2',
     });
     var url = await page.evaluate(() => document.location.href);
     var lr = new URL(url).searchParams.get('lr');
@@ -29,7 +29,7 @@ describe('Google Search Results handler', () => {
       acceptLanguage: 'uk-UA,uk',
       expectedLr: '',
     });
-  });
+  }, 50000);
 
   it('google-rewrite adds correct lr parameter to the url', async () => {
     await testSetup({
@@ -43,5 +43,5 @@ describe('Google Search Results handler', () => {
       acceptLanguage: 'uk-UA,uk',
       expectedLr: '(-lang_en)',
     });
-  });
-});
+  }, 50000);
+}, 150000);
