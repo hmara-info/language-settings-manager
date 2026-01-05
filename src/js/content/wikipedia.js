@@ -95,9 +95,9 @@ export default class wikipediaHandler extends defaultHandler {
         );
     }
 
-    const userSettings = await storageGetSync('userSettings');
-    const speed = userSettings.speed || 'gentle';
-    if (!(speed in ['fast', 'immediately'])) {
+    const userData = await storageGetSync('userSettings');
+    const speed = userData.userSettings.speed || 'gentle';
+    if (!['fast', 'immediately'].includes(speed)) {
       // On slow speeds, only offer a redirect if the user is visiting wiki in 'lessLanguages'
       if (!this.lessLanguages.includes(currentLang)) {
         return null;
