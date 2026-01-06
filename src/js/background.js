@@ -67,10 +67,13 @@ updateLocalFeatures()
   .then(() => {
     setupMessaging();
 
+    /// #if PLATFORM != 'SAFARI' && PLATFORM != 'SAFARI-IOS'
+    // Notifications API is not available on Safari at the moment
     if (FEATURES.NOTIFICATIONS) {
       setupNotifications();
       checkConfigured();
     }
+    /// #endif
   })
   .catch((e) => {
     reportError('background.js', e);
