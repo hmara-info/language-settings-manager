@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
+jest.setTimeout(60000);
 
 const CRX_PATH = './build';
 const SESSION_FILE = path.join(__dirname, 'google-session.json');
@@ -34,9 +35,18 @@ beforeAll(async () => {
       `📂 Loading saved session (${sessionData.cookies.length} cookies)`
     );
 
-    // Set cookies - need to navigate first for cookies to work
-    await global.page.goto('https://www.google.com');
-    await global.page.setCookie(...sessionData.cookies);
+    // Filter cookies to only include fields that setCookie accepts
+    const cookiesToSet = sessionData.cookies.map((cookie) => ({
+      name: cookie.name,
+      value: cookie.value,
+      domain: cookie.domain,
+      path: cookie.path,
+      expires: cookie.expires,
+      httpOnly: cookie.httpOnly,
+      secure: cookie.secure,
+      sameSite: cookie.sameSite,
+    }));
+    global.page.setCookie(...cookiesToSet);
   }
 
   const workerTarget = await global.browser.waitForTarget(

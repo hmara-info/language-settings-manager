@@ -32,7 +32,18 @@ async function setupSession() {
 
   console.log('📍 Navigating to Google...');
   if (sessionData) {
-    await page.setCookie(...sessionData.cookies);
+    // Filter cookies to only include fields that setCookie accepts
+    const cookiesToSet = sessionData.cookies.map((cookie) => ({
+      name: cookie.name,
+      value: cookie.value,
+      domain: cookie.domain,
+      path: cookie.path,
+      expires: cookie.expires,
+      httpOnly: cookie.httpOnly,
+      secure: cookie.secure,
+      sameSite: cookie.sameSite,
+    }));
+    await page.setCookie(...cookiesToSet);
   }
   await page.goto('https://www.google.com/search?q=test', {
     waitUntil: 'networkidle0',
@@ -43,7 +54,8 @@ async function setupSession() {
   console.log(
     '👉 Please complete any CAPTCHA or verification in the browser window'
   );
-  console.log('👉 Make sure the page loads successfully');
+  console.log('👉 You can navigate to multiple sites (Google, LinkedIn, etc.)');
+  console.log('👉 Log in to all the sites you need');
   console.log('👉 Press ENTER in this terminal when done...\n');
 
   // Wait for user to press Enter
@@ -61,8 +73,9 @@ async function setupSession() {
 
   console.log('\n💾 Saving session...');
 
-  // Save cookies
-  const cookies = await page.cookies();
+  // Save cookies from ALL domains (not just current page)
+  const client = await page.target().createCDPSession();
+  const { cookies } = await client.send('Network.getAllCookies');
 
   // Save localStorage (if needed)
   const localStorage = await page.evaluate(() => {
