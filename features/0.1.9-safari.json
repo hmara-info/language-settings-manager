@@ -1,6 +1,6 @@
 {
   "CONTENT": true,
-  "NOTIFICATIONS": true,
+  "NOTIFICATIONS": false,
   "ACHIEVEMENTS": true,
   "ACHIEVEMENTS_DISPLAY": true,
   "GOOGLE_REWRITE": true,
