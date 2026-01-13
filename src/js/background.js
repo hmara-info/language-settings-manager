@@ -133,17 +133,13 @@ function setupNotifications() {
 
     /// #if PLATFORM != 'FIREFOX'
     // Firefox doesn't support buttons
-    browser.runtime.getBrowserInfo().then((browserInfo) => {
-      if (browserInfo.name !== 'Firefox') {
-        browser.notifications.onButtonClicked.addListener(
-          function (notifId, btnIdx) {
-            if (notifId === 'PleaseSetUp') {
-              browser.runtime.openOptionsPage();
-            }
-          }
-        );
+    browser.notifications.onButtonClicked.addListener(
+      function (notifId, btnIdx) {
+        if (notifId === 'PleaseSetUp') {
+          browser.runtime.openOptionsPage();
+        }
       }
-    });
+    );
     /// #endif
   } catch (e) {
     reportError('Failed to set up notification events', e);
