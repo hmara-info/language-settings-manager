@@ -193,16 +193,6 @@ document.getElementById('learnMore').addEventListener('click', function () {
   window.open('http://hmara.info/', '_blank');
 });
 
-document
-  .getElementById('finishConfiguration')
-  .addEventListener('click', function () {
-    document.getElementById('wantMoreLanguages').scrollIntoView({
-      block: 'start',
-      inline: 'nearest',
-      behavior: 'smooth',
-    });
-  });
-
 // A little extra in development,
 // so engineers don't have to reinstall extension every time
 
