@@ -358,7 +358,7 @@ export default class handler {
           .addEventListener('click', function (e) {
             resolve(languageConfig);
             reject = undefined;
-            floater.remove();
+            floaterHost.remove();
           });
 
         // Bind 'No' function
@@ -368,7 +368,7 @@ export default class handler {
             const options = JSON.stringify(languageConfig);
             reject(`user answered no to options ${options}`);
             reject = undefined;
-            floater.remove();
+            floaterHost.remove();
           });
       });
     });
