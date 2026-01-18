@@ -106,8 +106,8 @@ export default class googleSearchHandler extends defaultHandler {
         );
 
         if (
-          supportedWantedLanguages.length == 0 ||
-          supportedWantedLanguages.indexOf(googleDisplayLang) === 0
+          moreLanguages.includes(googleDisplayLang) ||
+          supportedWantedLanguages.length == 0
         ) {
           googleDisplayLang = null;
         } else {
