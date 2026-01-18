@@ -46,7 +46,7 @@ beforeAll(async () => {
       secure: cookie.secure,
       sameSite: cookie.sameSite,
     }));
-    global.page.setCookie(...cookiesToSet);
+    await global.page.setCookie(...cookiesToSet);
   }
 
   const workerTarget = await global.browser.waitForTarget(
