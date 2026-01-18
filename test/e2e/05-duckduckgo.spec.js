@@ -349,4 +349,134 @@ describe('DuckDuckGo handler', () => {
       expect(htmlLang).toBe('uk-UA');
     });
   });
+
+  describe('prompt backoff mechanism', () => {
+    const clearLastPromptTs = async () => {
+      await worker.evaluate(async () => {
+        await chrome.storage.local.remove('lastPromptTs');
+      });
+    };
+
+    const getLastPromptTs = async () => {
+      return await worker.evaluate(async () => {
+        const data = await chrome.storage.local.get('lastPromptTs');
+        return data.lastPromptTs;
+      });
+    };
+
+    const setLastPromptTs = async (timestamp) => {
+      await worker.evaluate(async (ts) => {
+        await chrome.storage.local.set({ lastPromptTs: ts });
+      }, timestamp);
+    };
+
+    const setSpeed = async (speed) => {
+      await worker.evaluate(async (speedValue) => {
+        const data = await chrome.storage.sync.get('userSettings');
+        const userSettings = data.userSettings || {};
+        userSettings.speed = speedValue;
+        await chrome.storage.sync.set({ userSettings });
+      }, speed);
+    };
+
+    const clickLaterButton = async () => {
+      await page.evaluate(() => {
+        const shadowHost = document.querySelector('#lu-shadow-host');
+        const shadowRoot = shadowHost.shadowRoot;
+        shadowRoot.querySelector('.no-btn').click();
+      });
+    };
+
+    beforeEach(async () => {
+      await clearDdgCookies();
+      await clearLastPromptTs();
+    });
+
+    it('saves lastPromptTs to local storage when user clicks Later', async () => {
+      await setDdgLanguageCookie('en_GB');
+      await setupUserSettings([], ['uk']);
+
+      await navigateToSearch('test');
+      await delay(2000);
+
+      // Verify prompt appears
+      expect(await checkShadowHostPresence()).toBe(true);
+
+      // Click "Later" button
+      await clickLaterButton();
+      await delay(500);
+
+      // Verify lastPromptTs was saved
+      const lastPromptTs = await getLastPromptTs();
+      expect(lastPromptTs).toBeDefined();
+      expect(Date.now() - lastPromptTs).toBeLessThan(5000);
+    });
+
+    it('does not show prompt again within backoff period', async () => {
+      await setDdgLanguageCookie('en_GB');
+      await setupUserSettings([], ['uk']);
+
+      // First visit - prompt should appear
+      await navigateToSearch('test');
+      await delay(2000);
+      expect(await checkShadowHostPresence()).toBe(true);
+
+      // Click "Later"
+      await clickLaterButton();
+      await delay(500);
+
+      // Second visit - prompt should NOT appear (within backoff period)
+      await navigateToSearch('another');
+      await delay(2000);
+      expect(await checkShadowHostPresence()).toBe(false);
+    });
+
+    it('shows prompt again after backoff period expires', async () => {
+      // Set 'fast' speed (1 minute backoff)
+      await setupUserSettings([], ['uk']);
+      await setSpeed('fast');
+      await setDdgLanguageCookie('en_GB');
+
+      // Set lastPromptTs to 2 minutes ago (past the 1 minute backoff)
+      const twoMinutesAgo = Date.now() - 2 * 60 * 1000;
+      await setLastPromptTs(twoMinutesAgo);
+
+      // Navigate - prompt should appear (backoff expired)
+      await navigateToSearch('test');
+      await delay(2000);
+      expect(await checkShadowHostPresence()).toBe(true);
+    });
+
+    it('respects gentle speed backoff duration', async () => {
+      // Set 'gentle' speed (1 hour backoff)
+      await setupUserSettings([], ['uk']);
+      await setSpeed('gentle');
+      await setDdgLanguageCookie('en_GB');
+
+      // Set lastPromptTs to 30 minutes ago (within 1 hour backoff)
+      const thirtyMinutesAgo = Date.now() - 30 * 60 * 1000;
+      await setLastPromptTs(thirtyMinutesAgo);
+
+      // Navigate - prompt should NOT appear (still within backoff)
+      await navigateToSearch('test');
+      await delay(2000);
+      expect(await checkShadowHostPresence()).toBe(false);
+    });
+
+    it('respects slow speed backoff duration', async () => {
+      // Set 'slow' speed (7 hour backoff)
+      await setupUserSettings([], ['uk']);
+      await setSpeed('slow');
+      await setDdgLanguageCookie('en_GB');
+
+      // Set lastPromptTs to 2 hours ago (within 7 hour backoff)
+      const twoHoursAgo = Date.now() - 2 * 60 * 60 * 1000;
+      await setLastPromptTs(twoHoursAgo);
+
+      // Navigate - prompt should NOT appear (still within backoff)
+      await navigateToSearch('test');
+      await delay(2000);
+      expect(await checkShadowHostPresence()).toBe(false);
+    });
+  });
 }, 180000);
