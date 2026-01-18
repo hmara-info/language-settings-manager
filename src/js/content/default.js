@@ -1,4 +1,4 @@
-import { storageGet, storageGetSync, storageSet, storageRemove } from '../util';
+import { storageGet, storageGetSync, storageSet, storageSetSync, storageRemove } from '../util';
 import { reportError, FEATURES } from '../util';
 /// #if PLATFORM != 'SAFARI-IOS'
 import browser from 'webextension-polyfill';
@@ -63,12 +63,11 @@ export default class handler {
     console.log(`Entering needToTweakLanguages() of ${this.handlerName}`);
     const $self = this;
     return Promise.all([
-      storageGetSync(['userSettings', 'lastPromptTs']),
-      storageGet($self._achievementKey()),
+      storageGetSync(['userSettings']),
+      storageGet([$self._achievementKey(), 'lastPromptTs']),
     ])
-      .then(async ([userData, expectAchievementData]) => {
-        const expectAchievement =
-          expectAchievementData[$self._achievementKey()];
+      .then(async ([userData, localData]) => {
+        const expectAchievement = localData[$self._achievementKey()];
         if (FEATURES.ACHIEVEMENTS && expectAchievement) {
           console.log(
             `NOT checking the last prompt timestamp, as an achievement is expected`
@@ -80,9 +79,8 @@ export default class handler {
         // Check if it's too early for any prompts
         const userSettings = userData.userSettings || {};
         const speed = userSettings.speed || 'gentle';
-        const lastPromptTs = userData.lastPromptTs || 0;
-        const timeSinceUserPrompted =
-          Math.floor(Date.now() / 1000) - lastPromptTs;
+        const lastPromptTs = localData.lastPromptTs || 0;
+        const timeSinceUserPrompted = Date.now() - lastPromptTs;
 
         // Caching is disabled in dev environment to ease debugging
         if (process.env.NODE_ENV === 'development') return false;
@@ -365,6 +363,7 @@ export default class handler {
         dom
           .querySelector('.lahidnaUkrainizatsiya .no-btn')
           .addEventListener('click', function (e) {
+            storageSet({ lastPromptTs: Date.now() });
             const options = JSON.stringify(languageConfig);
             reject(`user answered no to options ${options}`);
             reject = undefined;
