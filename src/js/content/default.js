@@ -1,4 +1,10 @@
-import { storageGet, storageGetSync, storageSet, storageSetSync, storageRemove } from '../util';
+import {
+  storageGet,
+  storageGetSync,
+  storageSet,
+  storageSetSync,
+  storageRemove,
+} from '../util';
 import { reportError, FEATURES } from '../util';
 /// #if PLATFORM != 'SAFARI-IOS'
 import browser from 'webextension-polyfill';
