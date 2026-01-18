@@ -44,4 +44,67 @@ describe('Google Search Results handler', () => {
       expectedLr: '(-lang_en)',
     });
   }, 50000);
+
+  describe('prompt backoff mechanism', () => {
+    const checkShadowHostPresence = async () => {
+      return await page.evaluate(() => {
+        const shadowHost = document.querySelector('#lu-shadow-host');
+        return shadowHost !== null;
+      });
+    };
+
+    it('shows prompt when backoff period has expired', async () => {
+      // Set up user settings with fast speed (1 minute backoff)
+      await worker.evaluate(async () => {
+        await chrome.storage.sync.set({
+          userSettings: {
+            moreLanguages: ['uk'],
+            lessLanguages: [],
+            speed: 'fast',
+          },
+        });
+        // Set lastPromptTs to 2 minutes ago (past the 1 minute backoff)
+        await chrome.storage.local.set({
+          lastPromptTs: Date.now() - 2 * 60 * 1000,
+        });
+      });
+
+      await page.goto('https://www.google.com/search?q=test', {
+        waitUntil: 'networkidle2',
+      });
+
+      // Wait for prompt to appear
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+
+      // Prompt SHOULD appear since backoff expired
+      expect(await checkShadowHostPresence()).toBe(true);
+    }, 30000);
+
+    it('does not show prompt when within backoff period', async () => {
+      // Set up user settings with gentle speed (1 hour backoff)
+      await worker.evaluate(async () => {
+        await chrome.storage.sync.set({
+          userSettings: {
+            moreLanguages: ['uk'],
+            lessLanguages: [],
+            speed: 'gentle',
+          },
+        });
+        // Set lastPromptTs to 30 minutes ago (within 1 hour backoff)
+        await chrome.storage.local.set({
+          lastPromptTs: Date.now() - 30 * 60 * 1000,
+        });
+      });
+
+      await page.goto('https://www.google.com/search?q=test', {
+        waitUntil: 'networkidle2',
+      });
+
+      // Wait for potential prompt
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      // Prompt should NOT appear due to backoff
+      expect(await checkShadowHostPresence()).toBe(false);
+    }, 30000);
+  });
 }, 150000);
