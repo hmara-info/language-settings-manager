@@ -139,9 +139,8 @@ export default class duckduckgoHandler extends defaultHandler {
       }
     }
 
-    // Check if UI language change is also needed
-    // If not, reject with NOOP (filtering is already running)
-    return this._targetLanguagesConfig();
+    // Check if UI language change is also needed (includes backoff check)
+    return super.needToTweakLanguages();
   }
 
   /**
