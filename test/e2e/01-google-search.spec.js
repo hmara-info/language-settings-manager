@@ -45,6 +45,117 @@ describe('Google Search Results handler', () => {
     });
   }, 50000);
 
+  describe('moreLanguages includes current UI language', () => {
+    const checkShadowHostPresence = async () => {
+      return await page.evaluate(() => {
+        const shadowHost = document.querySelector('#lu-shadow-host');
+        return shadowHost !== null;
+      });
+    };
+
+    const changeGoogleLanguageTo = async (targetLang) => {
+      // Get signature from preferences page and change language directly
+      await page.evaluate(async (lang) => {
+        const response = await fetch('/preferences?lang=1', {
+          credentials: 'same-origin',
+        });
+        const html = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+
+        const url = doc.querySelector('div[jscontroller="gri7yb"]').dataset
+          .spbu;
+        const sigSearchParams = new URLSearchParams(url.split('?')[1]);
+        const sig = sigSearchParams.get('sig');
+
+        const setprefsUrl = new URL('/setprefs', location.origin);
+        setprefsUrl.searchParams.append('sig', sig);
+        setprefsUrl.searchParams.append('hl', lang);
+        setprefsUrl.searchParams.append('lang', lang);
+
+        await fetch(setprefsUrl, { credentials: 'same-origin' });
+      }, targetLang);
+    };
+
+    it('first switch Google to English directly', async () => {
+      await page.goto('https://www.google.com/search?q=test', {
+        waitUntil: 'networkidle2',
+      });
+
+      // Change Google to English directly using setprefs
+      await changeGoogleLanguageTo('en');
+
+      // Reload and verify
+      await page.goto('https://www.google.com/search?q=test', {
+        waitUntil: 'networkidle2',
+      });
+
+      const googleLang = await page.evaluate(async () => {
+        const response = await fetch('/preferences?lang=1', {
+          credentials: 'same-origin',
+        });
+        const html = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        return doc.documentElement.lang.replace(/-.*/, '').toLowerCase();
+      });
+      console.log(`Google is now set to: ${googleLang}`);
+      expect(googleLang).toBe('en');
+    }, 60000);
+
+    it('shows popup when moreLanguages is [uk] and Google is in English', async () => {
+      // Set moreLanguages to only Ukrainian
+      await worker.evaluate(async () => {
+        await chrome.storage.sync.set({
+          userSettings: {
+            moreLanguages: ['uk'],
+            lessLanguages: [],
+            speed: 'fast',
+          },
+        });
+        await chrome.storage.local.remove([
+          'handler.google-search',
+          'lastPromptTs',
+        ]);
+      });
+
+      await page.goto('https://www.google.com/search?q=test', {
+        waitUntil: 'networkidle2',
+      });
+
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+
+      // Popup SHOULD appear because Google is in English but moreLanguages only has Ukrainian
+      expect(await checkShadowHostPresence()).toBe(true);
+    }, 30000);
+
+    it('does not show popup when moreLanguages is [uk, en] and Google is in English', async () => {
+      // Set moreLanguages to Ukrainian AND English
+      await worker.evaluate(async () => {
+        await chrome.storage.sync.set({
+          userSettings: {
+            moreLanguages: ['uk', 'en'],
+            lessLanguages: ['ru'],
+            speed: 'fast',
+          },
+        });
+        await chrome.storage.local.remove([
+          'handler.google-search',
+          'lastPromptTs',
+        ]);
+      });
+
+      await page.goto('https://www.google.com/search?q=test', {
+        waitUntil: 'networkidle2',
+      });
+
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+
+      // Popup should NOT appear because English is in moreLanguages and Google is already in English
+      expect(await checkShadowHostPresence()).toBe(false);
+    }, 30000);
+  });
+
   describe('prompt backoff mechanism', () => {
     const checkShadowHostPresence = async () => {
       return await page.evaluate(() => {

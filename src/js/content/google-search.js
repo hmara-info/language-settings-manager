@@ -105,10 +105,13 @@ export default class googleSearchHandler extends defaultHandler {
           (value) => moreLanguages.includes(value)
         );
 
-        if (
-          moreLanguages.includes(googleDisplayLang) ||
-          supportedWantedLanguages.length == 0
-        ) {
+        // If the current UI language is already a wanted language,
+        // don't suggest any changes - the user is already satisfied
+        if (moreLanguages.includes(googleDisplayLang)) {
+          return null;
+        }
+
+        if (supportedWantedLanguages.length == 0) {
           googleDisplayLang = null;
         } else {
           googleDisplayLang = supportedWantedLanguages[0];
